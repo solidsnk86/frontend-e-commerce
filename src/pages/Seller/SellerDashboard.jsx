@@ -2,9 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../../components/common/Button';
 import { useAuth } from '../../contexts/AuthContext';
+import { useProducts } from '../../contexts/ProductContext';
 
 const SellerDashboard = () => {
   const { user } = useAuth()
+  const { sellerProducts } = useProducts()
   // Datos de ejemplo
   const stats = {
     totalSales: 5420.50,
@@ -24,7 +26,7 @@ const SellerDashboard = () => {
     { id: 2, name: 'Jersey Chicago Bulls 1996', sales: 32, revenue: 4799.68 },
     { id: 3, name: 'Raqueta Wilson Pro Staff 85', sales: 18, revenue: 3599.82 }
   ];
-
+  console.log(sellerProducts)
   return (
     <div className="min-h-screen bg-gray-100 py-8">
       <div className="max-w-7xl mx-auto px-4">
@@ -64,7 +66,7 @@ const SellerDashboard = () => {
           <div className="bg-gradient-to-br from-orange-500 to-orange-600 text-white border-2 border-orange-700 p-6">
             <div className="text-3xl mb-2">🏆</div>
             <p className="text-sm opacity-90">Total Productos</p>
-            <p className="text-3xl font-bold">{stats.totalProducts}</p>
+            <p className="text-3xl font-bold">{sellerProducts.length}</p>
           </div>
         </div>
 

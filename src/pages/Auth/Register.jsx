@@ -3,8 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import Input from "../../components/common/Input";
 import { Loader2 } from "lucide-react";
-import { useEffect } from "react";
-import { showDialog } from "../../components/common/Dialog";
 
 export const Register = () => {
   const [formData, setFormData] = useState({
@@ -81,12 +79,6 @@ export const Register = () => {
     setTimeout(navigate("/"), 600)
   };
 
-  useEffect(() => {
-    if (error) {
-      showDialog({ content: <div>{error}</div> })
-    }
-  }, [error])
-
   return (
     <div className="min-h-screen bg-gray-100 py-12">
       <div className="max-w-md mx-auto px-4">
@@ -103,6 +95,11 @@ export const Register = () => {
 
           {/* Formulario */}
           <form onSubmit={handleSubmit}>
+          {error && (
+              <small className="w-full flex text-red-500 p-1 bg-red-300/60 justify-center">
+                {error}
+              </small>
+            )}
             <div className="grid grid-cols-2 gap-4">
               <Input
                 type="text"

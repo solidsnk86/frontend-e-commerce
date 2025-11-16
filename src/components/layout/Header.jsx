@@ -46,14 +46,14 @@ const Header = ({ isAuthenticated, user, userRole, onLogout }) => {
               <div className="flex items-center gap-1.5">
                 <Link to="user/profile" className="hover:text-blue-600 flex gap-1.5 items-center">
                   <img
-                    src={user.avatar}
+                    src={user?.avatar}
                     width={18}
                     height={18}
                     alt="Avatar del usuario"
                     className="hidden md:flex rounded-full"
                   />
                 <span className="font-medium">
-                  {user.name || ""} {user.lastname}
+                  {user?.name || ""} {user?.lastname}
                 </span>
                 </Link>
                 {userRole === "seller" && (

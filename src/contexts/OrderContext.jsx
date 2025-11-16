@@ -46,7 +46,9 @@ export const OrderProvider = ({ children }) => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACK_API_URL}/api/seller/orders`
+        `${import.meta.env.VITE_BACK_API_URL}/api/seller/orders`, {
+          credentials: "include"
+        }
       );
 
       const orders = await response.json();

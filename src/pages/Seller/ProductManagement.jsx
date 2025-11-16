@@ -4,12 +4,12 @@ import Button from '../../components/common/Button';
 import { useProducts } from '../../contexts/ProductContext';
 
 const ProductManagement = () => {
-  // Datos de ejemplo - en producción vendrían del backend
-  const { deleteProduct, products = [] } = useProducts()
+  const { deleteProduct, sellerProducts: products = [], getProductByUserId } = useProducts()
   const [filter, setFilter] = useState('');
 
   const handleDelete = async (productId) => {
     await deleteProduct(productId)
+    await getProductByUserId()
   };
   
   const filteredProducts = products?.filter(product => {

@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { showDialog } from "../components/common/Dialog";
+import { useAuth } from "./AuthContext";
 
 const ProductContext = createContext();
 
@@ -11,6 +12,7 @@ export const useProducts = () => {
   }
   const {
     products,
+    sellerProducts,
     loading,
     error,
     fetchProducts,
@@ -22,6 +24,7 @@ export const useProducts = () => {
   } = context;
   return {
     products,
+    sellerProducts,
     loading,
     error,
     fetchProducts,
@@ -35,14 +38,16 @@ export const useProducts = () => {
 
 export const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
+  const [sellerProducts, setSellerProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { user } = useAuth()
 
   const fetchProducts = async () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `${import.meta.env.VITE_BACK_API_URL}/api/products`,
+        `${import.meta.env.VITE_BACK_API_URL}/api/list-products`,
         {
           method: "GET",
           credentials: "include",
@@ -64,19 +69,11 @@ export const ProductProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  const getProductById = (id) => {
-    return products.find((product) => product.id === id);
-  };
-
-  const getProductByUserId = async (user_id) => {
+  const getProductByUserId = async () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACK_API_URL}/api/product/${user_id}`,
+        `${import.meta.env.VITE_BACK_API_URL}/api/products`,
         {
           method: "GET",
           credentials: "include",
@@ -87,13 +84,21 @@ export const ProductProvider = ({ children }) => {
       if (!response.ok) throw new Error(result.message);
 
       // Si el backend retorna un array, se usa directamente
-      // Si retorna un objeto con productos
-      setProducts(Array.isArray(result) ? result : result.products || []);
+      setSellerProducts(Array.isArray(result) ? result : result.products || []);
     } catch (error) {
       setError(error.message);
     } finally {
       setLoading(false);
     }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+    if (user) getProductByUserId()
+  }, [user]);
+
+  const getProductById = (id) => {
+    return products.find((product) => product.id === id);
   };
 
   const createNewProduct = async (newProduct) => {
@@ -112,7 +117,7 @@ export const ProductProvider = ({ children }) => {
       formData.append("category", newProduct.category);
       formData.append("user_id", newProduct.user_id);
       formData.append("image", newProduct.image);
-      
+
       const response = await fetch(
         `${import.meta.env.VITE_BACK_API_URL}/api/product`,
         {
@@ -203,6 +208,7 @@ export const ProductProvider = ({ children }) => {
 
   const value = {
     products,
+    sellerProducts,
     loading,
     error,
     fetchProducts,

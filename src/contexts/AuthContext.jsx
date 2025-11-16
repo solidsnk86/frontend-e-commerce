@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
       setIsLoading(false);
       setUser(data.user);
       setIsAuthenticated(true);
-      setUserRole(data.user.role);
+      setUserRole(data.user?.role);
     } catch (err) {
       setError(err.message);
       setIsAuthenticated(false);
