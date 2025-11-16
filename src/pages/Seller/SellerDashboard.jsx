@@ -26,7 +26,7 @@ const SellerDashboard = () => {
     { id: 2, name: 'Jersey Chicago Bulls 1996', sales: 32, revenue: 4799.68 },
     { id: 3, name: 'Raqueta Wilson Pro Staff 85', sales: 18, revenue: 3599.82 }
   ];
-  console.log(sellerProducts)
+
   return (
     <div className="min-h-screen bg-gray-100 py-8">
       <div className="max-w-7xl mx-auto px-4">
