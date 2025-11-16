@@ -99,13 +99,25 @@ export const ProductProvider = ({ children }) => {
   const createNewProduct = async (newProduct) => {
     setLoading(true);
     try {
+      const formData = new FormData();
+      formData.append("name", newProduct.name);
+      formData.append("price", newProduct.price);
+      formData.append("stock", newProduct.stock);
+      formData.append("condition", newProduct.condition);
+      formData.append("description", newProduct.description);
+      formData.append("brand", newProduct.brand);
+      formData.append("year", newProduct.year);
+      formData.append("size", newProduct.size);
+      formData.append("color", newProduct.color);
+      formData.append("category", newProduct.category);
+      formData.append("user_id", newProduct.user_id);
+      formData.append("image", newProduct.image);
       const response = await fetch(
         `${import.meta.env.VITE_BACK_API_URL}/api/product`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
           credentials: "include",
-          body: JSON.stringify(newProduct),
+          body: formData,
         }
       );
       const result = await response.json();
