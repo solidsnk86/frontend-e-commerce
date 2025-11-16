@@ -112,6 +112,7 @@ export const ProductProvider = ({ children }) => {
       formData.append("category", newProduct.category);
       formData.append("user_id", newProduct.user_id);
       formData.append("image", newProduct.image);
+      
       const response = await fetch(
         `${import.meta.env.VITE_BACK_API_URL}/api/product`,
         {
@@ -130,7 +131,7 @@ export const ProductProvider = ({ children }) => {
         result.product || result,
       ]);
 
-      showDialog({ content: <div>Producto creado exitosamente</div> });
+      showDialog({ content: <div>Producto {formData.name} creado exitosamente!</div> });
     } catch (error) {
       setError(error.message);
       showDialog({ content: <div>Error: {error.message}</div> });
