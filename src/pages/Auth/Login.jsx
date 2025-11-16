@@ -4,13 +4,11 @@ import { useAuth } from "../../contexts/AuthContext";
 import Input from "../../components/common/Input";
 import Button from "../../components/common/Button";
 import { Loader2 } from "lucide-react";
-import { useEffect } from "react";
-import { showDialog } from "../../components/common/Dialog";
 
 export const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
-  const { login, isLoading, error } = useAuth();
+  const { user, login, isLoading, error } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -44,14 +42,12 @@ export const Login = () => {
       return;
     }
     await login({ email: formData.email, password: formData.password });
-    navigate("/");
   };
 
-  useEffect(() => {
-    if (error) {
-      showDialog({ content: <div>{error}</div> });
-    }
-  }, [error]);
+  if (user) {
+    return navigate("/user/profile")
+  }
+  
   return (
     <div className="min-h-screen bg-gray-100 py-12">
       <div className="max-w-md mx-auto px-4">
@@ -66,6 +62,9 @@ export const Login = () => {
           </div>
 
           <form onSubmit={handleSubmit}>
+          {error && (
+            <small className="w-full flex text-red-500 p-1 bg-red-400/50 justify-center">{error}</small>
+          )}
             <Input
               type="email"
               name="email"

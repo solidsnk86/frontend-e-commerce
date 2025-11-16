@@ -25,10 +25,10 @@ export const AuthProvider = ({ children }) => {
         }
       );
       const data = await response.json();
-      if (!response.ok) {
-        setIsAuthenticated(false)
-        throw new Error(data.message)
-      };
+
+      if (!response.ok) setIsAuthenticated(false);
+      if (response.status === 401) throw new Error("")
+      
       setIsLoading(false);
       setUser(data.user);
       setIsAuthenticated(true);
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    refreshUser();
+    refreshUser()
   }, [refreshUser]);
 
   const login = async ({ email, password }) => {
@@ -60,7 +60,10 @@ export const AuthProvider = ({ children }) => {
         }
       );
       const data = await response.json();
+
       if (!response.ok) throw new Error(data.message);
+      if (response.status === 403) throw new Error(data.message)
+
       setUser(data.user);
       setIsLoading(false)
       await refreshUser();
@@ -86,7 +89,10 @@ export const AuthProvider = ({ children }) => {
         }
       );
       const data = await response.json();
+
       if (!response.ok) throw new Error(data.message);
+      if (response.status === 409) throw new Error(data.message)
+
       setIsLoading(false);
       showDialog({content: <div>{data.message}</div>})
       setUser(data);

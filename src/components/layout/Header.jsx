@@ -44,7 +44,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout }) => {
           <div className="flex gap-4 items-center">
             {isAuthenticated ? (
               <div className="flex items-center gap-1.5">
-                <Link to="user/profile" className="hover:text-blue-600">
+                <Link to="user/profile" className="hover:text-blue-600 flex gap-1.5 items-center">
                   <img
                     src={user.avatar}
                     width={18}
@@ -96,14 +96,7 @@ const Header = ({ isAuthenticated, user, userRole, onLogout }) => {
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
         {/* Logo */}
         <Link to="/" className="shrink-0">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight flex items-center">
-            <span className="text-blue-500">R</span>
-            <span className="text-yellow-400">e</span>
-            <span className="text-green-500">t</span>
-            <span className="text-purple-500">r</span>
-            <span className="text-orange-500">o</span>
-            <span className="ml-1 text-blue-400">Legends</span>
-          </h1>
+          <h2 className="text-2xl font-bold">Neo Commerce</h2>
         </Link>
 
         {/* Search */}

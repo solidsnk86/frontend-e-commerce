@@ -5,17 +5,21 @@ import Button from "../../components/common/Button";
 import { useProducts } from "../../contexts/ProductContext";
 import { Loader } from "../../components/common/Loader";
 import { showDialog } from "../../components/common/Dialog";
-import { converToDataBase64 } from "../../utils/converToDataBase64";
-import { useAuth } from "../../contexts/AuthContext"
+import { useAuth } from "../../contexts/AuthContext";
 
 const ProductForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user } = useAuth()
-  const { getProductById, products, createNewProduct, updateProduct, loading: isLoading } =
-    useProducts();
+  const { user } = useAuth();
+  const {
+    getProductById,
+    products,
+    createNewProduct,
+    updateProduct,
+    loading: isLoading,
+  } = useProducts();
   const isEditing = Boolean(id);
-  
+
   const [formData, setFormData] = useState({
     name: "",
     price: "",
@@ -28,7 +32,7 @@ const ProductForm = () => {
     size: "",
     color: "",
     category: "futbol",
-    user_id: user.user_id
+    user_id: user.user_id,
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(isEditing);
@@ -36,7 +40,7 @@ const ProductForm = () => {
   useEffect(() => {
     if (isEditing && id) {
       const product = getProductById(id);
-      
+
       if (product) {
         setFormData({
           name: product.name || "",
@@ -73,78 +77,75 @@ const ProductForm = () => {
   ];
 
   const handleChange = (e) => {
-  const { name, value } = e.target;
-  setFormData((prev) => ({
-    ...prev,
-    [name]: value,
-  }));
-  // Limpiar error del campo cuando empieza a escribir
-  if (errors[name]) {
-    setErrors((prev) => ({
+    const { name, value } = e.target;
+    setFormData((prev) => ({
       ...prev,
-      [name]: "",
+      [name]: value,
     }));
-  }
-};
-const handleImageFile = (e) => {
-  const file = e.target.files?.[0];
-  if (!file) return;
-  if (!file.type.startsWith("image/")) {
-    showDialog({
-      content: (
-        <div className="p-5">
-          <p>Por favor selecciona un archivo de imagen válido.</p>
-        </div>
-      ),
-    });
-    return;
-  }
-  if (file.size > 10 * 1024 * 1024) {
-    showDialog({
-      content: (
-        <div className="p-5">
-          <p>La imagen no debe superar los 10MB.</p>
-        </div>
-      ),
-    });
-    return;
-  }
-  
-  // Sin async aquí
-  converToDataBase64(file).then((base64) => {
-    setFormData((prev) => ({ ...prev, image: base64 }));
-  });
-};
+    // Limpiar error del campo cuando empieza a escribir
+    if (errors[name]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+    }
+  };
+  const handleImageFile = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      showDialog({
+        content: (
+          <div className="p-5">
+            <p>Por favor selecciona un archivo de imagen válido.</p>
+          </div>
+        ),
+      });
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      showDialog({
+        content: (
+          <div className="p-5">
+            <p>La imagen no debe superar los 10MB.</p>
+          </div>
+        ),
+      });
+      return;
+    }
+
+    setFormData(formData);
+  };
 
   const validateForm = () => {
-  const newErrors = {};
+    const newErrors = {};
 
-  if (!formData.name || !formData.name.trim()) {
-    newErrors.name = "El nombre del producto es requerido";
-  }
+    if (!formData.name || !formData.name.trim()) {
+      newErrors.name = "El nombre del producto es requerido";
+    }
 
-  if (!formData.description || !formData.description.trim()) {
-    newErrors.description = "La descripción es requerida";
-  }
+    if (!formData.description || !formData.description.trim()) {
+      newErrors.description = "La descripción es requerida";
+    }
 
-  if (!formData.price || Number(formData.price) <= 0) {
-    newErrors.price = "El precio debe ser mayor a 0";
-  }
+    if (!formData.price || Number(formData.price) <= 0) {
+      newErrors.price = "El precio debe ser mayor a 0";
+    }
 
-  if (formData.stock === "" || Number(formData.stock) < 0) {
-    newErrors.stock = "El stock debe ser 1 o mayor";
-  }
+    if (formData.stock === "" || Number(formData.stock) < 0) {
+      newErrors.stock = "El stock debe ser 1 o mayor";
+    }
 
-  if (!formData.category) {
-    newErrors.category = "Debes seleccionar una categoría";
-  }
+    if (!formData.category) {
+      newErrors.category = "Debes seleccionar una categoría";
+    }
 
-  if (!formData.condition) {
-    newErrors.condition = "Debes seleccionar una condición";
-  }
+    if (!formData.condition) {
+      newErrors.condition = "Debes seleccionar una condición";
+    }
 
-  return newErrors;
-};
+    return newErrors;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -160,7 +161,7 @@ const handleImageFile = (e) => {
       await updateProduct(formData);
     } else {
       await createNewProduct(formData);
-      navigate("/products")
+      navigate("/products");
     }
 
     navigate("/seller/products");
@@ -266,14 +267,14 @@ const handleImageFile = (e) => {
 
             <div className="grid grid-cols-2 gap-4">
               <Input
-              type="number"
-              name="price"
-              label="Precio"
-              placeholder="0.00"
-              value={formData.price}
-              onChange={handleChange}
-              error={errors.price}
-              required
+                type="number"
+                name="price"
+                label="Precio"
+                placeholder="0.00"
+                value={formData.price}
+                onChange={handleChange}
+                error={errors.price}
+                required
               />
               <Input
                 type="number"
@@ -380,7 +381,8 @@ const handleImageFile = (e) => {
               size="large"
               className="flex-1"
             >
-              {isEditing ? "Actualizar Producto" : "Publicar Producto"} {loading ? "Cargando" : ""}
+              {isEditing ? "Actualizar Producto" : "Publicar Producto"}{" "}
+              {loading ? "Cargando" : ""}
             </Button>
           </div>
         </form>
