@@ -56,9 +56,7 @@ const ProductForm = () => {
           size: product.size || "",
           color: product.color || "",
         });
-      } else {
-        console.log("Producto NO encontrado");
-      }
+      } 
       setLoading(false);
     }
   }, [products, id, isEditing, getProductById]);
@@ -114,7 +112,7 @@ const ProductForm = () => {
       return;
     }
 
-    setFormData(formData);
+    setFormData((prev) => ({ ...prev, image: file }));
   };
 
   const validateForm = () => {

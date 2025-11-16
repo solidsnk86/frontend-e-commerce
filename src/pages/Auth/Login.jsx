@@ -44,10 +44,10 @@ export const Login = () => {
     await login({ email: formData.email, password: formData.password });
   };
 
-  if (user) {
-    return navigate("/user/profile")
+  if (user !== null && user.role === "seller") {
+    navigate("/seller/dashboard")
   }
-  
+
   return (
     <div className="min-h-screen bg-gray-100 py-12">
       <div className="max-w-md mx-auto px-4">
@@ -62,9 +62,11 @@ export const Login = () => {
           </div>
 
           <form onSubmit={handleSubmit}>
-          {error && (
-            <small className="w-full flex text-red-500 p-1 bg-red-400/50 justify-center">{error}</small>
-          )}
+            {error && (
+              <small className="w-full flex text-red-500 p-1 bg-red-300/60 justify-center">
+                {error}
+              </small>
+            )}
             <Input
               type="email"
               name="email"
