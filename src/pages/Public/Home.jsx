@@ -61,8 +61,14 @@ export const Home = () => {
       {/* Hero */}
       <section className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 py-12 flex flex-col items-center text-center">
-          <h2 className="text-4xl font-extrabold text-gray-900 mb-3">
-            Bienvenido a tu Neo Commerce
+        <h2 className="text-4xl font-extrabold text-gray-900 mb-3">
+            Bienvenido a{" "}
+              <span className="text-blue-500">R</span>
+              <span className="text-yellow-400">e</span>
+              <span className="text-green-500">t</span>
+              <span className="text-purple-500">r</span>
+              <span className="text-orange-500">o</span>
+              <span className="ml-1 text-blue-400">Legends</span>
           </h2>
           <p className="text-lg text-gray-600 mb-6">
             Reviví la nostalgia deportiva con artículos auténticos de las épocas
