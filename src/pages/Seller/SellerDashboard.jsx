@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import Button from '../../components/common/Button';
 import { useAuth } from '../../contexts/AuthContext';
 import { useProducts } from '../../contexts/ProductContext';
+import { useOrder } from '../../contexts/OrderContext';
 
 const SellerDashboard = () => {
-  const { user } = useAuth()
-  const { sellerProducts } = useProducts()
+  const { user } = useAuth();
+  const { sellerProducts } = useProducts();
+  const { orders: recentOrders } = useOrder();
   // Datos de ejemplo
   const stats = {
     totalSales: 5420.50,
@@ -15,11 +17,11 @@ const SellerDashboard = () => {
     totalProducts: 32
   };
 
-  const recentOrders = [
-    { id: 1, orderNumber: '789456', buyer: 'Mario Meza', total: 149.99, status: 'Pendiente', date: '2025-10-17' },
-    { id: 2, orderNumber: '654321', buyer: 'Cecilia Olejarczyk', total: 89.99, status: 'Procesando', date: '2025-10-16' },
-    { id: 3, orderNumber: '456789', buyer: 'Franco Morales', total: 199.99, status: 'Enviado', date: '2025-10-15' }
-  ];
+  // const recentOrders = [
+  //   { id: 1, orderNumber: '789456', buyer: 'Mario Meza', total: 149.99, status: 'Pendiente', date: '2025-10-17' },
+  //   { id: 2, orderNumber: '654321', buyer: 'Cecilia Olejarczyk', total: 89.99, status: 'Procesando', date: '2025-10-16' },
+  //   { id: 3, orderNumber: '456789', buyer: 'Franco Morales', total: 199.99, status: 'Enviado', date: '2025-10-15' }
+  // ];
 
   const topProducts = [
     { id: 1, name: 'Camiseta Retro Brasil 1970', sales: 45, revenue: 4049.55 },
