@@ -20,7 +20,10 @@ export const OrderProvider = ({ children }) => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACK_API_URL}/api/user/orders/${user.user_id}`
+        `${import.meta.env.VITE_BACK_API_URL}/api/user/orders/${user.user_id}`, {
+          method: "GET",
+          credentials: "include"
+        }
       );
 
       const orders = await response.json();
@@ -50,12 +53,13 @@ export const OrderProvider = ({ children }) => {
           credentials: "include"
         }
       );
-
+ 
       const orders = await response.json();
       if (!response.ok) {
         setError("Falló en el fetch de órdenes: " + response.statusText);
         return;
       }
+  
       setIsLoading(false);
       setOrders(orders);
     } catch (error) {
