@@ -16,7 +16,7 @@ export const Home = () => {
   if (error) {
     return (
       <div className="min-h-screen flex items-center justify-center p-6">
-        <p className="text-red-600 text-lx">
+        <p className="text-[#B85450] text-lg font-sans-elegant">
           Error: Contactese con el soporte técnico. {error}
         </p>
       </div>
@@ -25,142 +25,157 @@ export const Home = () => {
 
   const categories = [
     {
-      slug: "futbol",
-      name: "Fútbol",
-      icon: "⚽",
-      link: "/products/category/futbol",
+      slug: "vestidos",
+      name: "Vestidos",
+      icon: "👗",
+      link: "/products/category/vestidos",
     },
     {
-      slug: "basketball",
-      name: "Basket ",
-      icon: "🏀",
-      link: "/products/category/basketball",
+      slug: "enteritos",
+      name: "Enteritos",
+      icon: "👚",
+      link: "/products/category/blusas",
     },
     {
-      slug: "tenis",
-      name: "Tenis",
-      icon: "🎾",
-      link: "/products/category/tenis",
+      slug: "pantalones",
+      name: "Pantalones",
+      icon: "👖",
+      link: "/products/category/pantalones",
     },
     {
-      slug: "baseball",
-      name: "Baseball",
-      icon: "⚾",
-      link: "/products/category/baseball",
+      slug: "accesorios",
+      name: "Accesorios",
+      icon: "💍",
+      link: "/products/category/accesorios",
     },
     {
       slug: "otros",
-      name: "Otros",
-      icon: "🏆",
+      name: "Más",
+      icon: "✨",
       link: "/products/category/otros",
     },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero */}
-      <section className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 py-12 flex flex-col items-center text-center">
-        <h2 className="text-4xl font-extrabold text-gray-900 mb-3">
-            Bienvenido a{" "}
-              <span className="text-blue-500">R</span>
-              <span className="text-yellow-400">e</span>
-              <span className="text-green-500">t</span>
-              <span className="text-purple-500">r</span>
-              <span className="text-orange-500">o</span>
-              <span className="ml-1 text-blue-400">Legends</span>
+    <div className="min-h-screen bg-[#FAF8F5]">
+      {/* Hero Section - Elegant */}
+      <section className="relative bg-gradient-to-b from-[#F5F0EB] to-[#FAF8F5] border-b border-[#E0D6CC]">
+        <div className="max-w-7xl mx-auto px-4 py-20 md:py-28 flex flex-col items-center text-center">
+          <p className="text-[#8B7355] font-sans-elegant text-sm tracking-[0.3em] uppercase mb-4">
+            Nueva Colección
+          </p>
+          <h2 className="text-4xl md:text-6xl font-serif-display font-light text-[#2C2420] mb-4 tracking-wide">
+            Pascale Closet
           </h2>
-          <p className="text-lg text-gray-600 mb-6">
-            Reviví la nostalgia deportiva con artículos auténticos de las épocas
-            doradas.
+          <div className="w-16 h-[1px] bg-[#C9B8A8] mb-6"></div>
+          <p className="text-lg md:text-xl text-[#7A6B5A] font-sans-elegant font-light mb-10 max-w-2xl leading-relaxed">
+            Elegancia atemporal para mujeres que valoran el estilo y la sofisticación
           </p>
           <div className="flex gap-4 flex-wrap justify-center">
-            <Button
-              variant="primary"
-              size="large"
-              className="px-6 py-3"
+            <button
               onClick={() => navigate("/products")}
+              className="px-10 py-4 bg-[#8B7355] text-white font-sans-elegant text-sm tracking-[0.2em] uppercase hover:bg-[#6B5A45] transition-all duration-300"
             >
-              Explorar Productos
-            </Button>
-            <Button
+              Explorar Colección
+            </button>
+            <button
               onClick={() => navigate("/login")}
-              variant="outline"
-              size="large"
-              className="px-6 py-3 border-blue-600 text-blue-600 hover:bg-blue-50"
+              className="px-10 py-4 border border-[#8B7355] text-[#8B7355] font-sans-elegant text-sm tracking-[0.2em] uppercase hover:bg-[#8B7355] hover:text-white transition-all duration-300"
             >
-              Vender Ahora
-            </Button>
+              Vender
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Categorías */}
-      <section className="max-w-7xl mx-auto px-4 py-10">
-        <h3 className="text-2xl font-semibold text-gray-900 mb-6">
-          Categorías populares
-        </h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+      {/* Categorías - Elegant Grid */}
+      <section className="max-w-7xl mx-auto px-4 py-16">
+        <div className="text-center mb-12">
+          <p className="text-[#8B7355] font-sans-elegant text-xs tracking-[0.3em] uppercase mb-3">
+            Explora
+          </p>
+          <h3 className="text-3xl md:text-4xl font-serif-display font-light text-[#2C2420]">
+            Categorías
+          </h3>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
           {categories.map((category, index) => (
             <Link
               key={index}
               to={category.link}
-              className="bg-white border border-gray-200 p-6 text-center shadow-sm hover:shadow-md hover:border-blue-400 transition"
+              className="group bg-white p-8 text-center border border-[#E0D6CC] hover:border-[#C9B8A8] hover:shadow-lg transition-all duration-300"
             >
-              <div className="text-5xl mb-2">{category.icon}</div>
-              <p className="font-medium text-gray-800">{category.name}</p>
+              <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                {category.icon}
+              </div>
+              <p className="font-sans-elegant text-sm tracking-[0.15em] uppercase text-[#5C4D3C]">
+                {category.name}
+              </p>
             </Link>
           ))}
         </div>
       </section>
 
-      {/* Productos destacados */}
-      <section className="max-w-7xl mx-auto px-4 py-10">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-2xl font-semibold text-gray-900">
-            Productos destacados
-          </h3>
+      {/* Productos destacados - Elegant */}
+      <section className="max-w-7xl mx-auto px-4 py-16">
+        <div className="flex justify-between items-end mb-10">
+          <div>
+            <p className="text-[#8B7355] font-sans-elegant text-xs tracking-[0.3em] uppercase mb-3">
+              Selección Curada
+            </p>
+            <h3 className="text-3xl md:text-4xl font-serif-display font-light text-[#2C2420]">
+              Destacados
+            </h3>
+          </div>
           <Link
             to="/products"
-            className="text-blue-600 hover:underline font-medium"
+            className="text-[#8B7355] hover:text-[#6B5A45] font-sans-elegant text-sm tracking-[0.1em] uppercase border-b border-[#8B7355] pb-1 transition-colors duration-300"
           >
-            Ver todos →
+            Ver Todo
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-          {featuredProducts.map((product) => (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+          {featuredProducts ? (
+            featuredProducts.map((product) => (
             <ProductCard key={product.id} product={product} />
-          ))}
+          ))
+          ): (
+            <div>No hay productos cargados aún.</div>
+          )}
         </div>
       </section>
 
-      {/* Beneficios */}
-      <section className="bg-white border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="text-center p-6 border border-gray-200 shadow-sm">
-            <div className="text-4xl mb-3">🚚</div>
-            <h4 className="font-semibold text-gray-900 mb-1">Envío gratis</h4>
-            <p className="text-sm text-gray-600">
-              En compras superiores a $45.000
-            </p>
-          </div>
-
-          <div className="text-center p-6 border border-gray-200 shadow-sm">
-            <div className="text-4xl mb-3">✅</div>
-            <h4 className="font-semibold text-gray-900 mb-1">
-              Autenticidad garantizada
+      {/* Beneficios - Elegant */}
+      <section className="bg-[#F5F0EB] border-t border-[#E0D6CC]">
+        <div className="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="text-center p-8">
+            <div className="text-3xl mb-4">🚚</div>
+            <h4 className="font-serif-display text-xl text-[#2C2420] mb-2">
+              Envío Elegante
             </h4>
-            <p className="text-sm text-gray-600">
-              Productos verificados por expertos
+            <p className="text-sm text-[#7A6B5A] font-sans-elegant font-light">
+              Gratis en compras superiores a $45.000
             </p>
           </div>
 
-          <div className="text-center p-6 border border-gray-200 shadow-sm">
-            <div className="text-4xl mb-3">🔒</div>
-            <h4 className="font-semibold text-gray-900 mb-1">Compra segura</h4>
-            <p className="text-sm text-gray-600">
-              Protección del comprador incluida
+          <div className="text-center p-8">
+            <div className="text-3xl mb-4">✨</div>
+            <h4 className="font-serif-display text-xl text-[#2C2420] mb-2">
+              Calidad Premium
+            </h4>
+            <p className="text-sm text-[#7A6B5A] font-sans-elegant font-light">
+              Prendas seleccionadas cuidadosamente
+            </p>
+          </div>
+
+          <div className="text-center p-8">
+            <div className="text-3xl mb-4">💝</div>
+            <h4 className="font-serif-display text-xl text-[#2C2420] mb-2">
+              Atención Personalizada
+            </h4>
+            <p className="text-sm text-[#7A6B5A] font-sans-elegant font-light">
+              Asesoramiento de estilo incluido
             </p>
           </div>
         </div>

@@ -49,45 +49,45 @@ export const ProductCard = ({ product }) => {
     if (!ok) {
       showDialog({
         content: (
-          <div>No se pudo agregar no hay stock suficiente.</div>
+          <div>No se pudo agregar, no hay stock suficiente.</div>
         ),
       });
     }
-    showDialog({ content:  <div>Producto agregado al carrito de compras: <i className="text-blue-600">{product.name}</i></div> })
+    showDialog({ content: <div>Producto agregado al carrito: <span className="text-[#8B7355] font-medium">{product.name}</span></div> })
   };
 
   return (
-    <div className="border-2 border-gray-400 bg-white hover:shadow-lg transition-shadow duration-200 h-full flex flex-col justify-between">
+    <div className="group border border-[#E0D6CC] bg-white hover:shadow-md transition-all duration-300 h-full flex flex-col justify-between">
       <Link to={`/product/${product.id}`} className="flex-1 block">
-        <div className="w-full aspect-square bg-gray-200 flex items-center justify-center overflow-hidden">
+        <div className="w-full aspect-[5/6] bg-[#F5F0EB] flex items-center justify-center overflow-hidden">
           {product.image ? (
             <img
               src={product.image}
               alt={product.name}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
           ) : (
-            <div className="text-gray-400 text-4xl">📦</div>
+            <div className="text-[#C9B8A8] text-2xl">👗</div>
           )}
         </div>
         <div className="p-3">
-          <h3 className="font-bold text-sm text-blue-600 hover:underline mb-1 line-clamp-2">
+          <h3 className="font-serif-display text-sm text-[#2C2420] group-hover:text-[#8B7355] mb-1.5 line-clamp-2 transition-colors duration-200 leading-tight">
             {product.name}
           </h3>
-          <div className="flex items-baseline gap-2 mb-2">
-            <span className="text-lg font-bold text-green-700">
-              ${product.price}
+          <div className="flex items-baseline gap-1.5 mb-1">
+            <span className="text-base font-serif-display text-[#2C2420]">
+              ${product.price?.toLocaleString('es-AR')}
             </span>
             {product.originalPrice && (
-              <span className="text-sm text-gray-500 line-through">
-                ${product.originalPrice.toFixed(2)}
+              <span className="text-xs text-[#A69580] line-through font-sans-elegant">
+                ${product.originalPrice.toLocaleString('es-AR')}
               </span>
             )}
           </div>
           {product.shipping && (
-            <p className="text-xs text-gray-600">
+            <p className="text-[10px] text-[#7A6B5A] font-sans-elegant">
               {product.price > 45000 ? (
-                <span className="text-green-600 font-semibold">
+                <span className="text-[#6B8E6B]">
                   ✓ Envío gratis
                 </span>
               ) : (
@@ -96,11 +96,8 @@ export const ProductCard = ({ product }) => {
             </p>
           )}
           {product.condition && (
-            <p className="text-xs text-gray-600 mt-1">
-              Condición:{" "}
-              <span className="font-semibold">
-                {product.condition === "new" ? "nuevo" : "usado"}
-              </span>
+            <p className="text-[10px] text-[#7A6B5A] font-sans-elegant mt-0.5 tracking-wide uppercase">
+              {product.condition === "new" ? "Nuevo" : "Pre-loved"}
             </p>
           )}
         </div>
@@ -109,12 +106,12 @@ export const ProductCard = ({ product }) => {
         <button
           onClick={handleAdd}
           disabled={isSoldOut || cannotAddMore}
-          className={`w-full text-white text-sm font-semibold py-2 px-3 cursor-pointer transition ${
+          className={`w-full text-xs font-sans-elegant py-2.5 px-3 cursor-pointer transition-all duration-300 tracking-wide ${
             isSoldOut || cannotAddMore
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-blue-600 hover:bg-blue-700"
+              ? "bg-[#E8DED0] text-[#A69580] cursor-not-allowed"
+              : "bg-[#8B7355] text-white hover:bg-[#6B5A45]"
           }`}
-          aria-label={`Agregar " ${product.name} " al carrito`}
+          aria-label={`Agregar "${product.name}" al carrito`}
           title={
             isSoldOut
               ? "Agotado"
@@ -126,8 +123,8 @@ export const ProductCard = ({ product }) => {
           {isSoldOut
             ? "Agotado"
             : cannotAddMore
-            ? `Máximo (${stock})`
-            : "Agregar al carrito"}
+            ? `Máx (${stock})`
+            : "Agregar"}
         </button>
       </div>
     </div>

@@ -21,99 +21,127 @@ const ProductManagement = () => {
   });
   
   return (
-    <div className="min-h-screen bg-gray-100 py-8">
-      <div className="max-w-7xl mx-auto px-4">
+    <div className="min-h-screen bg-[#FAF8F5] py-8">
+      <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-blue-900">Gestión de Productos</h1>
-            <p className="text-gray-600">Administra tu inventario</p>
+            <h1 className="text-2xl font-serif-display font-light text-[#2C2420] tracking-wide">
+              Gestión de Productos
+            </h1>
+            <p className="text-sm text-[#7A6B5A] font-sans-elegant mt-1">
+              Administra tu inventario
+            </p>
           </div>
           <Link to="/seller/products/new">
-            <Button variant="success" size="large">
-              + Nuevo Producto
-            </Button>
+            <button className="px-5 py-2.5 bg-[#8B7355] text-white font-sans-elegant text-sm tracking-wide hover:bg-[#6B5A45] transition-all duration-200 flex items-center gap-2">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4v16m8-8H4" />
+              </svg>
+              Nuevo Producto
+            </button>
           </Link>
         </div>
 
         {/* Filters */}
-        <div className="bg-white border-2 border-gray-400 p-4 mb-6">
-          <div className="flex gap-3">
-            <Button
-              variant={filter === 'all' ? 'primary' : 'outline'}
-              size="small"
+        <div className="bg-white border border-[#E0D6CC] p-4 mb-5">
+          <div className="flex gap-2 flex-wrap">
+            <button
               onClick={() => setFilter('all')}
+              className={`px-4 py-2 text-xs font-sans-elegant tracking-wide transition-all duration-200 ${
+                filter === 'all' || filter === ''
+                  ? 'bg-[#8B7355] text-white'
+                  : 'border border-[#E0D6CC] text-[#5C4D3C] hover:border-[#8B7355] hover:text-[#8B7355]'
+              }`}
             >
               Todos ({products?.length})
-            </Button>
-            <Button
-              variant={filter === 'active' ? 'primary' : 'outline'}
-              size="small"
+            </button>
+            <button
               onClick={() => setFilter('active')}
+              className={`px-4 py-2 text-xs font-sans-elegant tracking-wide transition-all duration-200 ${
+                filter === 'active'
+                  ? 'bg-[#6B8E6B] text-white'
+                  : 'border border-[#E0D6CC] text-[#5C4D3C] hover:border-[#6B8E6B] hover:text-[#6B8E6B]'
+              }`}
             >
               Activos ({products?.filter(p => p.status === 'Activo').length})
-            </Button>
-            <Button
-              variant={filter === 'inactive' ? 'primary' : 'outline'}
-              size="small"
+            </button>
+            <button
               onClick={() => setFilter('inactive')}
+              className={`px-4 py-2 text-xs font-sans-elegant tracking-wide transition-all duration-200 ${
+                filter === 'inactive'
+                  ? 'bg-[#A69580] text-white'
+                  : 'border border-[#E0D6CC] text-[#5C4D3C] hover:border-[#A69580] hover:text-[#A69580]'
+              }`}
             >
               Inactivos ({products?.filter(p => p.status === 'Inactivo').length})
-            </Button>
-            <Button
-              variant={filter === 'out-of-stock' ? 'primary' : 'outline'}
-              size="small"
+            </button>
+            <button
               onClick={() => setFilter('out-of-stock')}
+              className={`px-4 py-2 text-xs font-sans-elegant tracking-wide transition-all duration-200 ${
+                filter === 'out-of-stock'
+                  ? 'bg-[#B85450] text-white'
+                  : 'border border-[#E0D6CC] text-[#5C4D3C] hover:border-[#B85450] hover:text-[#B85450]'
+              }`}
             >
               Sin Stock ({products?.filter(p => p.stock === 0).length})
-            </Button>
+            </button>
           </div>
         </div>
 
         {/* Products Table */}
-        <div className="bg-white border-2 border-gray-400">
+        <div className="bg-white border border-[#E0D6CC]">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-blue-900 text-white">
+              <thead className="bg-[#2C2420]">
                 <tr>
-                  <th className="text-left p-4 font-bold">Producto</th>
-                  <th className="text-left p-4 font-bold">Categoría</th>
-                  <th className="text-left p-4 font-bold">Precio</th>
-                  <th className="text-left p-4 font-bold">Stock</th>
-                  <th className="text-left p-4 font-bold">Estado</th>
-                  <th className="text-left p-4 font-bold">Acciones</th>
+                  <th className="text-left p-4 text-xs font-sans-elegant font-medium text-white/90 uppercase tracking-wider">Producto</th>
+                  <th className="text-left p-4 text-xs font-sans-elegant font-medium text-white/90 uppercase tracking-wider">Categoría</th>
+                  <th className="text-left p-4 text-xs font-sans-elegant font-medium text-white/90 uppercase tracking-wider">Precio</th>
+                  <th className="text-left p-4 text-xs font-sans-elegant font-medium text-white/90 uppercase tracking-wider">Stock</th>
+                  <th className="text-left p-4 text-xs font-sans-elegant font-medium text-white/90 uppercase tracking-wider">Estado</th>
+                  <th className="text-left p-4 text-xs font-sans-elegant font-medium text-white/90 uppercase tracking-wider">Acciones</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredProducts?.map((product) => (
-                  <tr key={product.id} className="border-b-2 border-gray-200 hover:bg-gray-50">
+                  <tr key={product.id} className="border-b border-[#E0D6CC] hover:bg-[#FAF8F5] transition-colors duration-150">
                     <td className="p-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 bg-gray-200 border-2 border-gray-400 flex items-center justify-center flex-shrink-0">
-                          <span className="text-xl">📦</span>
+                        <div className="w-12 h-12 bg-[#F5F0EB] border border-[#E0D6CC] flex items-center justify-center flex-shrink-0 rounded-sm overflow-hidden">
+                          {product.image ? (
+                            <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                          ) : (
+                            <svg className="w-5 h-5 text-[#C9B8A8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                          )}
                         </div>
                         <div>
-                          <p className="font-bold text-sm">{product.name}</p>
-                          <p className="text-xs text-gray-500">ID: {product.id}</p>
+                          <p className="font-sans-elegant font-medium text-sm text-[#2C2420]">{product.name}</p>
+                          <p className="text-[10px] text-[#A69580] font-sans-elegant">ID: {product.id}</p>
                         </div>
                       </div>
                     </td>
                     <td className="p-4">
-                      <span className="text-sm">{product.category}</span>
+                      <span className="text-sm font-sans-elegant text-[#5C4D3C] capitalize">{product.category}</span>
                     </td>
                     <td className="p-4">
-                      <span className="font-bold text-green-700">${product.price}</span>
+                      <span className="font-sans-elegant font-medium text-[#8B7355]">${product.price}</span>
                     </td>
                     <td className="p-4">
-                      <span className={`font-bold ${product.stock === 0 ? 'text-red-600' : product.stock < 10 ? 'text-yellow-600' : 'text-green-600'}`}>
+                      <span className={`font-sans-elegant font-medium ${
+                        product.stock === 0 ? 'text-[#B85450]' : 
+                        product.stock < 10 ? 'text-[#C9A050]' : 'text-[#6B8E6B]'
+                      }`}>
                         {product.stock}
                       </span>
                     </td>
                     <td className="p-4">
-                      <span className={`px-2 py-1 border-2 text-xs font-bold ${
-                        product.status === 'Activo' ? 'bg-green-100 border-green-400 text-green-800' :
-                        product.status === 'Sin Stock' ? 'bg-red-100 border-red-400 text-red-800' :
-                        'bg-gray-100 border-gray-400 text-gray-800'
+                      <span className={`px-2.5 py-1 text-[10px] font-sans-elegant font-medium tracking-wide rounded-sm ${
+                        product.status === 'Activo' ? 'bg-[#6B8E6B]/10 text-[#6B8E6B] border border-[#6B8E6B]/20' :
+                        product.status === 'Sin Stock' ? 'bg-[#B85450]/10 text-[#B85450] border border-[#B85450]/20' :
+                        'bg-[#A69580]/10 text-[#7A6B5A] border border-[#A69580]/20'
                       }`}>
                         {product.status}
                       </span>
@@ -121,17 +149,16 @@ const ProductManagement = () => {
                     <td className="p-4">
                       <div className="flex gap-2">
                         <Link to={`/seller/products/edit/${product.id}`}>
-                          <Button variant="primary" size="small">
+                          <button className="px-3 py-1.5 text-[11px] font-sans-elegant tracking-wide border border-[#8B7355] text-[#8B7355] hover:bg-[#8B7355] hover:text-white transition-all duration-200">
                             Editar
-                          </Button>
+                          </button>
                         </Link>
-                        <Button
-                          variant="danger"
-                          size="small"
+                        <button
                           onClick={() => handleDelete(product.id)}
+                          className="px-3 py-1.5 text-[11px] font-sans-elegant tracking-wide border border-[#B85450] text-[#B85450] hover:bg-[#B85450] hover:text-white transition-all duration-200"
                         >
                           Eliminar
-                        </Button>
+                        </button>
                       </div>
                     </td>
                   </tr>
@@ -142,8 +169,12 @@ const ProductManagement = () => {
 
           {filteredProducts?.length === 0 && (
             <div className="p-12 text-center">
-              <div className="text-4xl mb-4">📦</div>
-              <p className="text-gray-600">No se encontraron productos con este filtro</p>
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#F5F0EB] flex items-center justify-center">
+                <svg className="w-8 h-8 text-[#C9B8A8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                </svg>
+              </div>
+              <p className="text-[#7A6B5A] font-sans-elegant">No se encontraron productos con este filtro</p>
             </div>
           )}
         </div>

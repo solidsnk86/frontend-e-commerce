@@ -13,7 +13,7 @@ const normalize = (s) =>
     .replace(/^-+|-+$/g, "");
 
 const prettyTitle = (slug) =>
-  slug ? slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) : "Todos los productos";
+  slug ? slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) : "Toda la colección";
 
 export const AllProducts = () => {
   const { products, loading, error } = useProducts();
@@ -25,12 +25,12 @@ export const AllProducts = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-6">
-        <div className="bg-red-50 border-2 border-red-400 p-8 text-center max-w-md">
-          <div className="text-6xl mb-4">❌</div>
-          <h2 className="text-2xl font-bold text-red-800 mb-2">Error</h2>
-          <p className="text-red-700">{error}</p>
-          <Link to="/" className="inline-block mt-4 bg-red-600 text-white px-6 py-2 hover:bg-red-700">
+      <div className="min-h-screen bg-[#FAF8F5] flex items-center justify-center p-6">
+        <div className="bg-white border border-[#E0D6CC] p-12 text-center max-w-md">
+          <div className="text-5xl mb-6">✕</div>
+          <h2 className="text-2xl font-serif-display text-[#2C2420] mb-4">Error</h2>
+          <p className="text-[#7A6B5A] font-sans-elegant mb-6">{error}</p>
+          <Link to="/" className="inline-block px-8 py-3 bg-[#8B7355] text-white font-sans-elegant text-sm tracking-wide hover:bg-[#6B5A45] transition-all duration-300">
             Volver al inicio
           </Link>
         </div>
@@ -49,11 +49,11 @@ export const AllProducts = () => {
     : products;
 
   const categories = [
-    { slug: "futbol", name: "Fútbol", icon: "⚽" },
-    { slug: "basketball", name: "Basketball", icon: "🏀" },
-    { slug: "tenis", name: "Tenis", icon: "🎾" },
-    { slug: "baseball", name: "Baseball", icon: "⚾" },
-    { slug: "otros", name: "Otros", icon: "🏆" },
+    { slug: "vestidos", name: "Vestidos", icon: "👗" },
+    { slug: "enteritos", name: "Enteritos", icon: "👚" },
+    { slug: "pantalones", name: "Pantalones", icon: "👖" },
+    { slug: "accesorios", name: "Accesorios", icon: "💍" },
+    { slug: "otros", name: "Más", icon: "✨" },
   ];
   
   const activeCategory = categories.find(
@@ -61,37 +61,37 @@ export const AllProducts = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 py-8">
+    <div className="min-h-screen bg-[#FAF8F5]">
+      <div className="max-w-7xl mx-auto px-4 py-12">
         {/* Breadcrumb */}
-        <nav className="text-sm mb-6">
-          <Link to="/" className="text-blue-600 hover:underline">Inicio</Link>
-          <span className="mx-2 text-gray-400">/</span>
-          <Link to="/products" className="text-blue-600 hover:underline">Productos</Link>
+        <nav className="text-sm mb-8 font-sans-elegant">
+          <Link to="/" className="text-[#8B7355] hover:underline">Inicio</Link>
+          <span className="mx-3 text-[#C9B8A8]">/</span>
+          <Link to="/products" className="text-[#8B7355] hover:underline">Colección</Link>
           {activeSlug && (
             <>
-              <span className="mx-2 text-gray-400">/</span>
-              <span className="text-gray-600">{prettyTitle(activeSlug)}</span>
+              <span className="mx-3 text-[#C9B8A8]">/</span>
+              <span className="text-[#7A6B5A]">{prettyTitle(activeSlug)}</span>
             </>
           )}
         </nav>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Sidebar - Categorías */}
           <aside className="lg:col-span-1">
-            <div className="bg-white border-2 border-gray-400 p-4 sticky top-4">
-              <h2 className="text-xl font-bold text-blue-900 mb-4">Categorías</h2>
-              <ul className="space-y-2">
+            <div className="bg-white border border-[#E0D6CC] p-6 sticky top-4">
+              <h2 className="text-xl font-serif-display text-[#2C2420] mb-6 pb-4 border-b border-[#E0D6CC]">Categorías</h2>
+              <ul className="space-y-1">
                 <li>
                   <Link
                     to="/products"
-                    className={`flex items-center gap-3 p-3 hover:bg-gray-100 transition ${
-                      !activeSlug ? "bg-blue-50 border-l-4 border-blue-600 font-bold" : ""
+                    className={`flex items-center gap-3 p-3 hover:bg-[#F5F0EB] transition-all duration-200 font-sans-elegant text-sm ${
+                      !activeSlug ? "bg-[#F5F0EB] border-l-2 border-[#8B7355] text-[#8B7355]" : "text-[#5C4D3C]"
                     }`}
                   >
-                    <span className="text-2xl">🏪</span>
-                    <span>Todos los productos</span>
-                    <span className="ml-auto text-sm text-gray-600">({products.length})</span>
+                    <span className="text-lg">🏠</span>
+                    <span>Toda la colección</span>
+                    <span className="ml-auto text-xs text-[#A69580]">({products.length})</span>
                   </Link>
                 </li>
                 {categories.map((cat) => {
@@ -100,15 +100,15 @@ export const AllProducts = () => {
                     <li key={cat.slug}>
                       <Link
                         to={`/products/category/${cat.slug}`}
-                        className={`flex items-center gap-3 p-3 hover:bg-gray-100 transition ${
+                        className={`flex items-center gap-3 p-3 hover:bg-[#F5F0EB] transition-all duration-200 font-sans-elegant text-sm ${
                           normalize(activeSlug) === cat.slug
-                            ? "bg-blue-50 border-l-4 border-blue-600 font-bold"
-                            : ""
+                            ? "bg-[#F5F0EB] border-l-2 border-[#8B7355] text-[#8B7355]"
+                            : "text-[#5C4D3C]"
                         }`}
                       >
-                        <span className="text-2xl">{cat.icon}</span>
+                        <span className="text-lg">{cat.icon}</span>
                         <span>{cat.name}</span>
-                        <span className="ml-auto text-sm text-gray-600">({count})</span>
+                        <span className="ml-auto text-xs text-[#A69580]">({count})</span>
                       </Link>
                     </li>
                   );
@@ -119,34 +119,37 @@ export const AllProducts = () => {
 
           {/* Main Content - Productos */}
           <main className="lg:col-span-3">
-            <div className="mb-6">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            <div className="mb-10">
+              <p className="text-xs font-sans-elegant tracking-[0.3em] uppercase text-[#8B7355] mb-2">
+                Explora
+              </p>
+              <h1 className="text-3xl md:text-4xl font-serif-display font-light text-[#2C2420] mb-3">
                 {activeCategory
-                  ? `${activeCategory.icon} ${activeCategory.name}`
-                  : "Todos los productos"}
+                  ? `${activeCategory.name}`
+                  : "Toda la Colección"}
               </h1>
-              <p className="text-gray-600">
-                {filtered.length} {filtered.length === 1 ? "producto encontrado" : "productos encontrados"}
+              <p className="text-[#7A6B5A] font-sans-elegant">
+                {filtered.length} {filtered.length === 1 ? "pieza encontrada" : "piezas encontradas"}
               </p>
             </div>
 
             {filtered.length === 0 ? (
-              <div className="bg-white border-2 border-gray-400 p-12 text-center">
-                <div className="text-6xl mb-4">📦</div>
-                <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                  No hay productos en esta categoría
+              <div className="bg-white border border-[#E0D6CC] p-16 text-center">
+                <div className="text-5xl mb-6 text-[#C9B8A8]">👗</div>
+                <h2 className="text-2xl font-serif-display text-[#2C2420] mb-4">
+                  No hay piezas en esta categoría
                 </h2>
-                <p className="text-gray-600 mb-6">
-                  Explora otras categorías o vuelve a la tienda principal
+                <p className="text-[#7A6B5A] font-sans-elegant mb-8">
+                  Explora otras categorías o descubre toda nuestra colección
                 </p>
                 <Link to="/products">
-                  <button className="bg-blue-600 text-white px-6 py-3 font-bold hover:bg-blue-700 transition">
-                    Ver todos los productos
+                  <button className="px-10 py-4 bg-[#8B7355] text-white font-sans-elegant text-sm tracking-[0.2em] uppercase hover:bg-[#6B5A45] transition-all duration-300">
+                    Ver toda la colección
                   </button>
                 </Link>
               </div>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
                 {filtered.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}

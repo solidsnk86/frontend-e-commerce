@@ -1,699 +1,726 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  Store,
+  TrendingUp,
+  Shield,
+  Users,
+  CheckCircle,
+  ArrowRight,
+  Package,
+  CreditCard,
+  BarChart3,
+  HelpCircle,
+  BookOpen,
+  Video,
+  FileText,
+  Sparkles,
+  Heart,
+  Star,
+  ChevronDown,
+  ChevronUp,
+  Camera,
+  Tag,
+  Truck,
+  Award,
+} from "lucide-react";
 
-export function SellerPage() {
-  const location = useLocation();
-  const [activeTab, setActiveTab] = useState(() => {
-    const h = (location.hash || "").replace("#", "");
-    if (!h) return "start";
-    const normalized = String(h).toLowerCase();
-    if (["fees", "resources", "start"].includes(normalized)) return normalized;
-    return "start";
-  });
+const SellerInfo = () => {
+  const [activeTab, setActiveTab] = useState("start");
+  const [expandedFaq, setExpandedFaq] = useState(null);
 
-  // cuando cambia el hash en la URL, actualizar la pestaña activa
-  useEffect(() => {
-    const h = (location.hash || "").replace("#", "").toLowerCase();
-    if (!h) return;
-    if (["fees", "resources", "start"].includes(h)) {
-      setActiveTab(h);
-    }
-  }, [location.hash]);
+  const tabs = [
+    { id: "start", label: "Empieza a Vender", icon: Store },
+    { id: "fees", label: "Tarifas de Venta", icon: CreditCard },
+    { id: "resources", label: "Recursos para Vendedoras", icon: BookOpen },
+  ];
+
+  const steps = [
+    {
+      number: "01",
+      title: "Crea tu cuenta de vendedora",
+      description:
+        "Regístrate con tus datos básicos y completa el proceso de verificación para comenzar a vender tus prendas.",
+      icon: Users,
+    },
+    {
+      number: "02",
+      title: "Configura tu boutique",
+      description:
+        "Personaliza tu perfil de vendedora, añade tu historia y define tus políticas de envío y devolución.",
+      icon: Store,
+    },
+    {
+      number: "03",
+      title: "Publica tus productos",
+      description:
+        "Sube fotografías elegantes, escribe descripciones detalladas y establece tus precios competitivos.",
+      icon: Package,
+    },
+  ];
+
+  const requirements = [
+    "Ser mayor de 18 años",
+    "Documento de identidad válido",
+    "Cuenta bancaria para recibir pagos",
+    "Compromiso con la calidad y autenticidad",
+    "Productos en excelente estado",
+    "Fotografías profesionales de las prendas",
+  ];
+
+  const benefits = [
+    {
+      icon: TrendingUp,
+      title: "Alcance Global",
+      description:
+        "Llega a clientas de todo el país que buscan prendas únicas y de calidad.",
+    },
+    {
+      icon: Shield,
+      title: "Transacciones Seguras",
+      description:
+        "Sistema de pagos protegido que garantiza la seguridad de cada operación.",
+    },
+    {
+      icon: Users,
+      title: "Comunidad Exclusiva",
+      description:
+        "Forma parte de una comunidad de vendedoras apasionadas por la moda.",
+    },
+    {
+      icon: BarChart3,
+      title: "Panel de Control",
+      description:
+        "Herramientas intuitivas para gestionar tu inventario y analizar tus ventas.",
+    },
+  ];
+
+  const feeStructure = [
+    {
+      category: "Prendas de Temporada",
+      commission: "12%",
+      description: "Ropa actual y de últimas colecciones",
+    },
+    {
+      category: "Prendas Premium",
+      commission: "10%",
+      description: "Marcas de diseñador y alta costura",
+    },
+    {
+      category: "Accesorios",
+      commission: "15%",
+      description: "Bolsos, joyería y complementos",
+    },
+    {
+      category: "Vintage & Colección",
+      commission: "8%",
+      description: "Piezas vintage y de coleccionista",
+    },
+  ];
+
+  const detailedFees = [
+    {
+      concept: "Comisión por venta",
+      amount: "8% - 15%",
+      description: "Varía según la categoría del producto",
+    },
+    {
+      concept: "Procesamiento de pago",
+      amount: "2.9% + $0.30",
+      description: "Por cada transacción completada",
+    },
+    {
+      concept: "Listado de productos",
+      amount: "Gratis",
+      description: "Sin límite de publicaciones",
+    },
+    {
+      concept: "Retiro de fondos",
+      amount: "Gratis",
+      description: "Transferencias sin costo adicional",
+    },
+    {
+      concept: "Promoción destacada",
+      amount: "Desde $5",
+      description: "Opcional para mayor visibilidad",
+    },
+  ];
+
+  const resources = [
+    {
+      icon: BookOpen,
+      title: "Guía de Inicio",
+      description: "Manual completo para comenzar a vender con éxito.",
+      link: "#",
+    },
+    {
+      icon: Camera,
+      title: "Fotografía de Producto",
+      description: "Consejos para capturar tus prendas de manera profesional.",
+      link: "#",
+    },
+    {
+      icon: Tag,
+      title: "Estrategias de Precio",
+      description: "Aprende a fijar precios competitivos y rentables.",
+      link: "#",
+    },
+    {
+      icon: Truck,
+      title: "Guía de Envíos",
+      description: "Todo sobre embalaje y opciones de envío.",
+      link: "#",
+    },
+  ];
+
+  const faqs = [
+    {
+      question: "¿Cuánto tiempo tarda en activarse mi cuenta de vendedora?",
+      answer:
+        "El proceso de verificación suele completarse en 24-48 horas hábiles. Te notificaremos por correo electrónico una vez que tu cuenta esté activa y lista para publicar.",
+    },
+    {
+      question: "¿Cómo recibo mis pagos?",
+      answer:
+        "Los pagos se procesan semanalmente y se transfieren directamente a tu cuenta bancaria registrada. El tiempo de acreditación depende de tu banco, generalmente entre 1-3 días hábiles.",
+    },
+    {
+      question: "¿Qué tipo de productos puedo vender?",
+      answer:
+        "Puedes vender ropa femenina, accesorios, calzado y joyería. Todos los artículos deben estar en excelente estado y ser auténticos. No permitimos réplicas ni productos dañados.",
+    },
+    {
+      question: "¿Cómo funciona el proceso de devolución?",
+      answer:
+        "Las clientas tienen 14 días para solicitar una devolución. Como vendedora, puedes establecer tus propias políticas adicionales. Pascale Closet media en caso de disputas.",
+    },
+    {
+      question: "¿Puedo vender desde cualquier parte del país?",
+      answer:
+        "Sí, aceptamos vendedoras de todo el territorio nacional. Solo necesitas tener acceso a servicios de paquetería para realizar los envíos.",
+    },
+  ];
+
+  const toggleFaq = (index) => {
+    setExpandedFaq(expandedFaq === index ? null : index);
+  };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#FAF8F5]">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-5xl font-extrabold mb-4">
-            Vende en e-Retro Legends
-          </h1>
-          <p className="text-xl mb-8 opacity-90">
-            Únite a miles de vendedores y monetiza tu pasión por los deportes
-            retro
-          </p>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <Link
-              to="/login"
-              className="bg-white text-blue-600 px-8 py-3 font-bold hover:bg-gray-100 transition border-2 border-white"
-            >
-              Empezar Ahora
-            </Link>
-            <button
-              onClick={() => setActiveTab("resources")}
-              className="border-2 border-white text-white px-8 py-3 font-bold hover:bg-blue-700 transition"
-            >
-              Más Información
-            </button>
+      <section className="relative bg-gradient-to-b from-[#E8DED0] to-[#FAF8F5] py-20 lg:py-28">
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-20 left-10 w-64 h-64 bg-[#C9B8A8] rounded-full blur-3xl"></div>
+          <div className="absolute bottom-10 right-20 w-80 h-80 bg-[#8B7355]/20 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 bg-white/60 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
+              <Sparkles className="w-4 h-4 text-[#8B7355]" />
+              <span className="text-sm font-sans-elegant text-[#2C2420]/70 tracking-wide">
+                Únete a nuestra comunidad de vendedoras
+              </span>
+            </div>
+            
+            <h1 className="font-serif-display text-4xl md:text-5xl lg:text-6xl text-[#2C2420] mb-6">
+              Vende en{" "}
+              <span className="text-[#8B7355]">Pascale Closet</span>
+            </h1>
+            
+            <p className="text-lg md:text-xl text-[#2C2420]/70 font-sans-elegant leading-relaxed mb-10 max-w-2xl mx-auto">
+              Transforma tu pasión por la moda en una oportunidad. 
+              Llega a miles de clientas que buscan prendas únicas y de calidad.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                to="/register"
+                className="inline-flex items-center justify-center gap-2 bg-[#8B7355] text-white px-8 py-4 font-sans-elegant tracking-wide hover:bg-[#6B5A45] transition-all duration-300 group"
+              >
+                <span>Comenzar Ahora</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <a
+                href="#learn-more"
+                className="inline-flex items-center justify-center gap-2 bg-white text-[#2C2420] px-8 py-4 font-sans-elegant tracking-wide border border-[#E8DED0] hover:border-[#8B7355] transition-all duration-300"
+              >
+                <span>Saber Más</span>
+              </a>
+            </div>
+            
+            <div className="mt-12 flex flex-wrap justify-center gap-8">
+              <div className="text-center">
+                <p className="font-serif-display text-3xl text-[#8B7355]">+2,500</p>
+                <p className="text-sm text-[#2C2420]/60 font-sans-elegant">Vendedoras Activas</p>
+              </div>
+              <div className="text-center">
+                <p className="font-serif-display text-3xl text-[#8B7355]">98%</p>
+                <p className="text-sm text-[#2C2420]/60 font-sans-elegant">Satisfacción</p>
+              </div>
+              <div className="text-center">
+                <p className="font-serif-display text-3xl text-[#8B7355]">+50k</p>
+                <p className="text-sm text-[#2C2420]/60 font-sans-elegant">Ventas Mensuales</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Tabs Navigation */}
-      <section className="bg-white border-b-4 border-gray-300 sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex gap-8 overflow-x-auto">
-            <button
-              onClick={() => {
-                setActiveTab("start");
-                window.history.replaceState(
-                  null,
-                  "",
-                  `${location.pathname}#start`
+      <section id="learn-more" className="sticky top-0 bg-white/95 backdrop-blur-sm border-b border-[#E8DED0] z-40">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-center">
+            <div className="flex gap-0">
+              {tabs.map((tab) => {
+                const Icon = tab.icon;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`flex items-center gap-2 px-6 py-4 font-sans-elegant text-sm tracking-wide transition-all duration-300 border-b-2 ${
+                      activeTab === tab.id
+                        ? "text-[#8B7355] border-[#8B7355]"
+                        : "text-[#2C2420]/60 border-transparent hover:text-[#2C2420]"
+                    }`}
+                  >
+                    <Icon className="w-4 h-4" />
+                    <span className="hidden sm:inline">{tab.label}</span>
+                  </button>
                 );
-              }}
-              className={`py-4 px-2 font-bold border-b-4 transition ${
-                activeTab === "start"
-                  ? "border-blue-600 text-blue-600"
-                  : "border-transparent text-gray-600 hover:text-blue-600"
-              }`}
-            >
-              📚 Empieza a Vender
-            </button>
-
-            <button
-              onClick={() => {
-                setActiveTab("fees");
-                window.history.replaceState(
-                  null,
-                  "",
-                  `${location.pathname}#fees`
-                );
-              }}
-              className={`py-4 px-2 font-bold border-b-4 transition ${
-                activeTab === "fees"
-                  ? "border-blue-600 text-blue-600"
-                  : "border-transparent text-gray-600 hover:text-blue-600"
-              }`}
-            >
-              💰 Tarifas de Venta
-            </button>
-
-            <button
-              onClick={() => {
-                setActiveTab("resources");
-                window.history.replaceState(
-                  null,
-                  "",
-                  `${location.pathname}#resources`
-                );
-              }}
-              className={`py-4 px-2 font-bold border-b-4 transition ${
-                activeTab === "resources"
-                  ? "border-blue-600 text-blue-600"
-                  : "border-transparent text-gray-600 hover:text-blue-600"
-              }`}
-            >
-              🎯 Recursos para Vendedores
-            </button>
+              })}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Content Sections */}
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        {/* EMPIEZA A VENDER */}
+      {/* Tab Content */}
+      <div className="container mx-auto px-4 py-16">
+        {/* Start Selling Tab */}
         {activeTab === "start" && (
-          <div className="space-y-12">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Tres Pasos para Comenzar
-              </h2>
-              <p className="text-xl text-gray-600">
-                Es rápido, fácil y gratis registrarse
-              </p>
-            </div>
-
-            {/* Steps */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-              <div className="bg-white border-2 border-gray-400 p-8 text-center">
-                <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-3xl mx-auto mb-6 font-bold">
-                  1
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Crea tu Cuenta
-                </h3>
-                <p className="text-gray-600 mb-6">
-                  Regístrate como vendedor en e-Retro Legends con tu email y
-                  contraseña. Completa tu perfil con información básica.
+          <div className="space-y-20">
+            {/* Steps Section */}
+            <div className="max-w-5xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="font-serif-display text-3xl md:text-4xl text-[#2C2420] mb-4">
+                  Comienza en Tres Simples Pasos
+                </h2>
+                <p className="text-[#2C2420]/70 font-sans-elegant max-w-2xl mx-auto">
+                  El proceso para convertirte en vendedora es rápido y sencillo. 
+                  Te guiamos en cada etapa.
                 </p>
-                <Link
-                  to="/login"
-                  className="bg-blue-600 text-white px-6 py-2 font-bold hover:bg-blue-700 transition"
-                >
-                  Crear Cuenta
-                </Link>
               </div>
 
-              <div className="bg-white border-2 border-gray-400 p-8 text-center">
-                <div className="w-16 h-16 bg-green-600 text-white rounded-full flex items-center justify-center text-3xl mx-auto mb-6 font-bold">
-                  2
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Configura tu Tienda
-                </h3>
-                <p className="text-gray-600 mb-6">
-                  Personaliza tu perfil de vendedor, añade datos bancarios para
-                  pagos y configura tus métodos de envío.
-                </p>
-                <Link
-                  to="/seller/dashboard"
-                  className="bg-green-600 text-white px-6 py-2 font-bold hover:bg-green-700 transition"
-                >
-                  Ir a Configuración
-                </Link>
-              </div>
-
-              <div className="bg-white border-2 border-gray-400 p-8 text-center">
-                <div className="w-16 h-16 bg-purple-600 text-white rounded-full flex items-center justify-center text-3xl mx-auto mb-6 font-bold">
-                  3
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Publica tus Productos
-                </h3>
-                <p className="text-gray-600 mb-6">
-                  Crea anuncios con fotos, descripción y precio. ¡Comienza a
-                  recibir compras inmediatamente!
-                </p>
-                <Link
-                  to="/seller/products/new"
-                  className="bg-purple-600 text-white px-6 py-2 font-bold hover:bg-purple-700 transition"
-                >
-                  Publicar Producto
-                </Link>
+              <div className="grid md:grid-cols-3 gap-8">
+                {steps.map((step, index) => {
+                  const Icon = step.icon;
+                  return (
+                    <div
+                      key={index}
+                      className="relative bg-white p-8 border border-[#E8DED0] hover:border-[#C9B8A8] transition-all duration-300 group"
+                    >
+                      <div className="absolute -top-4 left-8">
+                        <span className="font-serif-display text-5xl text-[#E8DED0] group-hover:text-[#C9B8A8] transition-colors">
+                          {step.number}
+                        </span>
+                      </div>
+                      <div className="pt-8">
+                        <div className="w-12 h-12 bg-[#FAF8F5] flex items-center justify-center mb-4">
+                          <Icon className="w-6 h-6 text-[#8B7355]" />
+                        </div>
+                        <h3 className="font-serif-display text-xl text-[#2C2420] mb-3">
+                          {step.title}
+                        </h3>
+                        <p className="text-[#2C2420]/70 font-sans-elegant text-sm leading-relaxed">
+                          {step.description}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 
-            {/* Requirements */}
-            <div className="bg-blue-50 border-2 border-blue-400 p-8">
-              <h3 className="text-2xl font-bold text-blue-900 mb-6">
-                📋 Requisitos para Vendedores
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="flex gap-4">
-                  <span className="text-3xl">✅</span>
-                  <div>
-                    <h4 className="font-bold text-gray-900 mb-2">
-                      Ser Mayor de 18 Años
-                    </h4>
-                    <p className="text-gray-600">
-                      Debes ser mayor de edad y tener capacidad legal para
-                      vender.
-                    </p>
-                  </div>
+            {/* Requirements Section */}
+            <div className="max-w-4xl mx-auto">
+              <div className="bg-white border border-[#E8DED0] p-8 md:p-12">
+                <div className="text-center mb-8">
+                  <h2 className="font-serif-display text-2xl md:text-3xl text-[#2C2420] mb-3">
+                    Requisitos para Vender
+                  </h2>
+                  <p className="text-[#2C2420]/70 font-sans-elegant">
+                    Asegúrate de cumplir con estos requisitos básicos
+                  </p>
                 </div>
-                <div className="flex gap-4">
-                  <span className="text-3xl">✅</span>
-                  <div>
-                    <h4 className="font-bold text-gray-900 mb-2">
-                      Información Válida
-                    </h4>
-                    <p className="text-gray-600">
-                      Proporciona datos reales y verificables de identidad.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <span className="text-3xl">✅</span>
-                  <div>
-                    <h4 className="font-bold text-gray-900 mb-2">
-                      Cuenta Bancaria
-                    </h4>
-                    <p className="text-gray-600">
-                      Necesitas una cuenta bancaria para recibir tus ganancias.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-4">
-                  <span className="text-3xl">✅</span>
-                  <div>
-                    <h4 className="font-bold text-gray-900 mb-2">
-                      Productos Auténticos
-                    </h4>
-                    <p className="text-gray-600">
-                      Solo vende artículos originales en buen estado.
-                    </p>
-                  </div>
+
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {requirements.map((req, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center gap-3 p-4 bg-[#FAF8F5] border border-[#E8DED0]"
+                    >
+                      <CheckCircle className="w-5 h-5 text-[#6B8E6B] flex-shrink-0" />
+                      <span className="text-[#2C2420] font-sans-elegant text-sm">
+                        {req}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
 
-            {/* Benefits */}
-            <div className="bg-white border-2 border-gray-400 p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-8">
-                🎁 Beneficios de Vender con Nosotros
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="flex gap-4 items-start">
-                  <span className="text-4xl">🚀</span>
-                  <div>
-                    <h4 className="font-bold text-gray-900 mb-2">
-                      Alcance Global
-                    </h4>
-                    <p className="text-gray-600">
-                      Accede a miles de compradores potenciales en toda la
-                      región.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-4 items-start">
-                  <span className="text-4xl">💳</span>
-                  <div>
-                    <h4 className="font-bold text-gray-900 mb-2">
-                      Pagos Seguros
-                    </h4>
-                    <p className="text-gray-600">
-                      Recibe tus ganancias de forma segura y puntual.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-4 items-start">
-                  <span className="text-4xl">🛠️</span>
-                  <div>
-                    <h4 className="font-bold text-gray-900 mb-2">
-                      Herramientas Poderosas
-                    </h4>
-                    <p className="text-gray-600">
-                      Panel de control completo para gestionar tu tienda.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-4 items-start">
-                  <span className="text-4xl">📊</span>
-                  <div>
-                    <h4 className="font-bold text-gray-900 mb-2">
-                      Analíticas Detalladas
-                    </h4>
-                    <p className="text-gray-600">
-                      Sigue tu desempeño con estadísticas en tiempo real.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-4 items-start">
-                  <span className="text-4xl">🤝</span>
-                  <div>
-                    <h4 className="font-bold text-gray-900 mb-2">
-                      Soporte 24/7
-                    </h4>
-                    <p className="text-gray-600">
-                      Equipo de atención siempre listo para ayudarte.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-4 items-start">
-                  <span className="text-4xl">🎯</span>
-                  <div>
-                    <h4 className="font-bold text-gray-900 mb-2">
-                      Marketing Incluido
-                    </h4>
-                    <p className="text-gray-600">
-                      Promociona tus productos en nuestra plataforma.
-                    </p>
-                  </div>
-                </div>
+            {/* Benefits Section */}
+            <div className="max-w-5xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="font-serif-display text-3xl md:text-4xl text-[#2C2420] mb-4">
+                  Beneficios de Vender con Nosotras
+                </h2>
+                <p className="text-[#2C2420]/70 font-sans-elegant max-w-2xl mx-auto">
+                  Descubre todas las ventajas de formar parte de nuestra comunidad
+                </p>
+              </div>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {benefits.map((benefit, index) => {
+                  const Icon = benefit.icon;
+                  return (
+                    <div
+                      key={index}
+                      className="bg-white p-6 border border-[#E8DED0] hover:border-[#C9B8A8] transition-all duration-300 text-center group"
+                    >
+                      <div className="w-14 h-14 bg-[#FAF8F5] flex items-center justify-center mx-auto mb-4 group-hover:bg-[#E8DED0] transition-colors">
+                        <Icon className="w-7 h-7 text-[#8B7355]" />
+                      </div>
+                      <h3 className="font-serif-display text-lg text-[#2C2420] mb-2">
+                        {benefit.title}
+                      </h3>
+                      <p className="text-[#2C2420]/70 font-sans-elegant text-sm leading-relaxed">
+                        {benefit.description}
+                      </p>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
         )}
 
-        {/* TARIFAS DE VENTA */}
+        {/* Fees Tab */}
         {activeTab === "fees" && (
-          <div id="fees" className="space-y-12">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Tarifas Transparentes y Justas
-              </h2>
-              <p className="text-xl text-gray-600">
-                Sin sorpresas, sin cargos ocultos
-              </p>
-            </div>
-
-            {/* Fee Structure */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-              <div className="bg-white border-2 border-gray-400 p-8">
-                <div className="text-4xl mb-4">📋</div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Tarifa de Listado
-                </h3>
-                <p className="text-5xl font-bold text-green-600 mb-4">Gratis</p>
-                <p className="text-gray-600 mb-6">
-                  Publica tus productos sin costo inicial. Paga solo cuando
-                  vendas.
+          <div className="space-y-16">
+            {/* Fee Structure Cards */}
+            <div className="max-w-5xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="font-serif-display text-3xl md:text-4xl text-[#2C2420] mb-4">
+                  Comisiones por Categoría
+                </h2>
+                <p className="text-[#2C2420]/70 font-sans-elegant max-w-2xl mx-auto">
+                  Tarifas transparentes y competitivas. Solo cobramos cuando vendes.
                 </p>
-                <ul className="text-sm text-gray-700 space-y-2">
-                  <li>✓ Anuncios ilimitados</li>
-                  <li>✓ Validez de 90 días</li>
-                  <li>✓ Renovación automática</li>
-                  <li>✓ Edición sin límites</li>
-                </ul>
               </div>
 
-              <div className="bg-blue-50 border-2 border-blue-400 p-8 relative">
-                <div className="absolute top-0 right-0 bg-red-600 text-white px-4 py-1 text-sm font-bold">
-                  RECOMENDADO
-                </div>
-                <div className="text-4xl mb-4">💰</div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  Comisión por Venta
-                </h3>
-                <p className="text-5xl font-bold text-blue-600 mb-4">8%</p>
-                <p className="text-gray-600 mb-6">
-                  Se cobra solo sobre el precio final de venta del artículo.
-                </p>
-                <ul className="text-sm text-gray-700 space-y-2">
-                  <li>✓ Sin tarifas mensuales</li>
-                  <li>✓ Flexible por volumen</li>
-                  <li>✓ Pagos semanales</li>
-                  <li>✓ Sin retenciones</li>
-                </ul>
-              </div>
-
-              <div className="bg-white border-2 border-gray-400 p-8">
-                <div className="text-4xl mb-4">🚚</div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Envío</h3>
-                <p className="text-5xl font-bold text-green-600 mb-4">
-                  Flexible
-                </p>
-                <p className="text-gray-600 mb-6">
-                  Tú establecer el costo de envío o ofrecer envío gratis.
-                </p>
-                <ul className="text-sm text-gray-700 space-y-2">
-                  <li>✓ Sin comisión en envíos</li>
-                  <li>✓ Etiquetas de envío</li>
-                  <li>✓ Seguimiento incluido</li>
-                  <li>✓ Alianzas con transportes</li>
-                </ul>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {feeStructure.map((fee, index) => (
+                  <div
+                    key={index}
+                    className="bg-white p-6 border border-[#E8DED0] hover:border-[#8B7355] transition-all duration-300 group"
+                  >
+                    <div className="text-center">
+                      <p className="font-serif-display text-4xl text-[#8B7355] mb-2">
+                        {fee.commission}
+                      </p>
+                      <h3 className="font-serif-display text-lg text-[#2C2420] mb-2">
+                        {fee.category}
+                      </h3>
+                      <p className="text-[#2C2420]/60 font-sans-elegant text-sm">
+                        {fee.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 
             {/* Detailed Fees Table */}
-            <div className="bg-white border-2 border-gray-400 overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-blue-900 text-white">
-                  <tr>
-                    <th className="text-left p-4 font-bold">Concepto</th>
-                    <th className="text-left p-4 font-bold">Tarifa</th>
-                    <th className="text-left p-4 font-bold">Descripción</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-b-2 border-gray-200">
-                    <td className="p-4 font-bold">Publicación de Anuncio</td>
-                    <td className="p-4 text-green-600 font-bold">Gratis</td>
-                    <td className="p-4 text-gray-600">
-                      Publica anuncios sin límite
-                    </td>
-                  </tr>
-                  <tr className="border-b-2 border-gray-200">
-                    <td className="p-4 font-bold">Comisión por Venta</td>
-                    <td className="p-4 text-red-600 font-bold">8%</td>
-                    <td className="p-4 text-gray-600">
-                      Se cobra sobre el precio final
-                    </td>
-                  </tr>
-                  <tr className="border-b-2 border-gray-200">
-                    <td className="p-4 font-bold">Opción Destacado</td>
-                    <td className="p-4 font-bold">$2.99</td>
-                    <td className="p-4 text-gray-600">
-                      Destaca tu producto 30 días
-                    </td>
-                  </tr>
-                  <tr className="border-b-2 border-gray-200">
-                    <td className="p-4 font-bold">Galería Mejorada</td>
-                    <td className="p-4 font-bold">Gratis</td>
-                    <td className="p-4 text-gray-600">
-                      Hasta 12 fotos de alta resolución
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="p-4 font-bold">Devoluciones</td>
-                    <td className="p-4 text-gray-600">Variable</td>
-                    <td className="p-4 text-gray-600">
-                      Sin comisión por reembolsos
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <div className="max-w-4xl mx-auto">
+              <div className="bg-white border border-[#E8DED0] overflow-hidden">
+                <div className="p-6 border-b border-[#E8DED0] bg-[#FAF8F5]">
+                  <h3 className="font-serif-display text-xl text-[#2C2420]">
+                    Desglose de Tarifas
+                  </h3>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="border-b border-[#E8DED0]">
+                        <th className="text-left p-4 font-sans-elegant text-sm text-[#2C2420]/60 font-medium">
+                          Concepto
+                        </th>
+                        <th className="text-left p-4 font-sans-elegant text-sm text-[#2C2420]/60 font-medium">
+                          Tarifa
+                        </th>
+                        <th className="text-left p-4 font-sans-elegant text-sm text-[#2C2420]/60 font-medium hidden sm:table-cell">
+                          Descripción
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {detailedFees.map((fee, index) => (
+                        <tr
+                          key={index}
+                          className="border-b border-[#E8DED0] last:border-b-0 hover:bg-[#FAF8F5] transition-colors"
+                        >
+                          <td className="p-4 font-sans-elegant text-[#2C2420]">
+                            {fee.concept}
+                          </td>
+                          <td className="p-4 font-serif-display text-[#8B7355]">
+                            {fee.amount}
+                          </td>
+                          <td className="p-4 font-sans-elegant text-sm text-[#2C2420]/60 hidden sm:table-cell">
+                            {fee.description}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            {/* Calculator CTA */}
+            <div className="max-w-3xl mx-auto">
+              <div className="bg-gradient-to-r from-[#E8DED0] to-[#C9B8A8]/50 p-8 md:p-12 text-center">
+                <Award className="w-12 h-12 text-[#8B7355] mx-auto mb-4" />
+                <h3 className="font-serif-display text-2xl text-[#2C2420] mb-3">
+                  Sin Costos Ocultos
+                </h3>
+                <p className="text-[#2C2420]/70 font-sans-elegant mb-6 max-w-xl mx-auto">
+                  Nuestra estructura de tarifas es completamente transparente. 
+                  No hay cuotas mensuales ni costos por listar tus productos.
+                </p>
+                <Link
+                  to="/register"
+                  className="inline-flex items-center gap-2 bg-[#8B7355] text-white px-6 py-3 font-sans-elegant text-sm tracking-wide hover:bg-[#6B5A45] transition-all duration-300"
+                >
+                  <span>Empieza a Vender Gratis</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </div>
           </div>
         )}
 
-        {/* RECURSOS PARA VENDEDORES */}
+        {/* Resources Tab */}
         {activeTab === "resources" && (
-          <div id="resources" className="space-y-12">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Recursos para el Éxito
-              </h2>
-              <p className="text-xl text-gray-600">
-                Herramientas y guías para maximizar tus ventas
-              </p>
-            </div>
-
-            {/* Resource Categories */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Guides */}
-              <div className="bg-white border-2 border-gray-400 p-8">
-                <h3 className="text-2xl font-bold text-blue-900 mb-6">
-                  <Link to="/404">📚 Guías y Tutoriales</Link>
-                </h3>
-                <div className="space-y-4">
-                  <div className="flex gap-4 pb-4 border-b-2 border-gray-200">
-                    <span className="text-2xl">📖</span>
-                    <div>
-                      <h4 className="font-bold text-gray-900">
-                        Cómo Crear Anuncios Efectivos
-                      </h4>
-                      <p className="text-sm text-gray-600">
-                        Aprende a escribir descripciones que vendan
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4 pb-4 border-b-2 border-gray-200">
-                    <span className="text-2xl">📸</span>
-                    <div>
-                      <h4 className="font-bold text-gray-900">
-                        Fotografía de Productos
-                      </h4>
-                      <p className="text-sm text-gray-600">
-                        Tips para fotos profesionales con tu teléfono
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4 pb-4 border-b-2 border-gray-200">
-                    <span className="text-2xl">💬</span>
-                    <div>
-                      <h4 className="font-bold text-gray-900">
-                        Comunicación con Compradores
-                      </h4>
-                      <p className="text-sm text-gray-600">
-                        Mejores prácticas para el servicio al cliente
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-2xl">📦</span>
-                    <div>
-                      <h4 className="font-bold text-gray-900">
-                        Empaque y Envío
-                      </h4>
-                      <p className="text-sm text-gray-600">
-                        Cómo proteger tus artículos en tránsito
-                      </p>
-                    </div>
-                  </div>
-                </div>
+          <div className="space-y-16">
+            {/* Resource Cards */}
+            <div className="max-w-5xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="font-serif-display text-3xl md:text-4xl text-[#2C2420] mb-4">
+                  Guías y Recursos
+                </h2>
+                <p className="text-[#2C2420]/70 font-sans-elegant max-w-2xl mx-auto">
+                  Todo lo que necesitas para tener éxito como vendedora
+                </p>
               </div>
 
-              {/* Tools */}
-              <div className="bg-white border-2 border-gray-400 p-8">
-                <h3 className="text-2xl font-bold text-blue-900 mb-6">
-                  <Link to="/404">🛠️ Herramientas</Link>
-                </h3>
-                <div className="space-y-4">
-                  <div className="flex gap-4 pb-4 border-b-2 border-gray-200">
-                    <span className="text-2xl">📊</span>
-                    <div>
-                      <h4 className="font-bold text-gray-900">
-                        Panel de Analytics
-                      </h4>
-                      <p className="text-sm text-gray-600">
-                        Monitorea vistas, conversiones y ganancias
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4 pb-4 border-b-2 border-gray-200">
-                    <span className="text-2xl">🏷️</span>
-                    <div>
-                      <h4 className="font-bold text-gray-900">
-                        Gestor de Inventario
-                      </h4>
-                      <p className="text-sm text-gray-600">
-                        Controla el stock de todos tus productos
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4 pb-4 border-b-2 border-gray-200">
-                    <span className="text-2xl">📧</span>
-                    <div>
-                      <h4 className="font-bold text-gray-900">
-                        Email Marketing
-                      </h4>
-                      <p className="text-sm text-gray-600">
-                        Promociona ofertas a clientes existentes
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-2xl">🎨</span>
-                    <div>
-                      <h4 className="font-bold text-gray-900">
-                        Plantillas de Anuncios
-                      </h4>
-                      <p className="text-sm text-gray-600">
-                        Diseños profesionales listos para usar
-                      </p>
-                    </div>
-                  </div>
-                </div>
+              <div className="grid sm:grid-cols-2 gap-6">
+                {resources.map((resource, index) => {
+                  const Icon = resource.icon;
+                  return (
+                    <a
+                      key={index}
+                      href={resource.link}
+                      className="flex items-start gap-4 bg-white p-6 border border-[#E8DED0] hover:border-[#8B7355] transition-all duration-300 group"
+                    >
+                      <div className="w-12 h-12 bg-[#FAF8F5] flex items-center justify-center flex-shrink-0 group-hover:bg-[#E8DED0] transition-colors">
+                        <Icon className="w-6 h-6 text-[#8B7355]" />
+                      </div>
+                      <div>
+                        <h3 className="font-serif-display text-lg text-[#2C2420] mb-1 group-hover:text-[#8B7355] transition-colors">
+                          {resource.title}
+                        </h3>
+                        <p className="text-[#2C2420]/70 font-sans-elegant text-sm">
+                          {resource.description}
+                        </p>
+                      </div>
+                    </a>
+                  );
+                })}
               </div>
             </div>
 
             {/* Learning Center */}
-            <div className="bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-300 p-8">
-              <h3 className="text-2xl font-bold text-purple-900 mb-6">
-                🎓 Centro de Aprendizaje
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white border-2 border-purple-300 p-6 text-center hover:shadow-lg transition">
-                  <div className="text-5xl mb-4">🚀</div>
-                  <h4 className="font-bold text-lg mb-2">Principiantes</h4>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Guía paso a paso para nuevos vendedores
-                  </p>
-                  <Link
-                    to="/404"
-                    className="text-purple-600 font-bold hover:underline"
-                  >
-                    Ver Curso →
-                  </Link>
-                </div>
-                <div className="bg-white border-2 border-purple-300 p-6 text-center hover:shadow-lg transition">
-                  <div className="text-5xl mb-4">📈</div>
-                  <h4 className="font-bold text-lg mb-2">Intermedio</h4>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Estrategias para aumentar tus ventas
-                  </p>
-                  <Link
-                    to="/404"
-                    className="text-purple-600 font-bold hover:underline"
-                  >
-                    Ver Curso →
-                  </Link>
-                </div>
-                <div className="bg-white border-2 border-purple-300 p-6 text-center hover:shadow-lg transition">
-                  <div className="text-5xl mb-4">👑</div>
-                  <h4 className="font-bold text-lg mb-2">Avanzado</h4>
-                  <p className="text-sm text-gray-600 mb-4">
-                    Optimización y escalabilidad del negocio
-                  </p>
-                  <Link
-                    to="/404"
-                    className="text-purple-600 font-bold hover:underline"
-                  >
-                    Ver Curso →
-                  </Link>
+            <div className="max-w-5xl mx-auto">
+              <div className="bg-white border border-[#E8DED0] p-8 md:p-12">
+                <div className="grid md:grid-cols-2 gap-8 items-center">
+                  <div>
+                    <div className="inline-flex items-center gap-2 text-[#8B7355] mb-4">
+                      <Video className="w-5 h-5" />
+                      <span className="font-sans-elegant text-sm tracking-wide">
+                        Centro de Aprendizaje
+                      </span>
+                    </div>
+                    <h3 className="font-serif-display text-2xl md:text-3xl text-[#2C2420] mb-4">
+                      Tutoriales en Video
+                    </h3>
+                    <p className="text-[#2C2420]/70 font-sans-elegant mb-6 leading-relaxed">
+                      Accede a nuestra biblioteca de videos tutoriales donde te enseñamos 
+                      desde cómo fotografiar tus prendas hasta estrategias avanzadas de venta.
+                    </p>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3">
+                        <CheckCircle className="w-4 h-4 text-[#6B8E6B]" />
+                        <span className="font-sans-elegant text-sm text-[#2C2420]">
+                          Más de 50 videos tutoriales
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <CheckCircle className="w-4 h-4 text-[#6B8E6B]" />
+                        <span className="font-sans-elegant text-sm text-[#2C2420]">
+                          Contenido actualizado mensualmente
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <CheckCircle className="w-4 h-4 text-[#6B8E6B]" />
+                        <span className="font-sans-elegant text-sm text-[#2C2420]">
+                          Webinars en vivo con expertas
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="bg-gradient-to-br from-[#E8DED0] to-[#C9B8A8]/50 p-8 flex items-center justify-center">
+                    <div className="text-center">
+                      <div className="w-20 h-20 bg-white/80 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <Video className="w-10 h-10 text-[#8B7355]" />
+                      </div>
+                      <p className="font-serif-display text-lg text-[#2C2420]">
+                        Próximamente
+                      </p>
+                      <p className="text-sm text-[#2C2420]/60 font-sans-elegant">
+                        Nuevos cursos cada semana
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* FAQ */}
-            <div className="bg-white border-2 border-gray-400 p-8">
-              <h3 className="text-2xl font-bold text-gray-900 mb-8">
-                ❓ Preguntas Frecuentes
-              </h3>
-              <div className="space-y-4">
-                <details className="border-b-2 border-gray-200 pb-4">
-                  <summary className="font-bold text-gray-900 cursor-pointer hover:text-blue-600">
-                    ¿Cuánto tiempo tarda en procesarse mi pago?
-                  </summary>
-                  <p className="text-gray-600 mt-3">
-                    Los pagos se procesan semanalmente. El dinero se depositará
-                    en tu cuenta bancaria dentro de 3-5 días hábiles.
+            {/* FAQ Section */}
+            <div className="max-w-3xl mx-auto">
+              <div className="text-center mb-10">
+                <h2 className="font-serif-display text-2xl md:text-3xl text-[#2C2420] mb-3">
+                  Preguntas Frecuentes
+                </h2>
+                <p className="text-[#2C2420]/70 font-sans-elegant">
+                  Resolvemos tus dudas más comunes
+                </p>
+              </div>
+
+              <div className="space-y-3">
+                {faqs.map((faq, index) => (
+                  <div
+                    key={index}
+                    className="bg-white border border-[#E8DED0] overflow-hidden"
+                  >
+                    <button
+                      onClick={() => toggleFaq(index)}
+                      className="w-full flex items-center justify-between p-5 text-left hover:bg-[#FAF8F5] transition-colors"
+                    >
+                      <span className="font-sans-elegant text-[#2C2420] pr-4">
+                        {faq.question}
+                      </span>
+                      {expandedFaq === index ? (
+                        <ChevronUp className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                      ) : (
+                        <ChevronDown className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                      )}
+                    </button>
+                    {expandedFaq === index && (
+                      <div className="px-5 pb-5">
+                        <p className="text-[#2C2420]/70 font-sans-elegant text-sm leading-relaxed border-t border-[#E8DED0] pt-4">
+                          {faq.answer}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Support CTA */}
+            <div className="max-w-4xl mx-auto">
+              <div className="bg-white border border-[#E8DED0] p-8 flex flex-col md:flex-row items-center gap-6">
+                <div className="w-16 h-16 bg-[#FAF8F5] flex items-center justify-center flex-shrink-0">
+                  <HelpCircle className="w-8 h-8 text-[#8B7355]" />
+                </div>
+                <div className="flex-1 text-center md:text-left">
+                  <h3 className="font-serif-display text-xl text-[#2C2420] mb-2">
+                    ¿Necesitas Ayuda Personalizada?
+                  </h3>
+                  <p className="text-[#2C2420]/70 font-sans-elegant text-sm">
+                    Nuestro equipo de soporte está disponible para resolver todas tus dudas.
                   </p>
-                </details>
-                <details className="border-b-2 border-gray-200 pb-4">
-                  <summary className="font-bold text-gray-900 cursor-pointer hover:text-blue-600">
-                    ¿Puedo vender desde cualquier país?
-                  </summary>
-                  <p className="text-gray-600 mt-3">
-                    Actualmente servimos a vendedores en Argentina, Chile,
-                    Uruguay y Paraguay. Próximamente expandiremos a más países.
-                  </p>
-                </details>
-                <details className="border-b-2 border-gray-200 pb-4">
-                  <summary className="font-bold text-gray-900 cursor-pointer hover:text-blue-600">
-                    ¿Hay límite de productos que pueda vender?
-                  </summary>
-                  <p className="text-gray-600 mt-3">
-                    No, puedes publicar tantos productos como desees. A mayor
-                    cantidad, mejor visibilidad en la plataforma.
-                  </p>
-                </details>
-                <details className="border-b-2 border-gray-200 pb-4">
-                  <summary className="font-bold text-gray-900 cursor-pointer hover:text-blue-600">
-                    ¿Qué pasa si hay un problema con un comprador?
-                  </summary>
-                  <p className="text-gray-600 mt-3">
-                    Nuestro equipo de soporte mediará en disputas para proteger
-                    a ambas partes. Tenemos un proceso justo y transparent.
-                  </p>
-                </details>
-                <details>
-                  <summary className="font-bold text-gray-900 cursor-pointer hover:text-blue-600">
-                    ¿Necesito ser profesional para vender?
-                  </summary>
-                  <p className="text-gray-600 mt-3">
-                    No, cualquier persona puede vender. Solo necesitas ser mayor
-                    de 18 años y tener productos auténticos.
-                  </p>
-                </details>
+                </div>
+                <Link
+                  to="/help#contacto"
+                  className="inline-flex items-center gap-2 border border-[#8B7355] text-[#8B7355] px-6 py-3 font-sans-elegant text-sm tracking-wide hover:bg-[#8B7355] hover:text-white transition-all duration-300"
+                >
+                  Contactar Soporte
+                </Link>
               </div>
             </div>
           </div>
         )}
+      </div>
 
-        {/* Final CTA */}
-        <div className="mt-12 bg-gradient-to-r from-green-600 to-green-800 text-white p-8 rounded-lg">
-          <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-            <div>
-              <h3 className="text-2xl font-bold">
-                Publicar tu primer producto es gratis
-              </h3>
-              <p className="text-sm opacity-90">
-                Únite hoy y empieza a vender en minutos. Tenemos soporte para
-                nuevos vendedores.
-              </p>
-            </div>
-            <div className="flex gap-4">
+      {/* Final CTA Section */}
+      <section className="bg-gradient-to-r from-[#8B7355] to-[#6B5A45] py-16 md:py-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <Heart className="w-10 h-10 text-white/80 mx-auto mb-6" />
+            <h2 className="font-serif-display text-3xl md:text-4xl text-white mb-4">
+              ¿Lista para Comenzar?
+            </h2>
+            <p className="text-white/80 font-sans-elegant mb-8 leading-relaxed max-w-xl mx-auto">
+              Únete a miles de vendedoras que ya están transformando su pasión 
+              por la moda en un negocio exitoso.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                to="Auth/Register"
-                className="bg-white text-green-700 px-6 py-3 font-bold rounded hover:bg-gray-100 transition"
+                to="/register"
+                className="inline-flex items-center justify-center gap-2 bg-white text-[#8B7355] px-8 py-4 font-sans-elegant tracking-wide hover:bg-[#FAF8F5] transition-all duration-300 group"
               >
-                Registrarme
+                <span>Crear Cuenta de Vendedora</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 to="/help"
-                className="border-2 border-white px-6 py-3 font-bold rounded hover:bg-white hover:text-green-700 transition"
+                className="inline-flex items-center justify-center gap-2 bg-transparent text-white px-8 py-4 font-sans-elegant tracking-wide border border-white/30 hover:bg-white/10 transition-all duration-300"
               >
-                Necesito ayuda
+                <span>Más Información</span>
               </Link>
+            </div>
+            
+            <div className="mt-12 flex flex-wrap justify-center gap-6 text-white/60">
+              <div className="flex items-center gap-2">
+                <Star className="w-4 h-4" />
+                <span className="font-sans-elegant text-sm">Sin cuota mensual</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Shield className="w-4 h-4" />
+                <span className="font-sans-elegant text-sm">Pagos seguros</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Users className="w-4 h-4" />
+                <span className="font-sans-elegant text-sm">Soporte dedicado</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
-}
+};
 
-export default SellerPage;
+export default SellerInfo;

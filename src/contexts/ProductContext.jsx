@@ -111,7 +111,7 @@ export const ProductProvider = ({ children }) => {
       formData.append("condition", newProduct.condition);
       formData.append("description", newProduct.description);
       formData.append("brand", newProduct.brand);
-      formData.append("year", newProduct.year);
+      formData.append("temp", newProduct.temp);
       formData.append("size", newProduct.size);
       formData.append("color", newProduct.color);
       formData.append("category", newProduct.category);

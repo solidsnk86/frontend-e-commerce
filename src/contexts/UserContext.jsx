@@ -1,39 +1,26 @@
 /* eslint-disable react-refresh/only-export-components */
-import React, { createContext, useContext } from "react";
+import { createContext, useContext } from "react";
 import { useState } from "react";
 import { showDialog } from "../components/common/Dialog";
+import { useAuth } from "./AuthContext";
 
+const BACK_URL = import.meta.env.VITE_BACK_API_URL
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { user } = useAuth()
 
-  const getUserById = async () => {
-    setIsLoading(true);
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_BACK_API_URL}/api/user/id`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-        }
-      );
-      const userResult = await response.json();
-      return userResult;
-    } catch (error) {
-      setError(error);
-    } finally {
-      setIsLoading(false);
-    }
+  const getUserById = async (id) => {
+    return user ? user.user_id === id : null
   };
 
   const updateUser = async (formData) => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACK_API_URL}/api/user/update`,
+        `${BACK_URL}/api/user/update`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -55,7 +42,7 @@ export const UserProvider = ({ children }) => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACK_API_URL}/api/user/delete`,
+        `${BACK_URL}/api/user/delete`,
         {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },

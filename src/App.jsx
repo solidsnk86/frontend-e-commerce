@@ -19,7 +19,7 @@ import { AllProducts } from "./pages/Public/Products";
 import { SearchResults } from "./pages/Public/SearchResults";
 import { About } from "./pages/Public/AboutUs";
 import { Help } from "./pages/Public/Help";
-import { SellerPage } from "./pages/Public/SellerInfo";
+import SellerInfo from "./pages/Public/SellerInfo";
 import { LegalPage } from "./pages/Public/Legals";
 import ComingSoonPage from "./pages/Public/404";
 
@@ -60,7 +60,7 @@ function App() {
                 <Route path="/search" element={<SearchResults />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/help" element={<Help />} />
-                <Route path="/sellerInfo" element={<SellerPage />} />
+                <Route path="/sellerInfo" element={<SellerInfo />} />
                 <Route path="/legal" element={<LegalPage />} />
                 <Route path="/404" element={<ComingSoonPage />} />
 

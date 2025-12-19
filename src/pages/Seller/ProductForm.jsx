@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Input from "../../components/common/Input";
 import Button from "../../components/common/Button";
@@ -28,14 +28,17 @@ const ProductForm = () => {
     image: null,
     description: "",
     brand: "",
-    year: "",
+    temp: "",
     size: "",
     color: "",
-    category: "futbol",
+    category: "vestidos",
     user_id: user.user_id,
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(isEditing);
+  const [isDragging, setIsDragging] = useState(false);
+  const [previewImages, setPreviewImages] = useState([]);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     if (isEditing && id) {
@@ -52,7 +55,7 @@ const ProductForm = () => {
           condition: product.condition || "new",
           image: product.image || null,
           brand: product.brand || "",
-          year: product.year || "",
+          temp: product.temp || "",
           size: product.size || "",
           color: product.color || "",
         });
@@ -62,16 +65,16 @@ const ProductForm = () => {
   }, [products, id, isEditing, getProductById]);
 
   const categories = [
-    { value: "futbol", label: "Fútbol" },
-    { value: "basketball", label: "Basketball" },
-    { value: "tenis", label: "Tenis" },
-    { value: "baseball", label: "Baseball" },
-    { value: "otros", label: "Otros Deportes" },
+    { value: "vestidos", label: "Vestidos" },
+    { value: "blusas", label: "Blusas" },
+    { value: "pantalones", label: "Pantalones" },
+    { value: "accesorios", label: "Accesorios" },
+    { value: "otros", label: "Otros" },
   ];
 
   const conditions = [
     { value: "new", label: "Nuevo" },
-    { value: "used", label: "Usado" },
+    { value: "used", label: "Pre-loved" },
   ];
 
   const handleChange = (e) => {
@@ -88,31 +91,103 @@ const ProductForm = () => {
       }));
     }
   };
-  const handleImageFile = (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    if (!file.type.startsWith("image/")) {
-      showDialog({
-        content: (
-          <div className="p-5">
-            <p>Por favor selecciona un archivo de imagen válido.</p>
-          </div>
-        ),
+  const processFiles = (files) => {
+    const validFiles = [];
+    const maxFiles = 8;
+    const currentCount = previewImages.length;
+    
+    for (const file of files) {
+      if (validFiles.length + currentCount >= maxFiles) {
+        showDialog({
+          content: (
+            <div className="p-5">
+              <p className="font-sans-elegant text-[#2C2420]">Solo puedes subir un máximo de {maxFiles} imágenes.</p>
+            </div>
+          ),
+        });
+        break;
+      }
+      
+      if (!file.type.startsWith("image/")) {
+        showDialog({
+          content: (
+            <div className="p-5">
+              <p className="font-sans-elegant text-[#2C2420]">"{file.name}" no es un archivo de imagen válido.</p>
+            </div>
+          ),
+        });
+        continue;
+      }
+      
+      if (file.size > 10 * 1024 * 1024) {
+        showDialog({
+          content: (
+            <div className="p-5">
+              <p className="font-sans-elegant text-[#2C2420]">"{file.name}" supera el límite de 10MB.</p>
+            </div>
+          ),
+        });
+        continue;
+      }
+      
+      validFiles.push({
+        file,
+        id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        preview: URL.createObjectURL(file)
       });
-      return;
     }
-    if (file.size > 10 * 1024 * 1024) {
-      showDialog({
-        content: (
-          <div className="p-5">
-            <p>La imagen no debe superar los 10MB.</p>
-          </div>
-        ),
-      });
-      return;
+    
+    if (validFiles.length > 0) {
+      setPreviewImages(prev => [...prev, ...validFiles]);
+      setFormData((prev) => ({ ...prev, image: validFiles[0].file }));
     }
+  };
 
-    setFormData((prev) => ({ ...prev, image: file }));
+  const handleImageFile = (e) => {
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+    processFiles(files);
+  };
+
+  const handleDragEnter = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.currentTarget.contains(e.relatedTarget)) return;
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+    
+    const files = Array.from(e.dataTransfer.files);
+    processFiles(files);
+  };
+
+  const removeImage = (imageId) => {
+    setPreviewImages(prev => {
+      const updated = prev.filter(img => img.id !== imageId);
+      const removed = prev.find(img => img.id === imageId);
+      if (removed) URL.revokeObjectURL(removed.preview);
+      return updated;
+    });
+  };
+
+  const handleDropZoneClick = () => {
+    fileInputRef.current?.click();
   };
 
   const validateForm = () => {
@@ -168,30 +243,33 @@ const ProductForm = () => {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="min-h-screen bg-gray-100 py-8">
-      <div className="max-w-4xl mx-auto px-4">
+    <div className="min-h-screen bg-[#FAF8F5] py-8">
+      <div className="max-w-3xl mx-auto px-4">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-blue-900">
-            {isEditing ? "Editar Producto" : "Nuevo Producto"}
+          <p className="text-[#8B7355] font-sans-elegant text-xs tracking-[0.3em] uppercase mb-1">
+            {isEditing ? "Editar" : "Nueva prenda"}
+          </p>
+          <h1 className="text-2xl font-serif-display font-light text-[#2C2420]">
+            {isEditing ? "Editar Producto" : "Publicar Producto"}
           </h1>
-          <p className="text-gray-600">
+          <p className="text-[#7A6B5A] font-sans-elegant text-sm mt-1">
             {isEditing
               ? "Actualiza la información del producto"
-              : "Añade un nuevo producto a tu inventario"}
+              : "Añade una nueva prenda a tu colección"}
           </p>
         </div>
 
         <form onSubmit={handleSubmit}>
-          <div className="bg-white border-2 border-gray-400 p-6 mb-6">
-            <h2 className="text-xl font-bold text-blue-900 mb-4">
+          <div className="bg-white border border-[#E0D6CC] p-5 mb-4">
+            <h2 className="text-base font-sans-elegant font-medium text-[#2C2420] mb-4 uppercase tracking-wide">
               Información Básica
             </h2>
 
             <Input
               name="name"
               label="Nombre del Producto"
-              placeholder="Ej: Camiseta Retro Brasil 1970 - Pelé #10"
+              placeholder="Ej: Vestido Elegante de Seda"
               value={formData.name}
               onChange={handleChange}
               error={errors.name}
@@ -199,36 +277,36 @@ const ProductForm = () => {
             />
 
             <div className="mb-4">
-              <label className="block text-sm font-bold mb-2 text-gray-700">
-                Descripción <span className="text-red-600">*</span>
+              <label className="block text-sm font-sans-elegant font-medium mb-2 text-[#2C2420]">
+                Descripción <span className="text-[#B85450]">*</span>
               </label>
               <textarea
                 name="description"
                 placeholder="Describe el producto en detalle..."
                 value={formData.description}
                 onChange={handleChange}
-                rows="5"
-                className={`w-full px-3 py-2 border-2 border-gray-400 focus:border-blue-600 focus:outline-none transition-colors ${
-                  errors.description ? "border-red-600" : ""
+                rows="3"
+                className={`w-full px-4 py-3 border border-[#E0D6CC] bg-white font-sans-elegant text-[#2C2420] focus:border-[#8B7355] focus:ring-1 focus:ring-[#8B7355] outline-none transition-all duration-200 text-sm ${
+                  errors.description ? "border-[#B85450]" : ""
                 }`}
               />
               {errors.description && (
-                <p className="text-red-600 text-xs mt-1">
+                <p className="text-[#B85450] text-xs mt-1 font-sans-elegant">
                   {errors.description}
                 </p>
               )}
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="mb-4">
-                <label className="block text-sm font-bold mb-2 text-gray-700">
-                  Categoría <span className="text-red-600">*</span>
+              <div className="mb-3">
+                <label className="block text-sm font-sans-elegant font-medium mb-2 text-[#2C2420]">
+                  Categoría <span className="text-[#B85450]">*</span>
                 </label>
                 <select
                   name="category"
                   value={formData.category}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border-2 border-gray-400 focus:border-blue-600 focus:outline-none"
+                  className="w-full px-4 py-3 border border-[#E0D6CC] bg-white font-sans-elegant text-[#2C2420] focus:border-[#8B7355] focus:ring-1 focus:ring-[#8B7355] outline-none transition-all duration-200 text-sm"
                 >
                   {categories.map((cat) => (
                     <option key={cat.value} value={cat.value}>
@@ -238,15 +316,15 @@ const ProductForm = () => {
                 </select>
               </div>
 
-              <div className="mb-4">
-                <label className="block text-sm font-bold mb-2 text-gray-700">
-                  Condición <span className="text-red-600">*</span>
+              <div className="mb-3">
+                <label className="block text-sm font-sans-elegant font-medium mb-2 text-[#2C2420]">
+                  Condición <span className="text-[#B85450]">*</span>
                 </label>
                 <select
                   name="condition"
                   value={formData.condition}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border-2 border-gray-400 focus:border-blue-600 focus:outline-none"
+                  className="w-full px-4 py-3 border border-[#E0D6CC] bg-white font-sans-elegant text-[#2C2420] focus:border-[#8B7355] focus:ring-1 focus:ring-[#8B7355] outline-none transition-all duration-200 text-sm"
                 >
                   {conditions.map((cond) => (
                     <option key={cond.value} value={cond.value}>
@@ -258,8 +336,8 @@ const ProductForm = () => {
             </div>
           </div>
 
-          <div className="bg-white border-2 border-gray-400 p-6 mb-6">
-            <h2 className="text-xl font-bold text-blue-900 mb-4">
+          <div className="bg-white border border-[#E0D6CC] p-5 mb-4">
+            <h2 className="text-base font-sans-elegant font-medium text-[#2C2420] mb-4 uppercase tracking-wide">
               Precio e Inventario
             </h2>
 
@@ -287,32 +365,32 @@ const ProductForm = () => {
             </div>
           </div>
 
-          <div className="bg-white border-2 border-gray-400 p-6 mb-6">
-            <h2 className="text-xl font-bold text-blue-900 mb-4">
-              Detalles Adicionales
+          <div className="bg-white border border-[#E0D6CC] p-5 mb-4">
+            <h2 className="text-base font-sans-elegant font-medium text-[#2C2420] mb-4 uppercase tracking-wide">
+              Detalles
             </h2>
 
             <div className="grid grid-cols-2 gap-4">
               <Input
                 name="brand"
                 label="Marca"
-                placeholder="Ej: Nike, Adidas, Wilson"
+                placeholder="Ej: Zara, H&M"
                 value={formData.brand}
                 onChange={handleChange}
               />
 
               <Input
-                name="year"
-                label="Año"
-                placeholder="Ej: 1970, 1996"
-                value={formData.year}
+                name="temp"
+                label="Temporada"
+                placeholder="Ej: Primavera 2025"
+                value={formData.temp}
                 onChange={handleChange}
               />
 
               <Input
                 name="size"
                 label="Talla"
-                placeholder="Ej: M, L, XL"
+                placeholder="Ej: S, M, L, XL"
                 value={formData.size}
                 onChange={handleChange}
               />
@@ -320,7 +398,7 @@ const ProductForm = () => {
               <Input
                 name="color"
                 label="Color"
-                placeholder="Ej: Amarillo, Rojo"
+                placeholder="Ej: Negro, Crema, Beige"
                 value={formData.color}
                 onChange={handleChange}
               />
@@ -328,60 +406,145 @@ const ProductForm = () => {
           </div>
 
           {/* Image Upload Section */}
-          <div className="bg-white border-2 border-gray-400 p-6 mb-6">
-            <h2 className="text-xl font-bold text-blue-900 mb-4">
-              Imágenes del Producto
+          <div className="bg-white border border-[#E0D6CC] p-5 mb-4">
+            <h2 className="text-base font-sans-elegant font-medium text-[#2C2420] mb-4 uppercase tracking-wide">
+              Imágenes
             </h2>
+            
+            {/* Drop Zone */}
             <div
-              id="file-container"
-              className="border-4 border-dashed border-gray-400 p-12 text-center bg-gray-50"
-              onMouseEnter={() => {
-                const container = document.getElementById("file-container");
-                if (container) container.style.borderColor = "green";
-              }}
-              onMouseLeave={() => {
-                const container = document.getElementById("file-container");
-                container.style.borderColor = "";
-              }}
+              onDragEnter={handleDragEnter}
+              onDragOver={handleDragOver}
+              onDragLeave={handleDragLeave}
+              onDrop={handleDrop}
+              onClick={handleDropZoneClick}
+              className={`relative border-2 border-dashed rounded-sm p-8 text-center cursor-pointer transition-all duration-300 ${
+                isDragging 
+                  ? 'border-[#8B7355] bg-[#8B7355]/10 scale-[1.02]' 
+                  : 'border-[#E0D6CC] bg-[#FAF8F5] hover:border-[#C9B8A8] hover:bg-[#F5F0EB]'
+              }`}
             >
-              <div className="text-5xl mb-4">📸</div>
-              <p className="text-gray-600 mb-2">
-                Arrastra imágenes aquí o haz clic para seleccionar
-              </p>
-              <p className="text-xs text-gray-500">
-                Máximo 8 imágenes. Formatos: JPG, PNG
-              </p>
-              <label className="mt-4 flex items-center justify-center mx-auto">
-                <span className="sr-only">Seleccionar Imagen</span>
-                <input
-                  type="file"
-                  onChange={handleImageFile}
-                  className="mt-2 flex w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
-                  multiple
-                  accept="image/*"
-                />
-              </label>
+              {isDragging && (
+                <div className="absolute inset-0 flex items-center justify-center bg-[#8B7355]/5 rounded-sm">
+                  <div className="text-center">
+                    <img src="/assets/Star-ia.gif" className="flex mx-auto my-4" width={90} height={60} alt="Star gif" />
+                    <p className="text-[#8B7355] font-sans-elegant font-medium">
+                      Suelta las imágenes aquí
+                    </p>
+                  </div>
+                </div>
+              )}
+              
+              <div className={isDragging ? 'opacity-0' : 'opacity-100 transition-opacity'}>
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#F5F0EB] flex items-center justify-center">
+                  <svg className="w-8 h-8 text-[#8B7355]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <p className="text-[#5C4D3C] font-sans-elegant text-sm mb-1">
+                  Arrastra y suelta tus imágenes aquí
+                </p>
+                <p className="text-[#A69580] font-sans-elegant text-xs mb-3">
+                  o haz clic para seleccionar
+                </p>
+                <span className="inline-block px-4 py-2 border border-[#8B7355] text-[#8B7355] font-sans-elegant text-xs tracking-wide hover:bg-[#8B7355] hover:text-white transition-all duration-200">
+                  Explorar archivos
+                </span>
+                <p className="text-[10px] text-[#A69580] font-sans-elegant mt-3">
+                  Máximo 8 imágenes · JPG, PNG · 10MB cada una
+                </p>
+              </div>
+              
+              <input
+                ref={fileInputRef}
+                type="file"
+                onChange={handleImageFile}
+                className="hidden"
+                multiple
+                accept="image/*"
+              />
             </div>
+
+            {/* Image Previews */}
+            {previewImages.length > 0 && (
+              <div className="mt-4">
+                <div className="flex items-center justify-between mb-3">
+                  <p className="text-xs text-[#7A6B5A] font-sans-elegant">
+                    {previewImages.length} de 8 imágenes
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      previewImages.forEach(img => URL.revokeObjectURL(img.preview));
+                      setPreviewImages([]);
+                    }}
+                    className="text-xs text-[#B85450] font-sans-elegant hover:underline"
+                  >
+                    Eliminar todas
+                  </button>
+                </div>
+                <div className="grid grid-cols-4 gap-3">
+                  {previewImages.map((img, index) => (
+                    <div key={img.id} className="relative group aspect-square">
+                      <img
+                        src={img.preview}
+                        alt={`Preview ${index + 1}`}
+                        className="w-full h-full object-cover rounded-sm border border-[#E0D6CC]"
+                      />
+                      {index === 0 && (
+                        <span className="absolute top-1 left-1 bg-[#8B7355] text-white text-[10px] px-1.5 py-0.5 rounded-sm font-sans-elegant">
+                          Principal
+                        </span>
+                      )}
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          removeImage(img.id);
+                        }}
+                        className="absolute top-1 right-1 w-6 h-6 bg-[#2C2420]/80 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-[#B85450]"
+                      >
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                  ))}
+                  
+                  {/* Add more images button */}
+                  {previewImages.length < 8 && (
+                    <div
+                      onClick={handleDropZoneClick}
+                      className="aspect-square border-2 border-dashed border-[#E0D6CC] rounded-sm flex items-center justify-center cursor-pointer hover:border-[#8B7355] hover:bg-[#FAF8F5] transition-all duration-200"
+                    >
+                      <div className="text-center">
+                        <svg className="w-6 h-6 mx-auto text-[#C9B8A8]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4v16m8-8H4" />
+                        </svg>
+                        <span className="text-[10px] text-[#A69580] font-sans-elegant mt-1 block">Añadir</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
-          <div className="flex gap-4">
-            <Button
+
+          <div className="flex gap-3">
+            <button
               type="button"
-              variant="secondary"
-              size="large"
               onClick={() => navigate("/seller/products")}
-              className="flex-1"
+              className="flex-1 py-3 border border-[#E0D6CC] text-[#5C4D3C] font-sans-elegant text-sm tracking-wide hover:bg-[#F5F0EB] transition-all duration-200"
             >
               Cancelar
-            </Button>
-            <Button
+            </button>
+            <button
               type="submit"
-              variant="success"
-              size="large"
-              className="flex-1"
+              className="flex-1 py-3 bg-[#8B7355] text-white font-sans-elegant text-sm tracking-wide hover:bg-[#6B5A45] transition-all duration-200"
             >
-              {isEditing ? "Actualizar Producto" : "Publicar Producto"}{" "}
-              {loading ? "Cargando" : ""}
-            </Button>
+              {isEditing ? "Actualizar" : "Publicar"}{" "}
+              {loading ? "..." : ""}
+            </button>
           </div>
         </form>
       </div>

@@ -10,7 +10,7 @@ export const Register = () => {
     lastName: "",
     email: "",
     password: "",
-    role: "buyer", // Valor por defecto
+    role: "buyer",
   });
   const [errors, setErrors] = useState({});
   const { register, isLoading, refreshUser, error } = useAuth();
@@ -22,7 +22,6 @@ export const Register = () => {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
-    // Limpiar error del campo cuando el usuario empieza a escribir
     if (errors[name]) {
       setErrors((prev) => ({
         ...prev,
@@ -80,32 +79,35 @@ export const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12">
+    <div className="min-h-screen bg-[#FAF8F5] py-16">
       <div className="max-w-md mx-auto px-4">
-        <div className="bg-white border-2 border-gray-400 p-8">
+        <div className="bg-white border border-[#E0D6CC] p-10">
           {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-blue-900 mb-2">
+          <div className="text-center mb-10">
+            <p className="text-xs font-sans-elegant tracking-[0.3em] uppercase text-[#8B7355] mb-3">
+              Únete
+            </p>
+            <h1 className="text-3xl font-serif-display font-light text-[#2C2420] mb-3">
               Crear Cuenta
             </h1>
-            <p className="text-sm text-gray-600">
-              Únete a la comunidad de e-Retro Legends
+            <p className="text-sm text-[#7A6B5A] font-sans-elegant">
+              Únete a la comunidad de Pascale Closet
             </p>
           </div>
 
           {/* Formulario */}
           <form onSubmit={handleSubmit}>
-          {error && (
-              <small className="w-full flex text-red-500 p-1 bg-red-300/60 justify-center">
+            {error && (
+              <div className="w-full flex text-[#B85450] p-3 bg-[#B85450]/10 border border-[#B85450]/30 justify-center mb-6 font-sans-elegant text-sm">
                 {error}
-              </small>
+              </div>
             )}
             <div className="grid grid-cols-2 gap-4">
               <Input
                 type="text"
                 name="name"
                 label="Nombre"
-                placeholder="Jhon"
+                placeholder="María"
                 value={formData.name}
                 onChange={handleChange}
                 error={errors.name}
@@ -116,7 +118,7 @@ export const Register = () => {
                 type="text"
                 name="lastName"
                 label="Apellido"
-                placeholder="Rambo"
+                placeholder="García"
                 value={formData.lastName}
                 onChange={handleChange}
                 error={errors.lastName}
@@ -153,69 +155,68 @@ export const Register = () => {
               placeholder="••••••••"
               value={formData.confirmPassword || ""}
               onChange={handleChange}
-              className="w-full border border-gray-300 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
               error={errors.password}
               required
             />
 
             {/* Tipo de cuenta */}
-            <div className="mb-4">
-              <label className="block text-sm font-bold mb-2 text-gray-700">
-                Tipo de cuenta <span className="text-red-600">*</span>
+            <div className="mb-6">
+              <label className="block text-sm font-sans-elegant font-medium mb-3 text-[#5C4D3C] tracking-wide">
+                Tipo de cuenta <span className="text-[#B85450]">*</span>
               </label>
-              <div className="space-y-2">
-                <label className="flex items-center">
+              <div className="space-y-3">
+                <label className="flex items-center p-3 border border-[#E0D6CC] hover:border-[#C9B8A8] cursor-pointer transition-colors duration-200">
                   <input
                     type="radio"
                     name="role"
                     value="buyer"
                     checked={formData.role === "buyer"}
                     onChange={handleChange}
-                    className="mr-2"
+                    className="mr-3 accent-[#8B7355]"
                   />
-                  <span className="text-sm">
-                    🛒 Comprador - Quiero comprar productos
+                  <span className="text-sm font-sans-elegant text-[#5C4D3C]">
+                    👗 Compradora - Quiero comprar prendas
                   </span>
                 </label>
-                <label className="flex items-center">
+                <label className="flex items-center p-3 border border-[#E0D6CC] hover:border-[#C9B8A8] cursor-pointer transition-colors duration-200">
                   <input
                     type="radio"
                     name="role"
                     value="seller"
                     checked={formData.role === "seller"}
                     onChange={handleChange}
-                    className="mr-2"
+                    className="mr-3 accent-[#8B7355]"
                   />
-                  <span className="text-sm">
-                    💼 Vendedor - Quiero vender productos
+                  <span className="text-sm font-sans-elegant text-[#5C4D3C]">
+                    ✨ Vendedora - Quiero vender prendas
                   </span>
                 </label>
               </div>
             </div>
 
             {/* Términos y condiciones */}
-            <div className="mb-6">
-              <label className="flex justify-center items-center">
+            <div className="mb-8">
+              <label className="flex items-start">
                 <input
                   type="checkbox"
                   name="acceptTerms"
                   checked={formData.acceptTerms}
                   onChange={handleChange}
-                  className="mr-2 mt-1"
+                  className="mr-3 mt-1 accent-[#8B7355]"
                 />
-                <span className="text-xs text-gray-700 mt-1.5">
+                <span className="text-xs text-[#7A6B5A] font-sans-elegant leading-relaxed">
                   Acepto los{" "}
-                  <Link to="/terms" className="text-blue-600 hover:underline">
+                  <Link to="/terms" className="text-[#8B7355] hover:underline">
                     términos y condiciones
                   </Link>{" "}
                   y la{" "}
-                  <Link to="/privacy" className="text-blue-600 hover:underline">
+                  <Link to="/privacy" className="text-[#8B7355] hover:underline">
                     política de privacidad
                   </Link>
                 </span>
               </label>
               {errors.acceptTerms && (
-                <p className="text-red-600 text-xs mt-1">
+                <p className="text-[#B85450] text-xs mt-2 font-sans-elegant">
                   {errors.acceptTerms}
                 </p>
               )}
@@ -223,11 +224,11 @@ export const Register = () => {
 
             <button
               type="submit"
-              className="w-full mb-4 px-6 py-3 text-base font-bold bg-blue-600 text-white border-blue-800 hover:bg-blue-700 active:bg-blue-800"
+              className="w-full py-4 bg-[#8B7355] text-white font-sans-elegant text-sm tracking-[0.2em] uppercase hover:bg-[#6B5A45] transition-all duration-300 mb-6"
             >
               {isLoading ? (
-                <span className="flex gap-1.5 items-center justify-center">
-                  <Loader2 size={20} className="animate-spin" />
+                <span className="flex gap-2 items-center justify-center">
+                  <Loader2 size={18} className="animate-spin" />
                   Creando
                 </span>
               ) : (
@@ -236,11 +237,11 @@ export const Register = () => {
             </button>
 
             <div className="text-center">
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-[#7A6B5A] font-sans-elegant">
                 ¿Ya tienes una cuenta?{" "}
                 <Link
                   to="/login"
-                  className="text-blue-600 hover:underline font-bold"
+                  className="text-[#8B7355] hover:underline font-medium"
                 >
                   Inicia sesión aquí
                 </Link>

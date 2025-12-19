@@ -12,10 +12,10 @@ const Input = ({
   className = '' 
 }) => {
   return (
-    <div className="mb-4">
+    <div className="mb-5">
       {label && (
-        <label className="block text-sm font-bold mb-2 text-gray-700">
-          {label} {required && <span className="text-red-600">*</span>}
+        <label className="block text-sm font-sans-elegant font-medium mb-2 text-[#5C4D3C] tracking-wide">
+          {label} {required && <span className="text-[#B85450]">*</span>}
         </label>
       )}
       <input
@@ -25,10 +25,10 @@ const Input = ({
         value={value}
         onChange={onChange}
         required={required}
-        className={`w-full px-3 py-2 border-2 border-gray-400 focus:border-blue-600 focus:outline-none transition-colors ${error ? 'border-red-600' : ''} ${className}`}
+        className={`w-full px-4 py-3 border border-[#E0D6CC] bg-[#FAF8F5] focus:border-[#8B7355] focus:ring-1 focus:ring-[#C9B8A8] focus:outline-none transition-all duration-200 font-sans-elegant text-[#2C2420] placeholder:text-[#A69580] ${error ? 'border-[#B85450]' : ''} ${className}`}
       />
       {error && (
-        <p className="text-red-600 text-xs mt-1">{error}</p>
+        <p className="text-[#B85450] text-xs mt-2 font-sans-elegant">{error}</p>
       )}
     </div>
   );
