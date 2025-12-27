@@ -1,7 +1,5 @@
-import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ProductCard } from "../../components/common/ProductCard";
-import Button from "../../components/common/Button";
 import { useProducts } from "../../contexts/ProductContext";
 import { Loader } from "../../components/common/Loader";
 
@@ -9,7 +7,6 @@ export const Home = () => {
   const navigate = useNavigate();
   const { products, loading, error } = useProducts();
 
-  const featuredProducts = products.slice(0, 8);
 
   if (loading) return <Loader />;
 
@@ -136,8 +133,8 @@ export const Home = () => {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-          {featuredProducts ? (
-            featuredProducts.map((product) => (
+          {products ? (
+            products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))
           ): (

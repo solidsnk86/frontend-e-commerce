@@ -4,43 +4,6 @@ import { useAuth } from "./AuthContext";
 
 const ProductContext = createContext();
 
-// Productos de prueba cuando no hay datos en la base de datos
-const mockProducts = [
-  {
-    id: "demo-1",
-    name: "Vestido Elegante Noir",
-    description: "Vestido negro de corte clásico, perfecto para ocasiones especiales. Confeccionado en tela de alta calidad con acabados premium.",
-    price: 89.99,
-    category: "Vestidos",
-    stock: 5,
-    images: ["https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=500&fit=crop"],
-    seller: { name: "Pascale", lastname: "Closet" },
-    isDemo: true,
-  },
-  {
-    id: "demo-2",
-    name: "Blusa Seda Marfil",
-    description: "Blusa de seda natural color marfil. Diseño atemporal que combina con cualquier outfit. Ideal para el día a día o eventos formales.",
-    price: 65.00,
-    category: "Blusas",
-    stock: 8,
-    images: ["https://images.unsplash.com/photo-1598554747436-c9293d6a588f?w=400&h=500&fit=crop"],
-    seller: { name: "Pascale", lastname: "Closet" },
-    isDemo: true,
-  },
-  {
-    id: "demo-3",
-    name: "Falda Midi Plisada",
-    description: "Falda midi plisada en tono beige. Elegante y versátil, perfecta para crear looks sofisticados en cualquier temporada.",
-    price: 55.00,
-    category: "Faldas",
-    stock: 12,
-    images: ["https://images.unsplash.com/photo-1583496661160-fb5886a0uj54?w=400&h=500&fit=crop"],
-    seller: { name: "Pascale", lastname: "Closet" },
-    isDemo: true,
-  },
-];
-
 // eslint-disable-next-line react-refresh/only-export-components
 export const useProducts = () => {
   const context = useContext(ProductContext);
@@ -78,7 +41,7 @@ export const ProductProvider = ({ children }) => {
   const [sellerProducts, setSellerProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const { user } = useAuth()
+  const { user } = useAuth();
 
   const fetchProducts = async () => {
     try {
@@ -96,18 +59,12 @@ export const ProductProvider = ({ children }) => {
       }
 
       const data = await response.json();
-      
-      // Si no hay productos en la BD, mostrar productos de prueba
-      if (!data || data.length === 0) {
-        setProducts(mockProducts);
-      } else {
-        setProducts(data);
-      }
+
+      setProducts(data);
       setError(null);
     } catch (err) {
       setError(err.message);
       console.error("Error fetching products:", err);
-      setProducts(mockProducts);
     } finally {
       setLoading(false);
     }
@@ -138,7 +95,7 @@ export const ProductProvider = ({ children }) => {
 
   useEffect(() => {
     fetchProducts();
-    if (user) getProductByUserId()
+    if (user) getProductByUserId();
   }, [user]);
 
   const getProductById = (id) => {
@@ -180,7 +137,9 @@ export const ProductProvider = ({ children }) => {
         result.product || result,
       ]);
 
-      showDialog({ content: <div>Producto {formData.name} creado exitosamente!</div> });
+      showDialog({
+        content: <div>Producto {formData.name} creado exitosamente!</div>,
+      });
     } catch (error) {
       setError(error.message);
       showDialog({ content: <div>Error: {error.message}</div> });
