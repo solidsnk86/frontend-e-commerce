@@ -2,6 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { ProductCard } from "../../components/common/ProductCard";
 import { useProducts } from "../../contexts/ProductContext";
 import { Loader } from "../../components/common/Loader";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { Navigation } from 'swiper/modules';
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -132,14 +136,30 @@ export const Home = () => {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-          {products ? (
-            products.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))
-          ): (
-            <div>No hay productos cargados aún.</div>
-          )}
+        <div className="mt-10">
+          <Swiper
+            modules={[Navigation]}
+            navigation
+            slidesPerView={1}
+            breakpoints={{
+              640: { slidesPerView: 2 },
+              768: { slidesPerView: 3 },
+              1024: { slidesPerView: 4 },
+            }}
+            className="!pb-8"
+          >
+            {products && products.length > 0 ? (
+              products.map((product) => (
+                <SwiperSlide key={product.id}>
+                  <ProductCard product={product} />
+                </SwiperSlide>
+              ))
+            ) : (
+              <SwiperSlide>
+                <div>No hay productos cargados aún.</div>
+              </SwiperSlide>
+            )}
+          </Swiper>
         </div>
       </section>
 

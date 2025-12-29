@@ -260,3 +260,27 @@ dialog::backdrop {
     box-shadow: 0 0 0 0 rgba(244, 63, 94, 0);
   }
 }
+
+/* Swiper custom navigation buttons - Pascale Closet elegant */
+.swiper-button-next, .swiper-button-prev {
+  color: #8B7355 !important;
+  background: rgba(250, 248, 245, 0.85);
+  border-radius: 9999px;
+  box-shadow: 0 2px 8px 0 rgba(44,36,32,0.08);
+  width: 40px;
+  height: 40px;
+  top: 40%;
+  transition: background 0.2s, color 0.2s;
+}
+.swiper-button-next:hover, .swiper-button-prev:hover {
+  background: #C9B8A8;
+  color: #2C2420 !important;
+}
+.swiper-button-next:after, .swiper-button-prev:after {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+.swiper-button-disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}

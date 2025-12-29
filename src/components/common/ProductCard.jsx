@@ -70,63 +70,65 @@ export const ProductCard = ({ product }) => {
             <div className="text-[#C9B8A8] text-2xl">👗</div>
           )}
         </div>
-        <div className="p-3">
-          <h3 className="font-serif-display text-sm text-[#2C2420] group-hover:text-[#8B7355] mb-1.5 line-clamp-2 transition-colors duration-200 leading-tight">
-            {product.name}
-          </h3>
-          <div className="flex items-baseline gap-1.5 mb-1">
-            <span className="text-base font-serif-display text-[#2C2420]">
-              ${product.price?.toLocaleString('es-AR')}
-            </span>
-            {product.originalPrice && (
-              <span className="text-xs text-[#A69580] line-through font-sans-elegant">
-                ${product.originalPrice.toLocaleString('es-AR')}
+        <div className="card-info md:absolute md:inset-0 md:bg-gradient-to-t md:from-[#FAF8F5]/95 md:to-transparent md:opacity-0 md:group-hover:opacity-100 md:translate-y-8 md:group-hover:translate-y-0 md:pointer-events-none md:group-hover:pointer-events-auto md:transition-all md:duration-300 md:flex md:flex-col md:justify-end">
+          <div className="p-3 md:pt-8">
+            <h3 className="font-serif-display text-sm text-[#2C2420] group-hover:text-[#8B7355] mb-1.5 line-clamp-2 transition-colors duration-200 leading-tight">
+              {product.name}
+            </h3>
+            <div className="flex items-baseline gap-1.5 mb-1">
+              <span className="text-base font-serif-display text-[#2C2420]">
+                ${product.price?.toLocaleString('es-AR')}
               </span>
-            )}
-          </div>
-          {product.shipping && (
-            <p className="text-[10px] text-[#7A6B5A] font-sans-elegant">
-              {product.price > 45000 ? (
-                <span className="text-[#6B8E6B]">
-                  ✓ Envío gratis
+              {product.originalPrice && (
+                <span className="text-xs text-[#A69580] line-through font-sans-elegant">
+                  ${product.originalPrice.toLocaleString('es-AR')}
                 </span>
-              ) : (
-                <span>Envíos desde $5000</span>
               )}
-            </p>
-          )}
-          {product.condition && (
-            <p className="text-[10px] text-[#7A6B5A] font-sans-elegant mt-0.5 tracking-wide uppercase">
-              {product.condition === "new" ? "Nuevo" : "Pre-loved"}
-            </p>
-          )}
+            </div>
+            {product.shipping && (
+              <p className="text-[10px] text-[#7A6B5A] font-sans-elegant">
+                {product.price > 45000 ? (
+                  <span className="text-[#6B8E6B]">
+                    ✓ Envío gratis
+                  </span>
+                ) : (
+                  <span>Envíos desde $5000</span>
+                )}
+              </p>
+            )}
+            {product.condition && (
+              <p className="text-[10px] text-[#7A6B5A] font-sans-elegant mt-0.5 tracking-wide uppercase">
+                {product.condition === "new" ? "Nuevo" : "Pre-loved"}
+              </p>
+            )}
+            <div className="pt-2">
+              <button
+                onClick={handleAdd}
+                disabled={isSoldOut || cannotAddMore}
+                className={`w-full text-xs font-sans-elegant py-2.5 px-3 cursor-pointer transition-all duration-300 tracking-wide shadow-lg md:scale-95 md:group-hover:scale-100 md:shadow-xl ${
+                  isSoldOut || cannotAddMore
+                    ? "bg-[#E8DED0] text-[#A69580] cursor-not-allowed"
+                    : "bg-[#8B7355] text-white hover:bg-[#6B5A45]"
+                }`}
+                aria-label={`Agregar "${product.name}" al carrito`}
+                title={
+                  isSoldOut
+                    ? "Agotado"
+                    : cannotAddMore
+                    ? `Máximo ${stock} en stock`
+                    : `Agregar "${product.name}" al carrito`
+                }
+              >
+                {isSoldOut
+                  ? "Agotado"
+                  : cannotAddMore
+                  ? `Máx (${stock})`
+                  : "Agregar"}
+              </button>
+            </div>
+          </div>
         </div>
       </Link>
-      <div className="p-3 pt-0">
-        <button
-          onClick={handleAdd}
-          disabled={isSoldOut || cannotAddMore}
-          className={`w-full text-xs font-sans-elegant py-2.5 px-3 cursor-pointer transition-all duration-300 tracking-wide ${
-            isSoldOut || cannotAddMore
-              ? "bg-[#E8DED0] text-[#A69580] cursor-not-allowed"
-              : "bg-[#8B7355] text-white hover:bg-[#6B5A45]"
-          }`}
-          aria-label={`Agregar "${product.name}" al carrito`}
-          title={
-            isSoldOut
-              ? "Agotado"
-              : cannotAddMore
-              ? `Máximo ${stock} en stock`
-              : `Agregar "${product.name}" al carrito`
-          }
-        >
-          {isSoldOut
-            ? "Agotado"
-            : cannotAddMore
-            ? `Máx (${stock})`
-            : "Agregar"}
-        </button>
-      </div>
     </div>
   );
 };
