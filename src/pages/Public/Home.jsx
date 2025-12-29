@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ProductCard } from "../../components/common/ProductCard";
 import { useProducts } from "../../contexts/ProductContext";
 import { Loader } from "../../components/common/Loader";
+import { InstagramButton } from "../../components/common/InstagramButton";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -85,34 +86,6 @@ export const Home = () => {
         </div>
       </section>
 
-      {/* Categorías - Elegant Grid */}
-      <section className="max-w-7xl mx-auto px-4 py-16">
-        <div className="text-center mb-12">
-          <p className="text-[#8B7355] font-sans-elegant text-xs tracking-[0.3em] uppercase mb-3">
-            Explora
-          </p>
-          <h3 className="text-3xl md:text-4xl font-serif-display font-light text-[#2C2420]">
-            Categorías
-          </h3>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
-          {categories.map((category, index) => (
-            <Link
-              key={index}
-              to={category.link}
-              className="group bg-white p-8 text-center border border-[#E0D6CC] hover:border-[#C9B8A8] hover:shadow-lg transition-all duration-300"
-            >
-              <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                {category.icon}
-              </div>
-              <p className="font-sans-elegant text-sm tracking-[0.15em] uppercase text-[#5C4D3C]">
-                {category.name}
-              </p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
       {/* Productos destacados - Elegant */}
       <section className="max-w-7xl mx-auto px-4 py-16">
         <div className="flex justify-between items-end mb-10">
@@ -177,6 +150,7 @@ export const Home = () => {
           </div>
         </div>
       </section>
+      <InstagramButton url={"https://www.instagram.com/pascalecloset/"} />
     </div>
   );
 };
