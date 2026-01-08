@@ -1,4 +1,3 @@
-// import React, { use } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
 import { showDialog } from "./Dialog";
@@ -6,17 +5,9 @@ import { showDialog } from "./Dialog";
 export const ProductCard = ({ product }) => {
   const { addToCart, cartItems } = useCart();
 
-  // mismo helper local para detectar stock
   const getStockFromProduct = (p) => {
     if (!p) return null;
-    const keys = [
-      "stock",
-      "quantityAvailable",
-      "inventory",
-      "stockQty",
-      "qty",
-      "available",
-    ];
+    const keys = ["stock", "quantityAvailable", "inventory", "stockQty", "qty", "available"];
     for (const k of keys) {
       if (Object.prototype.hasOwnProperty.call(p, k)) {
         const v = p[k];
@@ -28,7 +19,7 @@ export const ProductCard = ({ product }) => {
       }
     }
     return null;
-  }; 
+  };
 
   const currentCartItem = cartItems.find((it) => it.id === product.id);
   const currentQty = currentCartItem ? currentCartItem.quantity : 0;
@@ -36,99 +27,90 @@ export const ProductCard = ({ product }) => {
   const isSoldOut = typeof stock === "number" && stock <= 0;
   const cannotAddMore = typeof stock === "number" && currentQty >= stock;
 
-  const handleAdd = (e) => {
+  const handleAddWithSize = (e, size) => {
     e.preventDefault();
     e.stopPropagation();
     if (isSoldOut || cannotAddMore) {
-      showDialog({
-        content: <div>No hay suficiente stock disponible</div>,
-      });
+      showDialog({ content: <div>No hay suficiente stock disponible</div> });
       return;
     }
-    const ok = addToCart(product, 1);
+    const ok = addToCart({ ...product, selectedSize: size }, 1);
     if (!ok) {
-      showDialog({
-        content: (
-          <div>No se pudo agregar, no hay stock suficiente.</div>
-        ),
-      });
+      showDialog({ content: <div>No se pudo agregar, no hay stock suficiente.</div> });
+    } else {
+      showDialog({ content: <div>Agregado al carrito: <span className="font-medium">{product.name}</span> - Talla {size}</div> });
     }
-    showDialog({ content: <div>Producto agregado al carrito: <span className="text-[#8B7355] font-medium">{product.name}</span></div> })
   };
 
+  const discount = product.originalPrice 
+    ? Math.round((1 - product.price / product.originalPrice) * 100) 
+    : null;
+
   return (
-    <div className="group border border-[#E0D6CC] bg-white hover:shadow-md transition-all duration-300 h-full flex flex-col justify-between">
-      <Link to={`/product/${product.id}`} className="flex-1 block">
-        <div className="w-full aspect-[5/6] bg-[#F5F0EB] flex items-center justify-center overflow-hidden">
+    <div className="group bg-white h-full flex flex-col">
+      <Link to={`/product/${product.id}`} className="block relative">
+        {/* Imagen del producto */}
+        <div className="relative w-full aspect-[3/4] bg-[#F8F8F8] overflow-hidden">
           {product.image ? (
             <img
               src={product.image}
               alt={product.name}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              className="w-full h-full object-cover"
             />
           ) : (
-            <div className="text-[#C9B8A8] text-2xl">👗</div>
+            <div className="w-full h-full flex items-center justify-center text-[#E5E5E5] text-4xl">👗</div>
           )}
-        </div>
-        <div className="card-info md:absolute md:inset-0 md:bg-gradient-to-t md:from-[#FAF8F5]/95 md:to-transparent md:opacity-0 md:group-hover:opacity-100 md:translate-y-8 md:group-hover:translate-y-0 md:pointer-events-none md:group-hover:pointer-events-auto md:transition-all md:duration-300 md:flex md:flex-col md:justify-end">
-          <div className="p-3 md:pt-8">
-            <h3 className="font-serif-display text-sm text-[#2C2420] group-hover:text-[#8B7355] mb-1.5 line-clamp-2 transition-colors duration-200 leading-tight">
-              {product.name}
-            </h3>
-            <div className="flex items-baseline gap-1.5 mb-1">
-              <span className="text-base font-serif-display text-[#2C2420]">
-                ${product.price?.toLocaleString('es-AR')}
-              </span>
-              {product.originalPrice && (
-                <span className="text-xs text-[#A69580] line-through font-sans-elegant">
-                  ${product.originalPrice.toLocaleString('es-AR')}
-                </span>
-              )}
-            </div>
-            {product.shipping && (
-              <p className="text-[10px] text-[#7A6B5A] font-sans-elegant">
-                {product.price > 45000 ? (
-                  <span className="text-[#6B8E6B]">
-                    ✓ Envío gratis
-                  </span>
-                ) : (
-                  <span>Envíos desde $5000</span>
-                )}
-              </p>
-            )}
-            {product.condition && (
-              <p className="text-[10px] text-[#7A6B5A] font-sans-elegant mt-0.5 tracking-wide uppercase">
-                {product.condition === "new" ? "Nuevo" : "Pre-loved"}
-              </p>
-            )}
-            <div className="pt-2">
-              <button
-                onClick={handleAdd}
-                disabled={isSoldOut || cannotAddMore}
-                className={`w-full text-xs font-sans-elegant py-2.5 px-3 cursor-pointer transition-all duration-300 tracking-wide shadow-lg md:scale-95 md:group-hover:scale-100 md:shadow-xl ${
-                  isSoldOut || cannotAddMore
-                    ? "bg-[#E8DED0] text-[#A69580] cursor-not-allowed"
-                    : "bg-[#8B7355] text-white hover:bg-[#6B5A45]"
-                }`}
-                aria-label={`Agregar "${product.name}" al carrito`}
-                title={
-                  isSoldOut
-                    ? "Agotado"
-                    : cannotAddMore
-                    ? `Máximo ${stock} en stock`
-                    : `Agregar "${product.name}" al carrito`
-                }
-              >
-                {isSoldOut
-                  ? "Agotado"
-                  : cannotAddMore
-                  ? `Máx (${stock})`
-                  : "Agregar"}
-              </button>
+          
+          {/* Badge de oferta */}
+          {product.originalPrice && (
+            <span className="absolute top-2 left-2 bg-[#1A1A1A] text-white text-[9px] px-2 py-1 font-sans-elegant uppercase tracking-wider">
+              Oferta
+            </span>
+          )}
+
+          {/* Tallas en hover - superpuestas en la imagen */}
+          <div className="absolute bottom-0 left-0 right-0 bg-white/95 py-2 px-2 opacity-0 group-hover:opacity-100 translate-y-full group-hover:translate-y-0 transition-all duration-300">
+            <div className="flex justify-center gap-1">
+              {['XS', 'S', 'M', 'L', 'XL'].map((size) => (
+                <button
+                  key={size}
+                  onClick={(e) => handleAddWithSize(e, size)}
+                  disabled={isSoldOut || cannotAddMore}
+                  className={`px-3 py-1.5 text-[10px] font-sans-elegant uppercase tracking-wider border transition-all duration-200 ${
+                    isSoldOut || cannotAddMore
+                      ? "border-[#E5E5E5] text-[#CCC] cursor-not-allowed bg-white"
+                      : "border-[#E5E5E5] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white hover:border-[#1A1A1A] bg-white"
+                  }`}
+                >
+                  {size}
+                </button>
+              ))}
             </div>
           </div>
         </div>
       </Link>
+      
+      {/* Info del producto */}
+      <div className="pt-3 space-y-1">
+        <h3 className="font-sans-elegant text-[11px] uppercase tracking-wider text-[#1A1A1A] line-clamp-1 leading-tight">
+          {product.name}
+        </h3>
+        <div className="flex items-baseline gap-2">
+          {product.originalPrice && (
+            <span className="text-[11px] text-[#999] line-through font-sans-elegant">
+              ${product.originalPrice.toLocaleString('es-AR')}
+            </span>
+          )}
+          {discount && (
+            <span className="text-[10px] text-[#E74C3C] font-sans-elegant">
+              -{discount}%
+            </span>
+          )}
+          <span className="text-[12px] font-sans-elegant text-[#1A1A1A] font-medium">
+            ${product.price?.toLocaleString('es-AR')} CLP
+          </span>
+        </div>
+      </div>
     </div>
   );
 };

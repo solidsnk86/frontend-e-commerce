@@ -12,7 +12,7 @@ export const UserProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useAuth()
 
-  const getUserById = async (id) => {
+  const getUserById = (id) => {
     return user ? user.user_id === id : null
   };
 
@@ -50,9 +50,10 @@ export const UserProvider = ({ children }) => {
         }
       );
       const deletedUser = await response.json();
-  
-      showDialog({ content: <div>{deletedUser.message}</div> })
-      window.open("/", "_self")
+      if (!response.ok) {
+        return showDialog({ content: <div>{deletedUser.message}</div> })
+      }
+      showDialog({ content: <div>{deletedUser.message}</div> });
     } catch (error) {
       setError(error);
     } finally {

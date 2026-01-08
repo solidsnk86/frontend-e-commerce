@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Button from '../../components/common/Button';
 import { useOrder } from '../../contexts/OrderContext';
 import { formatDate } from '../../utils/formatDate';
+import { Package, CheckCircle, Truck, Clock, XCircle, ShoppingBag } from 'lucide-react';
 
 const OrderHistory = () => {
   const { orders } = useOrder()
@@ -10,49 +10,51 @@ const OrderHistory = () => {
   const getStatusColor = (status) => {
     switch (status) {
       case 'approved':
-        return 'bg-green-100 border-green-400 text-green-800';
+        return 'bg-[#F0FFF0] border-[#1A1A1A] text-[#1A1A1A]';
       case 'En Tránsito':
-        return 'bg-blue-100 border-blue-400 text-blue-800';
+        return 'bg-[#F8F8F8] border-[#1A1A1A] text-[#1A1A1A]';
       case 'pending':
-        return 'bg-yellow-100 border-yellow-400 text-yellow-800';
+        return 'bg-[#FFF9E6] border-[#1A1A1A] text-[#1A1A1A]';
       case 'Cancelado':
-        return 'bg-red-100 border-red-400 text-red-800';
+        return 'bg-[#FFF0F0] border-[#1A1A1A] text-[#1A1A1A]';
       default:
-        return 'bg-gray-100 border-gray-400 text-gray-800';
+        return 'bg-[#F8F8F8] border-[#E5E5E5] text-[#6B6B6B]';
     }
   };
 
   const getStatusIcon = (status) => {
     switch (status) {
       case 'approved':
-        return '✅ Pago aprobado';
+        return <span className="flex items-center gap-1"><CheckCircle size={14} /> Pago aprobado</span>;
       case 'En Tránsito':
-        return '🚚';
+        return <span className="flex items-center gap-1"><Truck size={14} /> En Tránsito</span>;
       case 'pending':
-        return '⏳ Pendiente de pago';
+        return <span className="flex items-center gap-1"><Clock size={14} /> Pendiente de pago</span>;
       case 'Cancelado':
-        return '❌ Pago Cancelado';
+        return <span className="flex items-center gap-1"><XCircle size={14} /> Pago Cancelado</span>;
       default:
-        return '📦';
+        return <span className="flex items-center gap-1"><Package size={14} /></span>;
     }
   };
 
   if (orders.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-100 py-12">
+      <div className="min-h-screen bg-white py-16">
         <div className="max-w-4xl mx-auto px-4">
-          <div className="bg-white border-2 border-gray-400 p-12 text-center">
-            <div className="text-6xl mb-4">📦</div>
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">
+          <div className="bg-white border border-[#E5E5E5] p-16 text-center">
+            <div className="mb-6 flex justify-center">
+              <Package size={64} className="text-[#6B6B6B]" />
+            </div>
+            <h2 className="text-xl font-sans-elegant uppercase tracking-wider text-[#1A1A1A] mb-4">
               No tienes pedidos aún
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-sm text-[#6B6B6B] font-sans-elegant mb-8">
               ¡Explora nuestros productos y realiza tu primera compra!
             </p>
             <Link to="/">
-              <Button variant="primary" size="large">
+              <button className="px-8 py-4 bg-[#1A1A1A] text-white font-sans-elegant text-xs tracking-[0.2em] uppercase hover:bg-[#333333] transition-all duration-300">
                 Ir a la tienda
-              </Button>
+              </button>
             </Link>
           </div>
         </div>
@@ -61,75 +63,77 @@ const OrderHistory = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 py-8">
+    <div className="min-h-screen bg-white py-12">
       <div className="max-w-6xl mx-auto px-4">
-        <h1 className="text-3xl font-bold text-blue-900 mb-6">Mis Pedidos</h1>
+        <h1 className="text-2xl md:text-3xl font-sans-elegant uppercase tracking-wider text-[#1A1A1A] mb-8 text-center">Mis Pedidos</h1>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           {orders.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
           .map((order) => (
-            <div key={order.id} className="bg-white border-2 border-gray-400">
+            <div key={order.id} className="bg-white border border-[#E5E5E5]">
               {/* Order Header */}
-              <div className="bg-gray-100 border-b-2 border-gray-400 p-4">
+              <div className="bg-[#F8F8F8] border-b border-[#E5E5E5] p-5">
                 <div className="flex flex-wrap justify-between items-center gap-4">
-                  <div className="flex gap-6 text-sm">
+                  <div className="flex gap-8 text-sm font-sans-elegant">
                     <div>
-                      <p className="text-gray-600">Pedido</p>
-                      <p className="font-bold">#{order.order_number}</p>
+                      <p className="text-[#6B6B6B] text-xs uppercase tracking-wide">Pedido</p>
+                      <p className="text-[#1A1A1A] mt-1">#{order.order_number}</p>
                     </div>
                     <div>
-                      <p className="text-gray-600">Fecha</p>
-                      <p className="font-bold">{formatDate(order.created_at)}</p>
+                      <p className="text-[#6B6B6B] text-xs uppercase tracking-wide">Fecha</p>
+                      <p className="text-[#1A1A1A] mt-1">{formatDate(order.created_at)}</p>
                     </div>
                     <div>
-                      <p className="text-gray-600">Total</p>
-                      <p className="font-bold text-green-700">${order.total}</p>
+                      <p className="text-[#6B6B6B] text-xs uppercase tracking-wide">Total</p>
+                      <p className="text-[#1A1A1A] mt-1">${order.total}</p>
                     </div>
                   </div>
-                  <div className={`px-4 py-2 border-2 font-bold text-sm ${getStatusColor(order.status)}`}>
+                  <div className={`px-4 py-2 border text-xs font-sans-elegant uppercase tracking-wide ${getStatusColor(order.status)}`}>
                     {getStatusIcon(order.status)}
                   </div>
                 </div>
               </div>
 
               {/* Order Items */}
-              <div className="p-4">
+              <div className="p-5">
                 {order.items.map((item, index) => (
-                  <div key={index} className="flex justify-between items-center py-2 border-b border-gray-200 last:border-b-0">
+                  <div key={index} className="flex justify-between items-center py-4 border-b border-[#E5E5E5] last:border-b-0">
                     <div className="flex items-center gap-4">
-                      <div className="w-16 h-16 bg-gray-200 border-2 border-gray-400 flex items-center justify-center">
-                        <span className="text-2xl">📦</span>
+                      <div className="w-16 h-16 bg-[#F8F8F8] border border-[#E5E5E5] flex items-center justify-center">
+                        <ShoppingBag size={24} className="text-[#6B6B6B]" />
                       </div>
                       <div>
-                        <p className="font-bold text-sm">{item.product_name}</p>
-                        <p className="text-xs text-gray-600">Cantidad: {item.quantity}</p>
+                        <p className="font-sans-elegant text-sm text-[#1A1A1A] uppercase tracking-wide">{item.product_name}</p>
+                        <p className="text-xs text-[#6B6B6B] font-sans-elegant mt-1">Cantidad: {item.quantity}</p>
                       </div>
                     </div>
-                    <p className="font-bold text-green-700">${item.price}</p>
+                    <p className="font-sans-elegant text-[#1A1A1A]">${item.price}</p>
                   </div>
                 ))}
               </div>
 
               {/* Order Actions */}
-              <div className="border-t-2 border-gray-400 p-4 bg-gray-50">
+              <div className="border-t border-[#E5E5E5] p-5 bg-[#F8F8F8]">
                 <div className="flex gap-3">
-                  <Button variant="primary" size="small">
-                    Ver Detalles
-                  </Button>
+                  <Link to={`/buyer/orders/${order.id}`}>
+                    <button className="px-6 py-3 bg-[#1A1A1A] text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#333333] transition-all duration-300">
+                      Ver Detalles
+                    </button>
+                  </Link>
                   {order.status === 'Entregado' && (
-                    <Button variant="outline" size="small">
+                    <button className="px-6 py-3 border border-[#1A1A1A] text-[#1A1A1A] font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#1A1A1A] hover:text-white transition-all duration-300">
                       Comprar de Nuevo
-                    </Button>
+                    </button>
                   )}
                   {order.status === 'En Tránsito' && (
-                    <Button variant="outline" size="small">
+                    <button className="px-6 py-3 border border-[#1A1A1A] text-[#1A1A1A] font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#1A1A1A] hover:text-white transition-all duration-300">
                       Rastrear Envío
-                    </Button>
+                    </button>
                   )}
                   {order.status === 'Procesando' && (
-                    <Button variant="danger" size="small">
+                    <button className="px-6 py-3 border border-[#1A1A1A] text-[#1A1A1A] font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#1A1A1A] hover:text-white transition-all duration-300">
                       Cancelar Pedido
-                    </Button>
+                    </button>
                   )}
                 </div>
               </div>

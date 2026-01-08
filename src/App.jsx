@@ -28,6 +28,7 @@ import Cart from "./pages/Buyer/Cart";
 import { Checkout } from "./pages/Buyer/Checkout";
 import { OrderConfirmation } from "./pages/Buyer/OrderConfirmation";
 import OrderHistory from "./pages/Buyer/OrderHistory";
+import OrderDetail from "./pages/Buyer/OrderDetail";
 
 // Páginas vendedor
 import SellerDashboard from "./pages/Seller/SellerDashboard";
@@ -93,6 +94,14 @@ function App() {
                   element={
                     <ProtectedRoute allowedRole="buyer">
                       <OrderHistory />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/buyer/orders/:id"
+                  element={
+                    <ProtectedRoute allowedRole="buyer">
+                      <OrderDetail />
                     </ProtectedRoute>
                   }
                 />

@@ -13,7 +13,7 @@ export const Register = () => {
     role: "buyer",
   });
   const [errors, setErrors] = useState({});
-  const { register, isLoading, refreshUser, error } = useAuth();
+  const { register, isLoading, refreshUser, error, user } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -75,22 +75,27 @@ export const Register = () => {
     
     await register(formData);
     await refreshUser();
-    setTimeout(navigate("/"), 600)
   };
 
+  if (user !== null && user.role === "seller") {
+    return navigate("/seller/dashboard");
+  } else if (user && user.role === "buyer") {
+    return navigate("/buyer/orders");
+  }
+
   return (
-    <div className="min-h-screen bg-[#FAF8F5] py-16">
+    <div className="min-h-screen bg-white py-16">
       <div className="max-w-md mx-auto px-4">
-        <div className="bg-white border border-[#E0D6CC] p-10">
+        <div className="bg-white border border-[#E5E5E5] p-10">
           {/* Header */}
           <div className="text-center mb-10">
-            <p className="text-xs font-sans-elegant tracking-[0.3em] uppercase text-[#8B7355] mb-3">
+            <p className="text-xs font-sans-elegant tracking-[0.3em] uppercase text-[#6B6B6B] mb-3">
               Únete
             </p>
-            <h1 className="text-3xl font-serif-display font-light text-[#2C2420] mb-3">
+            <h1 className="text-2xl font-sans-elegant uppercase tracking-wider text-[#1A1A1A] mb-3">
               Crear Cuenta
             </h1>
-            <p className="text-sm text-[#7A6B5A] font-sans-elegant">
+            <p className="text-sm text-[#6B6B6B] font-sans-elegant">
               Únete a la comunidad de Pascale Closet
             </p>
           </div>
@@ -98,7 +103,7 @@ export const Register = () => {
           {/* Formulario */}
           <form onSubmit={handleSubmit}>
             {error && (
-              <div className="w-full flex text-[#B85450] p-3 bg-[#B85450]/10 border border-[#B85450]/30 justify-center mb-6 font-sans-elegant text-sm">
+              <div className="w-full flex text-[#1A1A1A] p-3 bg-[#F8F8F8] border border-[#E5E5E5] justify-center mb-6 font-sans-elegant text-sm">
                 {error}
               </div>
             )}
@@ -161,33 +166,33 @@ export const Register = () => {
 
             {/* Tipo de cuenta */}
             <div className="mb-6">
-              <label className="block text-sm font-sans-elegant font-medium mb-3 text-[#5C4D3C] tracking-wide">
-                Tipo de cuenta <span className="text-[#B85450]">*</span>
+              <label className="block text-xs font-sans-elegant font-medium mb-3 text-[#1A1A1A] tracking-wide uppercase">
+                Tipo de cuenta <span className="text-[#1A1A1A]">*</span>
               </label>
               <div className="space-y-3">
-                <label className="flex items-center p-3 border border-[#E0D6CC] hover:border-[#C9B8A8] cursor-pointer transition-colors duration-200">
+                <label className="flex items-center p-3 border border-[#E5E5E5] hover:border-[#1A1A1A] cursor-pointer transition-colors duration-200">
                   <input
                     type="radio"
                     name="role"
                     value="buyer"
                     checked={formData.role === "buyer"}
                     onChange={handleChange}
-                    className="mr-3 accent-[#8B7355]"
+                    className="mr-3 accent-[#1A1A1A]"
                   />
-                  <span className="text-sm font-sans-elegant text-[#5C4D3C]">
+                  <span className="text-sm font-sans-elegant text-[#1A1A1A]">
                     👗 Compradora - Quiero comprar prendas
                   </span>
                 </label>
-                <label className="flex items-center p-3 border border-[#E0D6CC] hover:border-[#C9B8A8] cursor-pointer transition-colors duration-200">
+                <label className="flex items-center p-3 border border-[#E5E5E5] hover:border-[#1A1A1A] cursor-pointer transition-colors duration-200">
                   <input
                     type="radio"
                     name="role"
                     value="seller"
                     checked={formData.role === "seller"}
                     onChange={handleChange}
-                    className="mr-3 accent-[#8B7355]"
+                    className="mr-3 accent-[#1A1A1A]"
                   />
-                  <span className="text-sm font-sans-elegant text-[#5C4D3C]">
+                  <span className="text-sm font-sans-elegant text-[#1A1A1A]">
                     ✨ Vendedora - Quiero vender prendas
                   </span>
                 </label>
@@ -202,21 +207,21 @@ export const Register = () => {
                   name="acceptTerms"
                   checked={formData.acceptTerms}
                   onChange={handleChange}
-                  className="mr-3 mt-1 accent-[#8B7355]"
+                  className="mr-3 mt-1 accent-[#1A1A1A]"
                 />
-                <span className="text-xs text-[#7A6B5A] font-sans-elegant leading-relaxed">
+                <span className="text-xs text-[#6B6B6B] font-sans-elegant leading-relaxed">
                   Acepto los{" "}
-                  <Link to="/terms" className="text-[#8B7355] hover:underline">
+                  <Link to="/terms" className="text-[#1A1A1A] hover:underline">
                     términos y condiciones
                   </Link>{" "}
                   y la{" "}
-                  <Link to="/privacy" className="text-[#8B7355] hover:underline">
+                  <Link to="/privacy" className="text-[#1A1A1A] hover:underline">
                     política de privacidad
                   </Link>
                 </span>
               </label>
               {errors.acceptTerms && (
-                <p className="text-[#B85450] text-xs mt-2 font-sans-elegant">
+                <p className="text-[#1A1A1A] text-xs mt-2 font-sans-elegant">
                   {errors.acceptTerms}
                 </p>
               )}
@@ -224,7 +229,7 @@ export const Register = () => {
 
             <button
               type="submit"
-              className="w-full py-4 bg-[#8B7355] text-white font-sans-elegant text-sm tracking-[0.2em] uppercase hover:bg-[#6B5A45] transition-all duration-300 mb-6"
+              className="w-full py-4 bg-[#1A1A1A] text-white font-sans-elegant text-xs tracking-[0.2em] uppercase hover:bg-[#333333] transition-all duration-300 mb-6"
             >
               {isLoading ? (
                 <span className="flex gap-2 items-center justify-center">
@@ -237,11 +242,11 @@ export const Register = () => {
             </button>
 
             <div className="text-center">
-              <p className="text-sm text-[#7A6B5A] font-sans-elegant">
+              <p className="text-sm text-[#6B6B6B] font-sans-elegant">
                 ¿Ya tienes una cuenta?{" "}
                 <Link
                   to="/login"
-                  className="text-[#8B7355] hover:underline font-medium"
+                  className="text-[#1A1A1A] hover:underline font-medium"
                 >
                   Inicia sesión aquí
                 </Link>

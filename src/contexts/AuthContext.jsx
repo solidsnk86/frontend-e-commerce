@@ -81,12 +81,13 @@ export const AuthProvider = ({ children }) => {
       });
       const data = await response.json();
 
-      if (!response.ok) throw new Error(data.message);
-      if (response.status === 409) throw new Error(data.message);
+      if (response.status === 409) {
+        return showDialog({ content: <div>{data.message}</div> })
+      }
 
       setIsLoading(false);
-      showDialog({ content: <div>{data.message}</div> });
       setUser(data);
+      showDialog({ content: <div>{data.message}</div> });
     } catch (err) {
       setError(err.message);
       setUser(null);

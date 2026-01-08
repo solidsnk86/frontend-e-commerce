@@ -11,38 +11,38 @@ export const OrderConfirmation = () => {
   if (isLoading) return <Loader />
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12">
+    <div className="min-h-screen bg-white py-16">
       <div className="max-w-2xl mx-auto px-4">
-        <div className="bg-white border-2 border-gray-400 p-8 text-center">
+        <div className="bg-white border border-[#E5E5E5] p-12 text-center">
           {/* Success Icon */}
-          <div className="text-6xl mb-4">✅</div>
+          <div className="text-6xl mb-6">✨</div>
           
-          <h1 className="text-3xl font-bold text-green-700 mb-4">
+          <h1 className="text-2xl font-sans-elegant uppercase tracking-wider text-[#1A1A1A] mb-4">
             ¡Pedido Confirmado!
           </h1>
           
-          <p className="text-gray-700 mb-6">
-            Gracias por tu compra en e-Retro Legends
+          <p className="text-sm text-[#6B6B6B] font-sans-elegant mb-8">
+            Gracias por tu compra en Pascale Closet
           </p>
 
           {/* Order Details */}
-          <div className="bg-blue-50 border-2 border-blue-300 p-6 mb-6 text-left">
-            <div className="grid grid-cols-2 gap-4">
+          <div className="bg-[#F8F8F8] border border-[#E5E5E5] p-8 mb-8 text-left">
+            <div className="grid grid-cols-2 gap-6">
               <div>
-                <p className="text-sm text-gray-600">Número de Pedido</p>
-                <p className="text-xl font-bold text-blue-900">#{order.order_number}</p>
+                <p className="text-xs text-[#6B6B6B] font-sans-elegant uppercase tracking-wide">Número de Pedido</p>
+                <p className="text-xl font-sans-elegant text-[#1A1A1A] mt-2">#{order.order_number}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-600">Total Pagado</p>
-                <p className="text-xl font-bold text-green-700">${order.total}</p>
+                <p className="text-xs text-[#6B6B6B] font-sans-elegant uppercase tracking-wide">Total Pagado</p>
+                <p className="text-xl font-sans-elegant text-[#1A1A1A] mt-2">${order.total}</p>
               </div>
             </div>
           </div>
 
           {/* Next Steps */}
-          <div className="bg-yellow-50 border-2 border-yellow-400 p-6 mb-6 text-left">
-            <h3 className="font-bold text-lg mb-3">📦 Próximos Pasos</h3>
-            <ul className="text-sm text-gray-700 space-y-2">
+          <div className="bg-[#F8F8F8] border border-[#E5E5E5] p-8 mb-8 text-left">
+            <h3 className="font-sans-elegant text-sm uppercase tracking-wide text-[#1A1A1A] mb-4">📦 Próximos Pasos</h3>
+            <ul className="text-sm text-[#6B6B6B] font-sans-elegant space-y-3 leading-relaxed">
               <li>✓ Recibirás un email de confirmación en breve</li>
               <li>✓ El vendedor procesará tu pedido en 1-2 días hábiles</li>
               <li>✓ Te notificaremos cuando tu pedido sea enviado</li>
@@ -53,21 +53,21 @@ export const OrderConfirmation = () => {
           {/* Actions */}
           <div className="flex flex-col sm:flex-row gap-4">
             <Link to="/buyer/orders" className="flex-1">
-              <Button variant="primary" size="large" className="w-full">
+              <button className="w-full py-4 bg-[#1A1A1A] text-white font-sans-elegant text-xs tracking-[0.2em] uppercase hover:bg-[#333333] transition-all duration-300">
                 Ver Mis Pedidos
-              </Button>
+              </button>
             </Link>
             <Link to="/" className="flex-1">
-              <Button variant="outline" size="large" className="w-full">
+              <button className="w-full py-4 border border-[#1A1A1A] text-[#1A1A1A] font-sans-elegant text-xs tracking-[0.2em] uppercase hover:bg-[#1A1A1A] hover:text-white transition-all duration-300">
                 Seguir Comprando
-              </Button>
+              </button>
             </Link>
           </div>
 
           {/* Support */}
-          <div className="mt-8 pt-6 border-t-2 border-gray-300">
-            <p className="text-sm text-gray-600">
-              ¿Necesitas ayuda? <Link to="/contact" className="text-blue-600 hover:underline font-bold">Contáctanos</Link>
+          <div className="mt-10 pt-8 border-t border-[#E5E5E5]">
+            <p className="text-xs text-[#6B6B6B] font-sans-elegant">
+              ¿Necesitas ayuda? <Link to="/contact" className="text-[#1A1A1A] hover:underline">Contáctanos</Link>
             </p>
           </div>
         </div>

@@ -29,21 +29,21 @@ export const showDialog = ({ content, title = null }) => {
   root.render(
     <div className="relative">
       {/* Header */}
-      <div className="flex items-center justify-between px-6 py-4 border-b border-[#E0D6CC] bg-[#FAF8F5]">
-        <h3 className="font-serif-display text-lg text-[#2C2420]">
+      <div className="flex items-center justify-between px-6 py-4 border-b border-[#E5E5E5] bg-white">
+        <h3 className="font-sans-elegant text-sm uppercase tracking-wider text-[#1A1A1A]">
           {title || 'Pascale Closet'}
         </h3>
         <button
           onClick={closeDialogWithAnimation}
-          className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-[#E8DED0] transition-colors duration-200"
+          className="w-8 h-8 flex items-center justify-center hover:bg-[#F8F8F8] transition-colors duration-200"
           title="Cerrar"
         >
-          <X size={18} className="text-[#7A6B5A] hover:text-[#B85450]" />
+          <X size={18} className="text-[#6B6B6B] hover:text-[#1A1A1A]" />
         </button>
       </div>
       
       {/* Content */}
-      <div className="px-6 py-6 font-sans-elegant text-[#2C2420]">
+      <div className="px-6 py-6 font-sans-elegant text-[#1A1A1A]">
         {content}
       </div>
     </div>

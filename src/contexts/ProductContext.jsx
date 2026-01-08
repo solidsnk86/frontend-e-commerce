@@ -21,6 +21,11 @@ export const useProducts = () => {
     updateProduct,
     getProductByUserId,
     deleteProduct,
+    favorites,
+    addToFavorites,
+    removeFromFavorites,
+    isFavorite,
+    toggleFavorite,
   } = context;
   return {
     products,
@@ -33,6 +38,11 @@ export const useProducts = () => {
     updateProduct,
     getProductByUserId,
     deleteProduct,
+    favorites,
+    addToFavorites,
+    removeFromFavorites,
+    isFavorite,
+    toggleFavorite,
   };
 };
 
@@ -41,7 +51,42 @@ export const ProductProvider = ({ children }) => {
   const [sellerProducts, setSellerProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [favorites, setFavorites] = useState(() => {
+    const saved = localStorage.getItem('favorites');
+    return saved ? JSON.parse(saved) : [];
+  });
   const { user } = useAuth();
+
+  // Guardar favoritos en localStorage cuando cambien
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
+  // Métodos de favoritos
+  const addToFavorites = (product) => {
+    setFavorites((prev) => {
+      if (prev.find((p) => p.id === product.id)) return prev;
+      return [...prev, product];
+    });
+  };
+
+  const removeFromFavorites = (productId) => {
+    setFavorites((prev) => prev.filter((p) => p.id !== productId));
+  };
+
+  const isFavorite = (productId) => {
+    return favorites.some((p) => p.id === productId);
+  };
+
+  const toggleFavorite = (product) => {
+    if (isFavorite(product.id)) {
+      removeFromFavorites(product.id);
+      return false;
+    } else {
+      addToFavorites(product);
+      return true;
+    }
+  };
 
   const fetchProducts = async () => {
     try {
@@ -220,6 +265,11 @@ export const ProductProvider = ({ children }) => {
     updateProduct,
     deleteProduct,
     getProductByUserId,
+    favorites,
+    addToFavorites,
+    removeFromFavorites,
+    isFavorite,
+    toggleFavorite,
   };
 
   return (

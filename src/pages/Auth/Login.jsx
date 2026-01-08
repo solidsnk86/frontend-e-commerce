@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import Input from "../../components/common/Input";
-import Button from "../../components/common/Button";
 import { Loader2 } from "lucide-react";
 
 export const Login = () => {
@@ -45,28 +44,30 @@ export const Login = () => {
   };
 
   if (user !== null && user.role === "seller") {
-    navigate("/seller/dashboard")
+    return navigate("/seller/dashboard");
+  } else if (user && user.role === "buyer") {
+    return navigate("/buyer/orders");
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] py-16">
+    <div className="min-h-screen bg-white py-16">
       <div className="max-w-md mx-auto px-4">
-        <div className="bg-white border border-[#E0D6CC] p-10">
+        <div className="bg-white border border-[#E5E5E5] p-10">
           <div className="text-center mb-10">
-            <p className="text-xs font-sans-elegant tracking-[0.3em] uppercase text-[#8B7355] mb-3">
+            <p className="text-xs font-sans-elegant tracking-[0.3em] uppercase text-[#6B6B6B] mb-3">
               Bienvenida
             </p>
-            <h1 className="text-3xl font-serif-display font-light text-[#2C2420] mb-3">
+            <h1 className="text-2xl font-sans-elegant uppercase tracking-wider text-[#1A1A1A] mb-3">
               Iniciar Sesión
             </h1>
-            <p className="text-sm text-[#7A6B5A] font-sans-elegant">
+            <p className="text-sm text-[#6B6B6B] font-sans-elegant">
               Accede a tu cuenta de Pascale Closet
             </p>
           </div>
 
           <form onSubmit={handleSubmit}>
             {error && (
-              <div className="w-full flex text-[#B85450] p-3 bg-[#B85450]/10 border border-[#B85450]/30 justify-center mb-6 font-sans-elegant text-sm">
+              <div className="w-full flex text-[#1A1A1A] p-3 bg-[#F8F8F8] border border-[#E5E5E5] justify-center mb-6 font-sans-elegant text-sm">
                 {error}
               </div>
             )}
@@ -94,7 +95,7 @@ export const Login = () => {
             <div className="mb-6">
               <Link
                 to="/forgot-password"
-                className="text-sm text-[#8B7355] hover:underline font-sans-elegant"
+                className="text-sm text-[#6B6B6B] hover:text-[#1A1A1A] font-sans-elegant transition-colors"
               >
                 ¿Olvidaste tu contraseña?
               </Link>
@@ -102,7 +103,7 @@ export const Login = () => {
 
             <button
               type="submit"
-              className="w-full py-4 bg-[#8B7355] text-white font-sans-elegant text-sm tracking-[0.2em] uppercase hover:bg-[#6B5A45] transition-all duration-300 mb-6"
+              className="w-full py-4 bg-[#1A1A1A] text-white font-sans-elegant text-xs tracking-[0.2em] uppercase hover:bg-[#333333] transition-all duration-300 mb-6"
             >
               {isLoading ? (
                 <span className="flex gap-2 items-center justify-center">
@@ -115,11 +116,11 @@ export const Login = () => {
             </button>
 
             <div className="text-center">
-              <p className="text-sm text-[#7A6B5A] font-sans-elegant">
+              <p className="text-sm text-[#6B6B6B] font-sans-elegant">
                 ¿No tienes una cuenta?{" "}
                 <Link
                   to="/register"
-                  className="text-[#8B7355] hover:underline font-medium"
+                  className="text-[#1A1A1A] hover:underline font-medium"
                 >
                   Regístrate aquí
                 </Link>
@@ -127,9 +128,10 @@ export const Login = () => {
             </div>
           </form>
 
-          <div className="mt-10 p-5 bg-[#F5F0EB] border border-[#E0D6CC]">
-            <p className="text-xs text-[#7A6B5A] font-sans-elegant">
-              <span className="text-[#8B7355] font-medium">Demo:</span> Usa cualquier email y contraseña (mín. 6 caracteres)
+          <div className="mt-10 p-5 bg-[#F8F8F8] border border-[#E5E5E5]">
+            <p className="text-xs text-[#6B6B6B] font-sans-elegant">
+              <span className="text-[#1A1A1A] font-medium">Demo:</span> Usa
+              cualquier email y contraseña (mín. 6 caracteres)
             </p>
           </div>
         </div>

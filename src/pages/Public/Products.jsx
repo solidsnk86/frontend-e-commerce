@@ -2,6 +2,17 @@ import { ProductCard } from "../../components/common/ProductCard";
 import { useProducts } from "../../contexts/ProductContext";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Loader } from "../../components/common/Loader";
+import { useState, useEffect } from "react";
+import { 
+  LayoutGrid, 
+  List,
+  Shirt,
+  Truck,
+  Package,
+  Ruler,
+  ChevronLeft,
+  ChevronRight
+} from "lucide-react";
 
 const normalize = (s) =>
   String(s ?? "")
@@ -12,14 +23,20 @@ const normalize = (s) =>
     .replace(/[^a-z0-9-]/g, "")
     .replace(/^-+|-+$/g, "");
 
-const prettyTitle = (slug) =>
-  slug ? slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) : "Toda la colección";
-
 export const AllProducts = () => {
   const { products, loading, error } = useProducts();
   const { categorySlug } = useParams();
   const navigate = useNavigate()
   const activeSlug = categorySlug || null;
+  const [viewMode, setViewMode] = useState('grid');
+  // Paginación
+  const [currentPage, setCurrentPage] = useState(1);
+  const PRODUCTS_PER_PAGE = 20;
+
+  // Resetear página al cambiar filtros
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeSlug]);
 
   if (loading) return <Loader />
 
@@ -48,12 +65,18 @@ export const AllProducts = () => {
       })
     : products;
 
+  // Paginación
+  const totalPages = Math.ceil((filtered || []).length / PRODUCTS_PER_PAGE);
+  const paginatedProducts = (filtered || []).slice(
+    (currentPage - 1) * PRODUCTS_PER_PAGE,
+    currentPage * PRODUCTS_PER_PAGE
+  );
+
   const categories = [
-    { slug: "vestidos", name: "Vestidos", icon: "👗" },
-    { slug: "enteritos", name: "Enteritos", icon: "👚" },
-    { slug: "pantalones", name: "Pantalones", icon: "👖" },
-    { slug: "accesorios", name: "Accesorios", icon: "💍" },
-    { slug: "otros", name: "Más", icon: "✨" },
+    { slug: "nuevos-productos", name: "NUEVOS PRODUCTOS" },
+    { slug: "mas-vendidos", name: "MÁS VENDIDOS" },
+    { slug: "categorías", name: "CATEGORÍAS" },
+    { slug: "ofertas", name: "OFERTAS" },
   ];
   
   const activeCategory = categories.find(
@@ -61,101 +84,194 @@ export const AllProducts = () => {
   );
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5]">
-      <div className="max-w-7xl mx-auto px-4 py-12">
-        {/* Breadcrumb */}
-        <nav className="text-sm mb-8 font-sans-elegant">
-          <Link to="/" className="text-[#8B7355] hover:underline">Inicio</Link>
-          <span className="mx-3 text-[#C9B8A8]">/</span>
-          <Link to="/products" className="text-[#8B7355] hover:underline">Colección</Link>
-          {activeSlug && (
-            <>
-              <span className="mx-3 text-[#C9B8A8]">/</span>
-              <span className="text-[#7A6B5A]">{prettyTitle(activeSlug)}</span>
-            </>
-          )}
-        </nav>
+    <div className="min-h-screen bg-white">
+      {/* Hero Header */}
+      <div className="bg-[#1A1A1A] text-white py-6">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <h1 className="text-lg md:text-xl font-sans-elegant uppercase tracking-[0.3em]">
+            {activeCategory ? activeCategory.name : "NUEVOS PRODUCTOS"}
+          </h1>
+        </div>
+      </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Sidebar - Categorías */}
-          <aside className="lg:col-span-1">
-            <div className="bg-white border border-[#E0D6CC] p-6 sticky top-4">
-              <h2 className="text-xl font-serif-display text-[#2C2420] mb-6 pb-4 border-b border-[#E0D6CC]">Categorías</h2>
-              <ul className="space-y-1">
-                <li>
-                  <Link
-                    to="/products"
-                    className={`flex items-center gap-3 p-3 hover:bg-[#F5F0EB] transition-all duration-200 font-sans-elegant text-sm ${
-                      !activeSlug ? "bg-[#F5F0EB] border-l-2 border-[#8B7355] text-[#8B7355]" : "text-[#5C4D3C]"
-                    }`}
-                  >
-                    <span className="text-lg">🏠</span>
-                    <span>Toda la colección</span>
-                    <span className="ml-auto text-xs text-[#A69580]">({products.length})</span>
+      {/* Filter Bar */}
+      <div className="border-b border-[#E5E5E5] bg-white sticky top-0 z-30">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-between py-3">
+            {/* Left - Filter buttons */}
+            <div className="flex items-center gap-6">
+              <button className="text-[11px] font-sans-elegant uppercase tracking-wider text-[#1A1A1A] hover:text-[#666] transition-colors">
+                FILTROS
+              </button>
+              <button className="text-[11px] font-sans-elegant uppercase tracking-wider text-[#1A1A1A] hover:text-[#666] transition-colors hidden md:block">
+                CARACTERÍSTICAS
+              </button>
+            </div>
+
+            {/* Center - Count */}
+            <p className="text-[11px] text-[#666] font-sans-elegant">
+              {(filtered || []).length} PRODUCTOS
+            </p>
+
+            {/* Right - View toggle */}
+            <div className="flex items-center gap-3">
+              <button 
+                onClick={() => setViewMode('grid')}
+                className={`p-1 ${viewMode === 'grid' ? 'text-[#1A1A1A]' : 'text-[#999]'}`}
+              >
+                <LayoutGrid className="w-4 h-4" />
+              </button>
+              <button 
+                onClick={() => setViewMode('list')}
+                className={`p-1 ${viewMode === 'list' ? 'text-[#1A1A1A]' : 'text-[#999]'}`}
+              >
+                <List className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Products Grid */}
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        {paginatedProducts.length === 0 ? (
+          <div className="text-center py-20">
+            <Shirt className="w-16 h-16 text-[#E5E5E5] mx-auto mb-6" />
+            <h2 className="text-lg font-sans-elegant uppercase tracking-wider text-[#1A1A1A] mb-4">
+              No hay piezas en esta categoría
+            </h2>
+            <p className="text-[#666] font-sans-elegant text-sm mb-8">
+              Explora otras categorías o descubre toda nuestra colección
+            </p>
+            <Link to="/products">
+              <button className="px-8 py-3 bg-[#1A1A1A] text-white font-sans-elegant text-[11px] tracking-[0.2em] uppercase hover:bg-[#333] transition-all duration-300">
+                Ver toda la colección
+              </button>
+            </Link>
+          </div>
+        ) : (
+          viewMode === 'grid' ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-3 gap-y-6">
+              {paginatedProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {paginatedProducts.map((product) => (
+                <div key={product.id} className="flex bg-white border border-[#E5E5E5] hover:border-[#1A1A1A] transition-all duration-300">
+                  <Link to={`/product/${product.id}`} className="block w-48 h-56 flex-shrink-0 bg-[#F8F8F8] overflow-hidden relative group">
+                    {product.image ? (
+                      <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-[#E5E5E5]">
+                        <Shirt className="w-16 h-16" />
+                      </div>
+                    )}
+                    {product.originalPrice && (
+                      <span className="absolute top-2 left-2 bg-[#1A1A1A] text-white text-[9px] px-2 py-1 font-sans-elegant uppercase tracking-wider">
+                        Oferta
+                      </span>
+                    )}
                   </Link>
-                </li>
-                {categories.map((cat) => {
-                  const count = (products ?? []).filter((p) => p?.category && normalize(p.category) === cat.slug).length;
-                  return (
-                    <li key={cat.slug}>
-                      <Link
-                        to={`/products/category/${cat.slug}`}
-                        className={`flex items-center gap-3 p-3 hover:bg-[#F5F0EB] transition-all duration-200 font-sans-elegant text-sm ${
-                          normalize(activeSlug) === cat.slug
-                            ? "bg-[#F5F0EB] border-l-2 border-[#8B7355] text-[#8B7355]"
-                            : "text-[#5C4D3C]"
-                        }`}
-                      >
-                        <span className="text-lg">{cat.icon}</span>
-                        <span>{cat.name}</span>
-                        <span className="ml-auto text-xs text-[#A69580]">({count})</span>
+                  <div className="flex-1 flex flex-col justify-between p-6">
+                    <div>
+                      <Link to={`/product/${product.id}`}>
+                        <h3 className="font-sans-elegant text-sm uppercase tracking-wider text-[#1A1A1A] mb-3 hover:text-[#666] transition-colors">
+                          {product.name}
+                        </h3>
                       </Link>
-                    </li>
-                  );
-                })}
-              </ul>
+                      {product.description && (
+                        <p className="text-xs text-[#6B6B6B] font-sans-elegant line-clamp-2 mb-4 leading-relaxed">
+                          {product.description}
+                        </p>
+                      )}
+                      <div className="flex items-baseline gap-3 mb-4">
+                        {product.originalPrice && (
+                          <span className="text-sm text-[#999] line-through font-sans-elegant">
+                            ${product.originalPrice}
+                          </span>
+                        )}
+                        <span className="text-xl font-sans-elegant text-[#1A1A1A]">
+                          ${product.price}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <Link to={`/product/${product.id}`}>
+                        <button className="px-6 py-2.5 bg-[#1A1A1A] text-white text-[10px] font-sans-elegant uppercase tracking-[0.15em] hover:bg-[#333333] transition-all duration-300">
+                          Ver Detalle
+                        </button>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-          </aside>
+          )
+        )}
 
-          {/* Main Content - Productos */}
-          <main className="lg:col-span-3">
-            <div className="mb-10">
-              <p className="text-xs font-sans-elegant tracking-[0.3em] uppercase text-[#8B7355] mb-2">
-                Explora
-              </p>
-              <h1 className="text-3xl md:text-4xl font-serif-display font-light text-[#2C2420] mb-3">
-                {activeCategory
-                  ? `${activeCategory.name}`
-                  : "Toda la Colección"}
-              </h1>
-              <p className="text-[#7A6B5A] font-sans-elegant">
-                {filtered.length} {filtered.length === 1 ? "pieza encontrada" : "piezas encontradas"}
-              </p>
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center gap-1 mt-16">
+            <button
+              className="w-8 h-8 flex items-center justify-center text-[#1A1A1A] hover:bg-[#F5F5F5] transition-colors disabled:opacity-30"
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              aria-label="Página anterior"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            {Array.from({ length: Math.min(totalPages, 7) }).map((_, i) => {
+              let pageNum;
+              if (totalPages <= 7) {
+                pageNum = i + 1;
+              } else if (currentPage <= 4) {
+                pageNum = i + 1;
+              } else if (currentPage >= totalPages - 3) {
+                pageNum = totalPages - 6 + i;
+              } else {
+                pageNum = currentPage - 3 + i;
+              }
+              return (
+                <button
+                  key={pageNum}
+                  className={`w-8 h-8 text-[11px] font-sans-elegant ${currentPage === pageNum ? 'bg-[#1A1A1A] text-white' : 'text-[#1A1A1A] hover:bg-[#F5F5F5]'} transition-colors`}
+                  onClick={() => setCurrentPage(pageNum)}
+                >
+                  {pageNum}
+                </button>
+              );
+            })}
+            <button
+              className="w-8 h-8 flex items-center justify-center text-[#1A1A1A] hover:bg-[#F5F5F5] transition-colors disabled:opacity-30"
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              aria-label="Página siguiente"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* Features Bar - Estilo Kadenkas */}
+      <div className="border-t border-[#E5E5E5] bg-white py-10">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="flex items-center justify-center gap-4">
+              <Truck className="w-5 h-5 text-[#1A1A1A]" />
+              <p className="text-[11px] font-sans-elegant uppercase tracking-[0.15em] text-[#1A1A1A]">ENVÍOS Y RETIROS FLASH</p>
             </div>
-
-            {filtered.length === 0 ? (
-              <div className="bg-white border border-[#E0D6CC] p-16 text-center">
-                <div className="text-5xl mb-6 text-[#C9B8A8]">👗</div>
-                <h2 className="text-2xl font-serif-display text-[#2C2420] mb-4">
-                  No hay piezas en esta categoría
-                </h2>
-                <p className="text-[#7A6B5A] font-sans-elegant mb-8">
-                  Explora otras categorías o descubre toda nuestra colección
-                </p>
-                <Link to="/products">
-                  <button className="px-10 py-4 bg-[#8B7355] text-white font-sans-elegant text-sm tracking-[0.2em] uppercase hover:bg-[#6B5A45] transition-all duration-300">
-                    Ver toda la colección
-                  </button>
-                </Link>
-              </div>
-            ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-4">
-                {filtered.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            )}
-          </main>
+            <div className="flex items-center justify-center gap-4">
+              <Package className="w-5 h-5 text-[#1A1A1A]" />
+              <p className="text-[11px] font-sans-elegant uppercase tracking-[0.15em] text-[#1A1A1A]">CONFECCIÓN NACIONAL</p>
+            </div>
+            <div className="flex items-center justify-center gap-4">
+              <Ruler className="w-5 h-5 text-[#1A1A1A]" />
+              <p className="text-[11px] font-sans-elegant uppercase tracking-[0.15em] text-[#1A1A1A]">TALLAS PARA TODAS DE XS A XL</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

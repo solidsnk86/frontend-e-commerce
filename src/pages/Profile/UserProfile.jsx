@@ -34,12 +34,12 @@ export const UserProfile = () => {
       title: "¡Listo!",
       content: (
         <div className="text-center py-2">
-          <div className="w-12 h-12 bg-[#F0F5F0] rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg className="w-6 h-6 text-[#6B8E6B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-12 h-12 bg-[#F8F8F8] rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-6 h-6 text-[#1A1A1A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <p className="text-[#5C4D3C]">Tu perfil ha sido actualizado correctamente.</p>
+          <p className="text-[#6B6B6B] font-sans-elegant">Tu perfil ha sido actualizado correctamente.</p>
         </div>
       ),
     });
@@ -52,7 +52,7 @@ export const UserProfile = () => {
     if (!file.type.startsWith("image/")) {
       showDialog({
         title: "Error",
-        content: <p className="text-[#5C4D3C]">Por favor selecciona un archivo de imagen válido.</p>,
+        content: <p className="text-[#6B6B6B] font-sans-elegant">Por favor selecciona un archivo de imagen válido.</p>,
       });
       return;
     }
@@ -60,7 +60,7 @@ export const UserProfile = () => {
     if (file.size > 5 * 1024 * 1024) {
       showDialog({
         title: "Error",
-        content: <p className="text-[#5C4D3C]">La imagen no debe superar los 5MB.</p>,
+        content: <p className="text-[#6B6B6B] font-sans-elegant">La imagen no debe superar los 5MB.</p>,
       });
       return;
     }
@@ -78,19 +78,19 @@ export const UserProfile = () => {
       title: "Eliminar cuenta",
       content: (
         <div className="text-center">
-          <div className="w-16 h-16 bg-[#FDF5F5] rounded-full flex items-center justify-center mx-auto mb-4">
-            <Trash2 className="w-8 h-8 text-[#B85450]" />
+          <div className="w-16 h-16 bg-[#F8F8F8] rounded-full flex items-center justify-center mx-auto mb-4">
+            <Trash2 className="w-8 h-8 text-[#1A1A1A]" />
           </div>
-          <p className="text-[#2C2420] font-medium mb-2">
+          <p className="text-[#1A1A1A] font-sans-elegant font-medium mb-2">
             ¿Estás segura de eliminar tu cuenta?
           </p>
-          <p className="text-sm text-[#7A6B5A] mb-6">
+          <p className="text-sm text-[#6B6B6B] font-sans-elegant mb-6">
             Esta acción no se puede deshacer. Se eliminarán todos tus datos permanentemente.
           </p>
           <div className="flex gap-3 justify-center">
             <button
               onClick={closeDialog}
-              className="px-5 py-2.5 border border-[#E0D6CC] text-[#5C4D3C] font-sans-elegant text-sm tracking-wide hover:bg-[#F5F0EB] transition-all duration-200"
+              className="px-5 py-2.5 border border-[#E5E5E5] text-[#6B6B6B] font-sans-elegant text-xs tracking-wide uppercase hover:bg-[#F8F8F8] transition-all duration-200"
             >
               Cancelar
             </button>
@@ -100,7 +100,7 @@ export const UserProfile = () => {
                 await refreshUser();
                 closeDialog();
               }}
-              className="px-5 py-2.5 bg-[#B85450] text-white font-sans-elegant text-sm tracking-wide hover:bg-[#A04440] transition-all duration-200"
+              className="px-5 py-2.5 bg-[#1A1A1A] text-white font-sans-elegant text-xs tracking-wide uppercase hover:bg-[#333333] transition-all duration-200"
             >
               Eliminar cuenta
             </button>
@@ -115,30 +115,30 @@ export const UserProfile = () => {
   const defaultAvatar = 'https://raw.githubusercontent.com/solidsnk86/taskApp-doubleCommit/refs/heads/master/public/user_avatar_default.png';
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] py-12">
+    <div className="min-h-screen bg-white py-12">
       <div className="max-w-2xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8">
-          <p className="text-[#8B7355] font-sans-elegant text-sm tracking-[0.3em] uppercase mb-3">
+          <p className="text-[#6B6B6B] font-sans-elegant text-xs tracking-[0.3em] uppercase mb-3">
             Mi Cuenta
           </p>
-          <h1 className="text-3xl font-serif-display font-light text-[#2C2420]">
+          <h1 className="text-2xl font-sans-elegant uppercase tracking-wider text-[#1A1A1A]">
             Perfil de Usuario
           </h1>
-          <div className="w-12 h-[1px] bg-[#C9B8A8] mx-auto mt-4"></div>
+          <div className="w-12 h-[1px] bg-[#E5E5E5] mx-auto mt-4"></div>
         </div>
 
         {/* Profile Card */}
-        <div className="bg-white border border-[#E0D6CC]">
+        <div className="bg-white border border-[#E5E5E5]">
           {/* Avatar Section */}
-          <div className="relative bg-gradient-to-b from-[#F5F0EB] to-white pt-8 pb-16 px-8">
+          <div className="relative bg-gradient-to-b from-[#F8F8F8] to-white pt-8 pb-16 px-8">
             <div className="absolute top-4 right-4">
               <button
                 onClick={() => setIsEditing(!isEditing)}
-                className={`flex items-center gap-2 px-4 py-2 text-sm font-sans-elegant tracking-wide transition-all duration-200 ${
+                className={`flex items-center gap-2 px-4 py-2 text-xs font-sans-elegant tracking-wide uppercase transition-all duration-200 ${
                   isEditing 
-                    ? 'bg-[#8B7355] text-white' 
-                    : 'border border-[#E0D6CC] text-[#5C4D3C] hover:border-[#8B7355] hover:text-[#8B7355]'
+                    ? 'bg-[#1A1A1A] text-white' 
+                    : 'border border-[#E5E5E5] text-[#6B6B6B] hover:border-[#1A1A1A] hover:text-[#1A1A1A]'
                 }`}
               >
                 <Edit3 size={14} />
@@ -161,7 +161,7 @@ export const UserProfile = () => {
                   <>
                     <button
                       onClick={() => fileInputRef.current?.click()}
-                      className="absolute inset-0 flex items-center justify-center bg-[#2C2420]/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                      className="absolute inset-0 flex items-center justify-center bg-[#1A1A1A]/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200"
                     >
                       <Camera className="w-6 h-6 text-white" />
                     </button>
@@ -174,7 +174,7 @@ export const UserProfile = () => {
                     />
                     <button
                       onClick={() => fileInputRef.current?.click()}
-                      className="absolute -bottom-1 -right-1 w-8 h-8 bg-[#8B7355] rounded-full flex items-center justify-center shadow-md hover:bg-[#6B5A45] transition-colors duration-200"
+                      className="absolute -bottom-1 -right-1 w-8 h-8 bg-[#1A1A1A] rounded-full flex items-center justify-center shadow-md hover:bg-[#333333] transition-colors duration-200"
                     >
                       <Camera className="w-4 h-4 text-white" />
                     </button>
@@ -184,13 +184,13 @@ export const UserProfile = () => {
 
               {/* Nombre y rol */}
               <div className="mt-4 text-center">
-                <h2 className="text-xl font-serif-display text-[#2C2420]">
+                <h2 className="text-lg font-sans-elegant uppercase tracking-wide text-[#1A1A1A]">
                   {user.name} {user.lastname}
                 </h2>
-                <p className="text-sm text-[#7A6B5A] font-sans-elegant mt-1">
+                <p className="text-sm text-[#6B6B6B] font-sans-elegant mt-1">
                   {user.email}
                 </p>
-                <span className="inline-block mt-3 px-3 py-1 bg-[#F5F0EB] text-[#8B7355] text-xs font-sans-elegant tracking-wide uppercase rounded-sm">
+                <span className="inline-block mt-3 px-3 py-1 bg-[#F8F8F8] text-[#1A1A1A] text-xs font-sans-elegant tracking-wide uppercase">
                   {user.role === 'seller' ? 'Vendedora' : 'Compradora'}
                 </span>
               </div>
@@ -199,15 +199,15 @@ export const UserProfile = () => {
 
           {/* Form Section */}
           <form onSubmit={handleUpdate} className="p-8">
-            <div className="bg-white border border-[#E0D6CC] p-6">
-              <h3 className="text-sm font-sans-elegant font-medium text-[#2C2420] mb-6 uppercase tracking-wide flex items-center gap-2">
-                <User size={16} className="text-[#8B7355]" />
+            <div className="bg-white border border-[#E5E5E5] p-6">
+              <h3 className="text-xs font-sans-elegant font-medium text-[#1A1A1A] mb-6 uppercase tracking-wider flex items-center gap-2">
+                <User size={16} className="text-[#6B6B6B]" />
                 Información Personal
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-xs font-sans-elegant text-[#7A6B5A] uppercase tracking-wide mb-2">
+                  <label className="block text-xs font-sans-elegant text-[#6B6B6B] uppercase tracking-wide mb-2">
                     Nombre
                   </label>
                   <input
@@ -216,16 +216,16 @@ export const UserProfile = () => {
                     value={formData.name}
                     onChange={handleChange}
                     disabled={!isEditing}
-                    className={`w-full px-4 py-3 border font-sans-elegant text-[#2C2420] transition-all duration-200 ${
+                    className={`w-full px-4 py-3 border font-sans-elegant text-[#1A1A1A] transition-all duration-200 ${
                       isEditing 
-                        ? 'border-[#C9B8A8] bg-white focus:border-[#8B7355] focus:outline-none' 
-                        : 'border-[#E8E2DB] bg-[#FAF8F5] cursor-not-allowed'
+                        ? 'border-[#E5E5E5] bg-white focus:border-[#1A1A1A] focus:outline-none' 
+                        : 'border-[#E5E5E5] bg-[#F8F8F8] cursor-not-allowed'
                     }`}
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-sans-elegant text-[#7A6B5A] uppercase tracking-wide mb-2">
+                  <label className="block text-xs font-sans-elegant text-[#6B6B6B] uppercase tracking-wide mb-2">
                     Apellido
                   </label>
                   <input
@@ -234,17 +234,17 @@ export const UserProfile = () => {
                     value={formData.lastname}
                     onChange={handleChange}
                     disabled={!isEditing}
-                    className={`w-full px-4 py-3 border font-sans-elegant text-[#2C2420] transition-all duration-200 ${
+                    className={`w-full px-4 py-3 border font-sans-elegant text-[#1A1A1A] transition-all duration-200 ${
                       isEditing 
-                        ? 'border-[#C9B8A8] bg-white focus:border-[#8B7355] focus:outline-none' 
-                        : 'border-[#E8E2DB] bg-[#FAF8F5] cursor-not-allowed'
+                        ? 'border-[#E5E5E5] bg-white focus:border-[#1A1A1A] focus:outline-none' 
+                        : 'border-[#E5E5E5] bg-[#F8F8F8] cursor-not-allowed'
                     }`}
                   />
                 </div>
               </div>
 
               <div className="mt-5">
-                <label className="text-xs font-sans-elegant text-[#7A6B5A] uppercase tracking-wide mb-2 flex items-center gap-2">
+                <label className="text-xs font-sans-elegant text-[#6B6B6B] uppercase tracking-wide mb-2 flex items-center gap-2">
                   <Mail size={14} />
                   Email
                 </label>
@@ -254,10 +254,10 @@ export const UserProfile = () => {
                   value={formData.email}
                   onChange={handleChange}
                   disabled={!isEditing}
-                  className={`w-full px-4 py-3 border font-sans-elegant text-[#2C2420] transition-all duration-200 ${
+                  className={`w-full px-4 py-3 border font-sans-elegant text-[#1A1A1A] transition-all duration-200 ${
                     isEditing 
-                      ? 'border-[#C9B8A8] bg-white focus:border-[#8B7355] focus:outline-none' 
-                      : 'border-[#E8E2DB] bg-[#FAF8F5] cursor-not-allowed'
+                      ? 'border-[#E5E5E5] bg-white focus:border-[#1A1A1A] focus:outline-none' 
+                      : 'border-[#E5E5E5] bg-[#F8F8F8] cursor-not-allowed'
                   }`}
                 />
               </div>
@@ -268,7 +268,7 @@ export const UserProfile = () => {
               <div className="flex flex-col sm:flex-row gap-3 mt-6">
                 <button
                   type="submit"
-                  className="flex-1 flex items-center justify-center gap-2 py-3 bg-[#8B7355] text-white font-sans-elegant text-sm tracking-wide hover:bg-[#6B5A45] transition-all duration-200"
+                  className="flex-1 flex items-center justify-center gap-2 py-3 bg-[#1A1A1A] text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#333333] transition-all duration-200"
                 >
                   <Save size={16} />
                   Guardar Cambios
@@ -285,7 +285,7 @@ export const UserProfile = () => {
                       avatar: user.avatar || ""
                     });
                   }}
-                  className="flex-1 py-3 border border-[#E0D6CC] text-[#5C4D3C] font-sans-elegant text-sm tracking-wide hover:bg-[#F5F0EB] transition-all duration-200"
+                  className="flex-1 py-3 border border-[#1A1A1A] text-[#1A1A1A] font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#1A1A1A] hover:text-white transition-all duration-200"
                 >
                   Cancelar
                 </button>
@@ -294,18 +294,18 @@ export const UserProfile = () => {
           </form>
 
           {/* Danger Zone */}
-          <div className="border-t border-[#E0D6CC] p-8">
-            <div className="border border-[#E8D0D0] bg-[#FDF8F8] p-5">
-              <h3 className="text-sm font-sans-elegant font-medium text-[#B85450] mb-2 uppercase tracking-wide">
+          <div className="border-t border-[#E5E5E5] p-8">
+            <div className="border border-[#E5E5E5] bg-[#F8F8F8] p-5">
+              <h3 className="text-xs font-sans-elegant font-medium text-[#1A1A1A] mb-2 uppercase tracking-wider">
                 Zona de Peligro
               </h3>
-              <p className="text-sm text-[#5C4D3C] font-sans-elegant mb-4">
+              <p className="text-sm text-[#6B6B6B] font-sans-elegant mb-4">
                 Una vez eliminada tu cuenta, no podrás recuperarla. Por favor, asegúrate antes de continuar.
               </p>
               <button
                 type="button"
                 onClick={handleDeleteUser}
-                className="flex items-center gap-2 px-4 py-2 border border-[#B85450] text-[#B85450] font-sans-elegant text-sm tracking-wide hover:bg-[#B85450] hover:text-white transition-all duration-200"
+                className="flex items-center gap-2 px-4 py-2 border border-[#1A1A1A] text-[#1A1A1A] font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#1A1A1A] hover:text-white transition-all duration-200"
               >
                 <Trash2 size={14} />
                 Eliminar mi cuenta

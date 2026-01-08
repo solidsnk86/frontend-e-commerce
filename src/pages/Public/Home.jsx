@@ -3,14 +3,16 @@ import { ProductCard } from "../../components/common/ProductCard";
 import { useProducts } from "../../contexts/ProductContext";
 import { Loader } from "../../components/common/Loader";
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { useState } from 'react';
 import 'swiper/css';
-import 'swiper/css/navigation';
-import { Navigation } from 'swiper/modules';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { InstagramButton } from "../../components/common/InstagramButton";
+import { Truck, Package, Shirt } from 'lucide-react';
 
 export const Home = () => {
   const navigate = useNavigate();
   const { products, loading, error } = useProducts();
+  const [swiperRef, setSwiperRef] = useState(null);
 
 
   if (loading) return <Loader />;
@@ -25,101 +27,115 @@ export const Home = () => {
     );
   }
 
-  // const categories = [
-  //   {
-  //     slug: "vestidos",
-  //     name: "Vestidos",
-  //     icon: "👗",
-  //     link: "/products/category/vestidos",
-  //   },
-  //   {
-  //     slug: "enteritos",
-  //     name: "Enteritos",
-  //     icon: "👚",
-  //     link: "/products/category/blusas",
-  //   },
-  //   {
-  //     slug: "pantalones",
-  //     name: "Pantalones",
-  //     icon: "👖",
-  //     link: "/products/category/pantalones",
-  //   },
-  //   {
-  //     slug: "accesorios",
-  //     name: "Accesorios",
-  //     icon: "💍",
-  //     link: "/products/category/accesorios",
-  //   },
-  //   {
-  //     slug: "otros",
-  //     name: "Más",
-  //     icon: "✨",
-  //     link: "/products/category/otros",
-  //   },
-  // ];
-
   return (
-    <div className="min-h-screen bg-[#FAF8F5]">
-      {/* Hero Section - Elegant */}
-      <section className="relative bg-gradient-to-b from-[#F5F0EB] to-[#FAF8F5] border-b border-[#E0D6CC]">
-        <div className="max-w-7xl mx-auto px-4 py-20 md:py-28 flex flex-col items-center text-center">
-          <p className="text-[#8B7355] font-sans-elegant text-sm tracking-[0.3em] uppercase mb-4">
-            Nueva Colección
+    <div className="min-h-screen bg-white">
+      <div className="bg-[#1A1A1A] text-white text-center py-2 text-xs tracking-wider font-sans-elegant flex items-center justify-center gap-2">
+        <span>ENVÍO GRATIS A PARTIR DE $50.000</span>
+        <Truck className="inline w-4 h-4 mb-[2px]" />
+        <span>CUOTAS SIN INTERÉS</span>
+      </div>
+
+      <section className="relative h-[70vh] md:h-[85vh] overflow-hidden">
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=1600&q=80" 
+            alt="Mujer con vestido - Pascale Closet Collection"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/20"></div>
+        </div>
+        <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
+          <p className="text-white/90 font-sans-elegant text-xs tracking-[0.4em] uppercase mb-4">
+            Colección 2026
           </p>
-          <h2 className="text-4xl md:text-6xl font-serif-display font-light text-[#2C2420] mb-4 tracking-wide">
-            Pascale Closet
-          </h2>
-          <div className="w-16 h-[1px] bg-[#C9B8A8] mb-6"></div>
-          <p className="text-lg md:text-xl text-[#7A6B5A] font-sans-elegant font-light mb-10 max-w-2xl leading-relaxed">
-            Elegancia atemporal para mujeres que valoran el estilo y la sofisticación
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif-display text-white mb-6 tracking-wide">
+            NUEVA TEMPORADA
+          </h1>
+          <p className="text-white/80 font-sans-elegant text-sm md:text-base mb-8 max-w-md">
+            Descubrí las últimas tendencias en moda femenina
           </p>
-          <div className="flex gap-4 flex-wrap justify-center">
-            <button
-              onClick={() => navigate("/products")}
-              className="px-10 py-4 bg-[#8B7355] text-white font-sans-elegant text-sm tracking-[0.2em] uppercase hover:bg-[#6B5A45] transition-all duration-300"
-            >
-              Explorar Colección
-            </button>
-            <button
-              onClick={() => navigate("/login")}
-              className="px-10 py-4 border border-[#8B7355] text-[#8B7355] font-sans-elegant text-sm tracking-[0.2em] uppercase hover:bg-[#8B7355] hover:text-white transition-all duration-300"
-            >
-              Vender
-            </button>
-          </div>
+          <button
+            onClick={() => navigate("/products")}
+            className="px-8 py-3 bg-white text-[#1A1A1A] font-sans-elegant text-xs tracking-[0.2em] uppercase hover:bg-[#F5E6E0] transition-all duration-300"
+          >
+            Ver Colección
+          </button>
         </div>
       </section>
 
-      {/* Productos destacados - Elegant */}
       <section className="max-w-7xl mx-auto px-4 py-16">
-        <div className="flex justify-between items-end mb-10">
-          <div>
-            <p className="text-[#8B7355] font-sans-elegant text-xs tracking-[0.3em] uppercase mb-3">
-              Selección Curada
-            </p>
-            <h3 className="text-3xl md:text-4xl font-serif-display font-light text-[#2C2420]">
-              Destacados
-            </h3>
-          </div>
+        <div className="flex justify-between items-center mb-10">
+          <h2 className="text-2xl md:text-3xl font-serif-display text-[#1A1A1A]">
+            CATEGORÍAS
+          </h2>
           <Link
             to="/products"
-            className="text-[#8B7355] hover:text-[#6B5A45] font-sans-elegant text-sm tracking-[0.1em] uppercase border-b border-[#8B7355] pb-1 transition-colors duration-300"
+            className="text-[#1A1A1A] font-sans-elegant text-xs tracking-[0.15em] uppercase border border-[#1A1A1A] px-4 py-2 hover:bg-[#1A1A1A] hover:text-white transition-all duration-300"
           >
-            Ver Todo
+            Ver Todas
+          </Link>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <Link to="/products/category/vestidos" className="group relative aspect-[3/4] overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&q=80" 
+              alt="Vestidos"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-all duration-300"></div>
+            <div className="absolute bottom-6 left-6">
+              <p className="text-white font-sans-elegant text-sm tracking-[0.2em] uppercase">Vestidos</p>
+            </div>
+          </Link>
+          <Link to="/products/category/tops" className="group relative aspect-[3/4] overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=600&q=80" 
+              alt="Tops & Blusas"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-all duration-300"></div>
+            <div className="absolute bottom-6 left-6">
+              <p className="text-white font-sans-elegant text-sm tracking-[0.2em] uppercase">Tops & Blusas</p>
+            </div>
+          </Link>
+          <Link to="/products/category/faldas" className="group relative aspect-[3/4] overflow-hidden hidden md:block">
+            <img 
+              src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&q=80" 
+              alt="Faldas & Shorts"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition-all duration-300"></div>
+            <div className="absolute bottom-6 left-6">
+              <p className="text-white font-sans-elegant text-sm tracking-[0.2em] uppercase">Faldas & Shorts</p>
+            </div>
+          </Link>
+        </div>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-4 py-16">
+        <div className="flex justify-between items-center mb-10">
+          <h2 className="text-2xl md:text-3xl font-serif-display text-[#1A1A1A]">
+            RECIÉN LLEGADOS
+          </h2>
+          <Link
+            to="/products"
+            className="text-[#1A1A1A] hover:text-[#6B6B6B] font-sans-elegant text-xs tracking-[0.15em] uppercase border-b border-[#1A1A1A] pb-1 transition-colors duration-300"
+          >
+            Ver Más
           </Link>
         </div>
 
-        <div className="mt-10">
+        <div className="relative">
           <Swiper
-            modules={[Navigation]}
-            navigation
+            onSwiper={setSwiperRef}
             slidesPerView={1}
+            spaceBetween={16}
             breakpoints={{
               640: { slidesPerView: 2 },
               768: { slidesPerView: 3 },
               1024: { slidesPerView: 4 },
             }}
-            className="!pb-8"
+            className="!pb-4"
           >
             {products && products.length > 0 ? (
               products.map((product) => (
@@ -133,39 +149,57 @@ export const Home = () => {
               </SwiperSlide>
             )}
           </Swiper>
+          
+          {/* Flechas de navegación abajo a la derecha */}
+          <div className="flex justify-end gap-2 mt-6">
+            <button 
+              onClick={() => swiperRef?.slidePrev()}
+              className="w-10 h-10 border border-[#1A1A1A] flex items-center justify-center hover:bg-[#1A1A1A] hover:text-white transition-all duration-200"
+              aria-label="Anterior"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button 
+              onClick={() => swiperRef?.slideNext()}
+              className="w-10 h-10 border border-[#1A1A1A] flex items-center justify-center hover:bg-[#1A1A1A] hover:text-white transition-all duration-200"
+              aria-label="Siguiente"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+          </div>
         </div>
       </section>
 
-      {/* Beneficios - Elegant */}
-      <section className="bg-[#F5F0EB] border-t border-[#E0D6CC]">
-        <div className="max-w-7xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="text-center p-8">
-            <div className="text-3xl mb-4">🚚</div>
-            <h4 className="font-serif-display text-xl text-[#2C2420] mb-2">
-              Envío Elegante
+      {/* Beneficios - Minimalist */}
+      <section className="bg-[#F8F8F8] border-t border-[#E5E5E5]">
+        <div className="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="text-center p-6">
+            <Truck className="w-8 h-8 mx-auto mb-3 text-[#1A1A1A]" />
+            <h4 className="font-sans-elegant text-sm uppercase tracking-wider text-[#1A1A1A] mb-2">
+              Envíos y Retiros Flash
             </h4>
-            <p className="text-sm text-[#7A6B5A] font-sans-elegant font-light">
-              Gratis en compras superiores a $45.000
+            <p className="text-xs text-[#6B6B6B] font-sans-elegant">
+              Gratis en compras superiores a $50.000
             </p>
           </div>
 
-          <div className="text-center p-8">
-            <div className="text-3xl mb-4">✨</div>
-            <h4 className="font-serif-display text-xl text-[#2C2420] mb-2">
-              Calidad Premium
+          <div className="text-center p-6">
+            <Package className="w-8 h-8 mx-auto mb-3 text-[#1A1A1A]" />
+            <h4 className="font-sans-elegant text-sm uppercase tracking-wider text-[#1A1A1A] mb-2">
+              Confección Nacional
             </h4>
-            <p className="text-sm text-[#7A6B5A] font-sans-elegant font-light">
-              Prendas seleccionadas cuidadosamente
+            <p className="text-xs text-[#6B6B6B] font-sans-elegant">
+              Prendas de calidad premium
             </p>
           </div>
 
-          <div className="text-center p-8">
-            <div className="text-3xl mb-4">💝</div>
-            <h4 className="font-serif-display text-xl text-[#2C2420] mb-2">
-              Atención Personalizada
+          <div className="text-center p-6">
+            <Shirt className="w-8 h-8 mx-auto mb-3 text-[#1A1A1A]" />
+            <h4 className="font-sans-elegant text-sm uppercase tracking-wider text-[#1A1A1A] mb-2">
+              Talles para Todas
             </h4>
-            <p className="text-sm text-[#7A6B5A] font-sans-elegant font-light">
-              Asesoramiento de estilo incluido
+            <p className="text-xs text-[#6B6B6B] font-sans-elegant">
+              XS a XL disponibles
             </p>
           </div>
         </div>

@@ -101,84 +101,84 @@ export const Checkout = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 py-8">
+    <div className="min-h-screen bg-white py-12">
       <div className="max-w-6xl mx-auto px-4">
-        <h1 className="text-3xl font-bold text-blue-900 mb-6">
+        <h1 className="text-2xl md:text-3xl font-sans-elegant uppercase tracking-wider text-[#1A1A1A] mb-8 text-center">
           Finalizar Compra
         </h1>
 
         {/* Progress Steps */}
-        <div className="bg-white border-2 border-gray-400 p-6 mb-6">
+        <div className="bg-white border border-[#E5E5E5] p-6 mb-8">
           <div className="flex justify-between items-center">
             <div
               className={`flex-1 text-center ${
-                step >= 1 ? "text-blue-600" : "text-gray-400"
+                step >= 1 ? "text-[#1A1A1A]" : "text-[#C5C5C5]"
               }`}
             >
               <div
-                className={`w-10 h-10 mx-auto rounded-full border-2 ${
+                className={`w-10 h-10 mx-auto rounded-full border ${
                   step >= 1
-                    ? "bg-blue-600 border-blue-600 text-white"
-                    : "border-gray-400"
-                } flex items-center justify-center font-bold mb-2`}
+                    ? "bg-[#1A1A1A] border-[#1A1A1A] text-white"
+                    : "border-[#E5E5E5] text-[#6B6B6B]"
+                } flex items-center justify-center font-sans-elegant text-sm mb-2`}
               >
                 1
               </div>
-              <p className="text-sm font-bold">Envío</p>
+              <p className="text-xs font-sans-elegant uppercase tracking-wide">Envío</p>
             </div>
             <div
-              className={`flex-1 h-1 ${
-                step >= 2 ? "bg-blue-600" : "bg-gray-400"
+              className={`flex-1 h-px ${
+                step >= 2 ? "bg-[#1A1A1A]" : "bg-[#E5E5E5]"
               }`}
             ></div>
             <div
               className={`flex-1 text-center ${
-                step >= 2 ? "text-blue-600" : "text-gray-400"
+                step >= 2 ? "text-[#1A1A1A]" : "text-[#C5C5C5]"
               }`}
             >
               <div
-                className={`w-10 h-10 mx-auto rounded-full border-2 ${
+                className={`w-10 h-10 mx-auto rounded-full border ${
                   step >= 2
-                    ? "bg-blue-600 border-blue-600 text-white"
-                    : "border-gray-400"
-                } flex items-center justify-center font-bold mb-2`}
+                    ? "bg-[#1A1A1A] border-[#1A1A1A] text-white"
+                    : "border-[#E5E5E5] text-[#6B6B6B]"
+                } flex items-center justify-center font-sans-elegant text-sm mb-2`}
               >
                 2
               </div>
-              <p className="text-sm font-bold">Pago</p>
+              <p className="text-xs font-sans-elegant uppercase tracking-wide">Pago</p>
             </div>
             <div
-              className={`flex-1 h-1 ${
-                step >= 3 ? "bg-blue-600" : "bg-gray-400"
+              className={`flex-1 h-px ${
+                step >= 3 ? "bg-[#1A1A1A]" : "bg-[#E5E5E5]"
               }`}
             ></div>
             <div
               className={`flex-1 text-center ${
-                step >= 3 ? "text-blue-600" : "text-gray-400"
+                step >= 3 ? "text-[#1A1A1A]" : "text-[#C5C5C5]"
               }`}
             >
               <div
-                className={`w-10 h-10 mx-auto rounded-full border-2 ${
+                className={`w-10 h-10 mx-auto rounded-full border ${
                   step >= 3
-                    ? "bg-blue-600 border-blue-600 text-white"
-                    : "border-gray-400"
-                } flex items-center justify-center font-bold mb-2`}
+                    ? "bg-[#1A1A1A] border-[#1A1A1A] text-white"
+                    : "border-[#E5E5E5] text-[#6B6B6B]"
+                } flex items-center justify-center font-sans-elegant text-sm mb-2`}
               >
                 3
               </div>
-              <p className="text-sm font-bold">Revisar</p>
+              <p className="text-xs font-sans-elegant uppercase tracking-wide">Revisar</p>
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Form Section */}
           <div className="lg:col-span-2">
-            <div className="bg-white border-2 border-gray-400 p-6">
+            <div className="bg-white border border-[#E5E5E5] p-8">
               {/* Step 1: Shipping */}
               {step === 1 && (
                 <div>
-                  <h2 className="text-xl font-bold text-blue-900 mb-4">
+                  <h2 className="text-sm font-sans-elegant uppercase tracking-wider text-[#1A1A1A] mb-6 pb-4 border-b border-[#E5E5E5]">
                     Información de Envío
                   </h2>
                   <div className="grid grid-cols-2 gap-4">
@@ -273,33 +273,31 @@ export const Checkout = () => {
               {/* Step 2: Payment */}
               {step === 2 && (
                 <div>
-                  <h2 className="text-xl font-bold text-blue-900 mb-4">
+                  <h2 className="text-sm font-sans-elegant uppercase tracking-wider text-[#1A1A1A] mb-6 pb-4 border-b border-[#E5E5E5]">
                     Pagar con Mercado Pago
                   </h2>
 
                   {/* Aca se crea el brick que redirecciona a pagar evitando el uso de Wallet */}
                   <div id="wallet_container" className="my-4">
-                    <button onClick={handlePayment} className="w-full p-1 bg-yellow-300 border-2 border-zinc-600 cursor-pointer hover:border-blue-600 hover:brightness-105" disabled={loadingPayment}>
+                    <button onClick={handlePayment} className="w-full py-4 bg-[#1A1A1A] text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#333333] transition-all duration-300" disabled={loadingPayment}>
                     {loadingPayment ? 
-                      <span className="flex gap-1.5 items-center justify-center p-2 font-semibold">
-                        <Loader2 className="animate-spin"  /> Procesando..
+                      <span className="flex gap-2 items-center justify-center">
+                        <Loader2 className="animate-spin w-4 h-4" /> Procesando...
                       </span>
-                     : <span className="flex gap-1.5 items-center justify-center font-semibold">
+                     : <span className="flex gap-2 items-center justify-center">
                         Continuar con 
-                        <img src="/assets/Mercado_Pago_Logo.svg" width={120} height={50} />
+                        <img src="/assets/Mercado_Pago_Logo.svg" width={100} height={40} className="brightness-0 invert" />
                      </span>}
                     </button>
                   </div>
 
-                  <div className="flex gap-4 mt-4">
-                    <Button
-                      variant="secondary"
-                      size="large"
+                  <div className="flex gap-4 mt-6">
+                    <button
                       onClick={() => setStep(1)}
-                      className="flex-1"
+                      className="flex-1 py-4 border border-[#1A1A1A] text-[#1A1A1A] font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#1A1A1A] hover:text-white transition-all duration-300"
                     >
                       Volver
-                    </Button>
+                    </button>
                   </div>
                 </div>
               )}
@@ -307,13 +305,13 @@ export const Checkout = () => {
               {/* Step 3: Review */}
               {step === 3 && (
                 <div>
-                  <h2 className="text-xl font-bold text-blue-900 mb-4">
+                  <h2 className="text-sm font-sans-elegant uppercase tracking-wider text-[#1A1A1A] mb-6 pb-4 border-b border-[#E5E5E5]">
                     Revisar Pedido
                   </h2>
                   <div className="space-y-4">
-                    <div className="border-2 border-gray-300 p-4">
-                      <h3 className="font-bold mb-2">Dirección de Envío</h3>
-                      <p className="text-sm text-gray-700">
+                    <div className="border border-[#E5E5E5] p-5">
+                      <h3 className="font-sans-elegant text-xs uppercase tracking-wide text-[#1A1A1A] mb-3">Dirección de Envío</h3>
+                      <p className="text-sm text-[#6B6B6B] font-sans-elegant leading-relaxed">
                         {formData.firstName} {formData.lastName}
                         <br />
                         {formData.address}
@@ -323,30 +321,26 @@ export const Checkout = () => {
                         {formData.country}
                       </p>
                     </div>
-                    <div className="border-2 border-gray-300 p-4">
-                      <h3 className="font-bold mb-2">Método de Pago</h3>
-                      <p className="text-sm text-gray-700">
+                    <div className="border border-[#E5E5E5] p-5">
+                      <h3 className="font-sans-elegant text-xs uppercase tracking-wide text-[#1A1A1A] mb-3">Método de Pago</h3>
+                      <p className="text-sm text-[#6B6B6B] font-sans-elegant">
                         Tarjeta terminada en {formData.cardNumber.slice(-4)}
                       </p>
                     </div>
                   </div>
-                  <div className="flex gap-4 mt-6">
-                    <Button
-                      variant="secondary"
-                      size="large"
+                  <div className="flex gap-4 mt-8">
+                    <button
                       onClick={() => setStep(2)}
-                      className="flex-1"
+                      className="flex-1 py-4 border border-[#1A1A1A] text-[#1A1A1A] font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#1A1A1A] hover:text-white transition-all duration-300"
                     >
                       Volver
-                    </Button>
-                    <Button
-                      variant="success"
-                      size="large"
+                    </button>
+                    <button
                       onClick={handlePlaceOrder}
-                      className="flex-1"
+                      className="flex-1 py-4 bg-[#1A1A1A] text-white font-sans-elegant text-xs tracking-[0.15em] uppercase hover:bg-[#333333] transition-all duration-300"
                     >
                       Confirmar Pedido
-                    </Button>
+                    </button>
                   </div>
                 </div>
               )}
@@ -355,41 +349,41 @@ export const Checkout = () => {
 
           {/* Order Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white border-2 border-gray-400 p-6 sticky top-4">
-              <h2 className="text-xl font-bold text-blue-900 mb-4">Resumen</h2>
-              <div className="space-y-2 mb-4">
+            <div className="bg-white border border-[#E5E5E5] p-8 sticky top-4">
+              <h2 className="text-sm font-sans-elegant uppercase tracking-wider text-[#1A1A1A] mb-6 pb-4 border-b border-[#E5E5E5]">Resumen</h2>
+              <div className="space-y-3 mb-6">
                 {cartItems.map((item) => (
-                  <div key={item.id} className="flex justify-between text-sm">
-                    <span className="text-gray-600">
+                  <div key={item.id} className="flex justify-between text-sm font-sans-elegant">
+                    <span className="text-[#6B6B6B]">
                       {item.name} x{item.quantity}
                     </span>
-                    <span className="font-bold">
+                    <span className="text-[#1A1A1A]">
                       ${(item.price * item.quantity).toFixed(2)}
                     </span>
                   </div>
                 ))}
               </div>
-              <div className="border-t-2 border-gray-300 pt-3 space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Subtotal:</span>
-                  <span className="font-bold">
+              <div className="border-t border-[#E5E5E5] pt-4 space-y-3">
+                <div className="flex justify-between text-sm font-sans-elegant">
+                  <span className="text-[#6B6B6B]">Subtotal:</span>
+                  <span className="text-[#1A1A1A]">
                     ${getCartTotal().toFixed(2)}
                   </span>
                 </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Envío:</span>
-                  <span className="font-bold text-green-600">GRATIS</span>
+                <div className="flex justify-between text-sm font-sans-elegant">
+                  <span className="text-[#6B6B6B]">Envío:</span>
+                  <span className="text-[#1A1A1A]">GRATIS</span>
                 </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Impuestos:</span>
-                  <span className="font-bold">
+                <div className="flex justify-between text-sm font-sans-elegant">
+                  <span className="text-[#6B6B6B]">Impuestos:</span>
+                  <span className="text-[#1A1A1A]">
                     ${(getCartTotal() * 0.1).toFixed(2)}
                   </span>
                 </div>
-                <div className="border-t-2 border-gray-400 pt-3">
+                <div className="border-t border-[#E5E5E5] pt-4">
                   <div className="flex justify-between">
-                    <span className="font-bold text-lg">Total:</span>
-                    <span className="font-bold text-2xl text-green-700">
+                    <span className="font-sans-elegant text-sm uppercase tracking-wide text-[#1A1A1A]">Total:</span>
+                    <span className="font-sans-elegant text-xl text-[#1A1A1A]">
                       ${(getCartTotal() * 1.1).toFixed(2)}
                     </span>
                   </div>

@@ -206,29 +206,29 @@ const SellerInfo = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5]">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-b from-[#E8DED0] to-[#FAF8F5] py-20 lg:py-28">
+      <section className="relative bg-gradient-to-b from-[#F8F8F8] to-white py-20 lg:py-28">
         <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-20 left-10 w-64 h-64 bg-[#C9B8A8] rounded-full blur-3xl"></div>
-          <div className="absolute bottom-10 right-20 w-80 h-80 bg-[#8B7355]/20 rounded-full blur-3xl"></div>
+          <div className="absolute top-20 left-10 w-64 h-64 bg-[#E5E5E5] rounded-full blur-3xl"></div>
+          <div className="absolute bottom-10 right-20 w-80 h-80 bg-[#E8C4C4]/20 rounded-full blur-3xl"></div>
         </div>
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 bg-white/60 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
-              <Sparkles className="w-4 h-4 text-[#8B7355]" />
-              <span className="text-sm font-sans-elegant text-[#2C2420]/70 tracking-wide">
+              <Sparkles className="w-4 h-4 text-[#1A1A1A]" />
+              <span className="text-sm font-sans-elegant text-[#6B6B6B] tracking-wide uppercase">
                 Únete a nuestra comunidad de vendedoras
               </span>
             </div>
             
-            <h1 className="font-serif-display text-4xl md:text-5xl lg:text-6xl text-[#2C2420] mb-6">
+            <h1 className="font-sans-elegant text-4xl md:text-5xl lg:text-6xl text-[#1A1A1A] font-light tracking-tight mb-6">
               Vende en{" "}
-              <span className="text-[#8B7355]">Pascale Closet</span>
+              <span className="text-[#E8C4C4]">Pascale Closet</span>
             </h1>
             
-            <p className="text-lg md:text-xl text-[#2C2420]/70 font-sans-elegant leading-relaxed mb-10 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-[#6B6B6B] font-sans-elegant leading-relaxed mb-10 max-w-2xl mx-auto">
               Transforma tu pasión por la moda en una oportunidad. 
               Llega a miles de clientas que buscan prendas únicas y de calidad.
             </p>
@@ -236,14 +236,14 @@ const SellerInfo = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/register"
-                className="inline-flex items-center justify-center gap-2 bg-[#8B7355] text-white px-8 py-4 font-sans-elegant tracking-wide hover:bg-[#6B5A45] transition-all duration-300 group"
+                className="inline-flex items-center justify-center gap-2 bg-[#1A1A1A] text-white px-8 py-4 font-sans-elegant text-xs uppercase tracking-widest hover:bg-[#333333] transition-all duration-300 group"
               >
                 <span>Comenzar Ahora</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <a
                 href="#learn-more"
-                className="inline-flex items-center justify-center gap-2 bg-white text-[#2C2420] px-8 py-4 font-sans-elegant tracking-wide border border-[#E8DED0] hover:border-[#8B7355] transition-all duration-300"
+                className="inline-flex items-center justify-center gap-2 bg-white text-[#1A1A1A] px-8 py-4 font-sans-elegant text-xs uppercase tracking-widest border border-[#E5E5E5] hover:border-[#1A1A1A] transition-all duration-300"
               >
                 <span>Saber Más</span>
               </a>
@@ -251,16 +251,16 @@ const SellerInfo = () => {
             
             <div className="mt-12 flex flex-wrap justify-center gap-8">
               <div className="text-center">
-                <p className="font-serif-display text-3xl text-[#8B7355]">+2,500</p>
-                <p className="text-sm text-[#2C2420]/60 font-sans-elegant">Vendedoras Activas</p>
+                <p className="font-sans-elegant text-3xl font-light text-[#1A1A1A]">+2,500</p>
+                <p className="text-xs text-[#6B6B6B] font-sans-elegant uppercase tracking-wide">Vendedoras Activas</p>
               </div>
               <div className="text-center">
-                <p className="font-serif-display text-3xl text-[#8B7355]">98%</p>
-                <p className="text-sm text-[#2C2420]/60 font-sans-elegant">Satisfacción</p>
+                <p className="font-sans-elegant text-3xl font-light text-[#1A1A1A]">98%</p>
+                <p className="text-xs text-[#6B6B6B] font-sans-elegant uppercase tracking-wide">Satisfacción</p>
               </div>
               <div className="text-center">
-                <p className="font-serif-display text-3xl text-[#8B7355]">+50k</p>
-                <p className="text-sm text-[#2C2420]/60 font-sans-elegant">Ventas Mensuales</p>
+                <p className="font-sans-elegant text-3xl font-light text-[#1A1A1A]">+50k</p>
+                <p className="text-xs text-[#6B6B6B] font-sans-elegant uppercase tracking-wide">Ventas Mensuales</p>
               </div>
             </div>
           </div>
@@ -268,7 +268,7 @@ const SellerInfo = () => {
       </section>
 
       {/* Tabs Navigation */}
-      <section id="learn-more" className="sticky top-0 bg-white/95 backdrop-blur-sm border-b border-[#E8DED0] z-40">
+      <section id="learn-more" className="sticky top-0 bg-white/95 backdrop-blur-sm border-b border-[#E5E5E5] z-40">
         <div className="container mx-auto px-4">
           <div className="flex justify-center">
             <div className="flex gap-0">
@@ -278,10 +278,10 @@ const SellerInfo = () => {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center gap-2 px-6 py-4 font-sans-elegant text-sm tracking-wide transition-all duration-300 border-b-2 ${
+                    className={`flex items-center gap-2 px-6 py-4 font-sans-elegant text-xs uppercase tracking-widest transition-all duration-300 border-b-2 ${
                       activeTab === tab.id
-                        ? "text-[#8B7355] border-[#8B7355]"
-                        : "text-[#2C2420]/60 border-transparent hover:text-[#2C2420]"
+                        ? "text-[#1A1A1A] border-[#1A1A1A]"
+                        : "text-[#6B6B6B] border-transparent hover:text-[#1A1A1A]"
                     }`}
                   >
                     <Icon className="w-4 h-4" />
@@ -302,10 +302,10 @@ const SellerInfo = () => {
             {/* Steps Section */}
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="font-serif-display text-3xl md:text-4xl text-[#2C2420] mb-4">
+                <h2 className="font-sans-elegant text-3xl md:text-4xl text-[#1A1A1A] font-light tracking-tight mb-4">
                   Comienza en Tres Simples Pasos
                 </h2>
-                <p className="text-[#2C2420]/70 font-sans-elegant max-w-2xl mx-auto">
+                <p className="text-[#6B6B6B] font-sans-elegant max-w-2xl mx-auto">
                   El proceso para convertirte en vendedora es rápido y sencillo. 
                   Te guiamos en cada etapa.
                 </p>
@@ -317,21 +317,21 @@ const SellerInfo = () => {
                   return (
                     <div
                       key={index}
-                      className="relative bg-white p-8 border border-[#E8DED0] hover:border-[#C9B8A8] transition-all duration-300 group"
+                      className="relative bg-white p-8 border border-[#E5E5E5] hover:border-[#1A1A1A] transition-all duration-300 group"
                     >
                       <div className="absolute -top-4 left-8">
-                        <span className="font-serif-display text-5xl text-[#E8DED0] group-hover:text-[#C9B8A8] transition-colors">
+                        <span className="font-sans-elegant text-5xl font-light text-[#E5E5E5] group-hover:text-[#E8C4C4] transition-colors">
                           {step.number}
                         </span>
                       </div>
                       <div className="pt-8">
-                        <div className="w-12 h-12 bg-[#FAF8F5] flex items-center justify-center mb-4">
-                          <Icon className="w-6 h-6 text-[#8B7355]" />
+                        <div className="w-12 h-12 bg-[#F8F8F8] flex items-center justify-center mb-4">
+                          <Icon className="w-6 h-6 text-[#1A1A1A]" />
                         </div>
-                        <h3 className="font-serif-display text-xl text-[#2C2420] mb-3">
+                        <h3 className="font-sans-elegant text-xl text-[#1A1A1A] font-medium mb-3">
                           {step.title}
                         </h3>
-                        <p className="text-[#2C2420]/70 font-sans-elegant text-sm leading-relaxed">
+                        <p className="text-[#6B6B6B] font-sans-elegant text-sm leading-relaxed">
                           {step.description}
                         </p>
                       </div>
@@ -343,12 +343,12 @@ const SellerInfo = () => {
 
             {/* Requirements Section */}
             <div className="max-w-4xl mx-auto">
-              <div className="bg-white border border-[#E8DED0] p-8 md:p-12">
+              <div className="bg-white border border-[#E5E5E5] p-8 md:p-12">
                 <div className="text-center mb-8">
-                  <h2 className="font-serif-display text-2xl md:text-3xl text-[#2C2420] mb-3">
+                  <h2 className="font-sans-elegant text-2xl md:text-3xl text-[#1A1A1A] font-light tracking-tight mb-3">
                     Requisitos para Vender
                   </h2>
-                  <p className="text-[#2C2420]/70 font-sans-elegant">
+                  <p className="text-[#6B6B6B] font-sans-elegant">
                     Asegúrate de cumplir con estos requisitos básicos
                   </p>
                 </div>
@@ -357,10 +357,10 @@ const SellerInfo = () => {
                   {requirements.map((req, index) => (
                     <div
                       key={index}
-                      className="flex items-center gap-3 p-4 bg-[#FAF8F5] border border-[#E8DED0]"
+                      className="flex items-center gap-3 p-4 bg-[#F8F8F8] border border-[#E5E5E5]"
                     >
                       <CheckCircle className="w-5 h-5 text-[#6B8E6B] flex-shrink-0" />
-                      <span className="text-[#2C2420] font-sans-elegant text-sm">
+                      <span className="text-[#1A1A1A] font-sans-elegant text-sm">
                         {req}
                       </span>
                     </div>
@@ -372,10 +372,10 @@ const SellerInfo = () => {
             {/* Benefits Section */}
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="font-serif-display text-3xl md:text-4xl text-[#2C2420] mb-4">
+                <h2 className="font-sans-elegant text-3xl md:text-4xl text-[#1A1A1A] font-light tracking-tight mb-4">
                   Beneficios de Vender con Nosotras
                 </h2>
-                <p className="text-[#2C2420]/70 font-sans-elegant max-w-2xl mx-auto">
+                <p className="text-[#6B6B6B] font-sans-elegant max-w-2xl mx-auto">
                   Descubre todas las ventajas de formar parte de nuestra comunidad
                 </p>
               </div>
@@ -386,15 +386,15 @@ const SellerInfo = () => {
                   return (
                     <div
                       key={index}
-                      className="bg-white p-6 border border-[#E8DED0] hover:border-[#C9B8A8] transition-all duration-300 text-center group"
+                      className="bg-white p-6 border border-[#E5E5E5] hover:border-[#1A1A1A] transition-all duration-300 text-center group"
                     >
-                      <div className="w-14 h-14 bg-[#FAF8F5] flex items-center justify-center mx-auto mb-4 group-hover:bg-[#E8DED0] transition-colors">
-                        <Icon className="w-7 h-7 text-[#8B7355]" />
+                      <div className="w-14 h-14 bg-[#F8F8F8] flex items-center justify-center mx-auto mb-4 group-hover:bg-[#E5E5E5] transition-colors">
+                        <Icon className="w-7 h-7 text-[#1A1A1A]" />
                       </div>
-                      <h3 className="font-serif-display text-lg text-[#2C2420] mb-2">
+                      <h3 className="font-sans-elegant text-lg text-[#1A1A1A] font-medium mb-2">
                         {benefit.title}
                       </h3>
-                      <p className="text-[#2C2420]/70 font-sans-elegant text-sm leading-relaxed">
+                      <p className="text-[#6B6B6B] font-sans-elegant text-sm leading-relaxed">
                         {benefit.description}
                       </p>
                     </div>
@@ -411,10 +411,10 @@ const SellerInfo = () => {
             {/* Fee Structure Cards */}
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="font-serif-display text-3xl md:text-4xl text-[#2C2420] mb-4">
+                <h2 className="font-sans-elegant text-3xl md:text-4xl text-[#1A1A1A] font-light tracking-tight mb-4">
                   Comisiones por Categoría
                 </h2>
-                <p className="text-[#2C2420]/70 font-sans-elegant max-w-2xl mx-auto">
+                <p className="text-[#6B6B6B] font-sans-elegant max-w-2xl mx-auto">
                   Tarifas transparentes y competitivas. Solo cobramos cuando vendes.
                 </p>
               </div>
@@ -423,16 +423,16 @@ const SellerInfo = () => {
                 {feeStructure.map((fee, index) => (
                   <div
                     key={index}
-                    className="bg-white p-6 border border-[#E8DED0] hover:border-[#8B7355] transition-all duration-300 group"
+                    className="bg-white p-6 border border-[#E5E5E5] hover:border-[#1A1A1A] transition-all duration-300 group"
                   >
                     <div className="text-center">
-                      <p className="font-serif-display text-4xl text-[#8B7355] mb-2">
+                      <p className="font-sans-elegant text-4xl font-light text-[#1A1A1A] mb-2">
                         {fee.commission}
                       </p>
-                      <h3 className="font-serif-display text-lg text-[#2C2420] mb-2">
+                      <h3 className="font-sans-elegant text-lg text-[#1A1A1A] font-medium mb-2">
                         {fee.category}
                       </h3>
-                      <p className="text-[#2C2420]/60 font-sans-elegant text-sm">
+                      <p className="text-[#6B6B6B] font-sans-elegant text-sm">
                         {fee.description}
                       </p>
                     </div>
@@ -443,23 +443,23 @@ const SellerInfo = () => {
 
             {/* Detailed Fees Table */}
             <div className="max-w-4xl mx-auto">
-              <div className="bg-white border border-[#E8DED0] overflow-hidden">
-                <div className="p-6 border-b border-[#E8DED0] bg-[#FAF8F5]">
-                  <h3 className="font-serif-display text-xl text-[#2C2420]">
+              <div className="bg-white border border-[#E5E5E5] overflow-hidden">
+                <div className="p-6 border-b border-[#E5E5E5] bg-[#F8F8F8]">
+                  <h3 className="font-sans-elegant text-xl text-[#1A1A1A] font-medium">
                     Desglose de Tarifas
                   </h3>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead>
-                      <tr className="border-b border-[#E8DED0]">
-                        <th className="text-left p-4 font-sans-elegant text-sm text-[#2C2420]/60 font-medium">
+                      <tr className="border-b border-[#E5E5E5]">
+                        <th className="text-left p-4 font-sans-elegant text-xs text-[#6B6B6B] font-medium uppercase tracking-wide">
                           Concepto
                         </th>
-                        <th className="text-left p-4 font-sans-elegant text-sm text-[#2C2420]/60 font-medium">
+                        <th className="text-left p-4 font-sans-elegant text-xs text-[#6B6B6B] font-medium uppercase tracking-wide">
                           Tarifa
                         </th>
-                        <th className="text-left p-4 font-sans-elegant text-sm text-[#2C2420]/60 font-medium hidden sm:table-cell">
+                        <th className="text-left p-4 font-sans-elegant text-xs text-[#6B6B6B] font-medium uppercase tracking-wide hidden sm:table-cell">
                           Descripción
                         </th>
                       </tr>
@@ -468,15 +468,15 @@ const SellerInfo = () => {
                       {detailedFees.map((fee, index) => (
                         <tr
                           key={index}
-                          className="border-b border-[#E8DED0] last:border-b-0 hover:bg-[#FAF8F5] transition-colors"
+                          className="border-b border-[#E5E5E5] last:border-b-0 hover:bg-[#F8F8F8] transition-colors"
                         >
-                          <td className="p-4 font-sans-elegant text-[#2C2420]">
+                          <td className="p-4 font-sans-elegant text-[#1A1A1A]">
                             {fee.concept}
                           </td>
-                          <td className="p-4 font-serif-display text-[#8B7355]">
+                          <td className="p-4 font-sans-elegant font-medium text-[#1A1A1A]">
                             {fee.amount}
                           </td>
-                          <td className="p-4 font-sans-elegant text-sm text-[#2C2420]/60 hidden sm:table-cell">
+                          <td className="p-4 font-sans-elegant text-sm text-[#6B6B6B] hidden sm:table-cell">
                             {fee.description}
                           </td>
                         </tr>
@@ -489,18 +489,18 @@ const SellerInfo = () => {
 
             {/* Calculator CTA */}
             <div className="max-w-3xl mx-auto">
-              <div className="bg-gradient-to-r from-[#E8DED0] to-[#C9B8A8]/50 p-8 md:p-12 text-center">
-                <Award className="w-12 h-12 text-[#8B7355] mx-auto mb-4" />
-                <h3 className="font-serif-display text-2xl text-[#2C2420] mb-3">
+              <div className="bg-[#F8F8F8] p-8 md:p-12 text-center border border-[#E5E5E5]">
+                <Award className="w-12 h-12 text-[#1A1A1A] mx-auto mb-4" />
+                <h3 className="font-sans-elegant text-2xl text-[#1A1A1A] font-light tracking-tight mb-3">
                   Sin Costos Ocultos
                 </h3>
-                <p className="text-[#2C2420]/70 font-sans-elegant mb-6 max-w-xl mx-auto">
+                <p className="text-[#6B6B6B] font-sans-elegant mb-6 max-w-xl mx-auto">
                   Nuestra estructura de tarifas es completamente transparente. 
                   No hay cuotas mensuales ni costos por listar tus productos.
                 </p>
                 <Link
                   to="/register"
-                  className="inline-flex items-center gap-2 bg-[#8B7355] text-white px-6 py-3 font-sans-elegant text-sm tracking-wide hover:bg-[#6B5A45] transition-all duration-300"
+                  className="inline-flex items-center gap-2 bg-[#1A1A1A] text-white px-6 py-3 font-sans-elegant text-xs uppercase tracking-widest hover:bg-[#333333] transition-all duration-300"
                 >
                   <span>Empieza a Vender Gratis</span>
                   <ArrowRight className="w-4 h-4" />
@@ -516,10 +516,10 @@ const SellerInfo = () => {
             {/* Resource Cards */}
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="font-serif-display text-3xl md:text-4xl text-[#2C2420] mb-4">
+                <h2 className="font-sans-elegant text-3xl md:text-4xl text-[#1A1A1A] font-light tracking-tight mb-4">
                   Guías y Recursos
                 </h2>
-                <p className="text-[#2C2420]/70 font-sans-elegant max-w-2xl mx-auto">
+                <p className="text-[#6B6B6B] font-sans-elegant max-w-2xl mx-auto">
                   Todo lo que necesitas para tener éxito como vendedora
                 </p>
               </div>
@@ -531,16 +531,16 @@ const SellerInfo = () => {
                     <a
                       key={index}
                       href={resource.link}
-                      className="flex items-start gap-4 bg-white p-6 border border-[#E8DED0] hover:border-[#8B7355] transition-all duration-300 group"
+                      className="flex items-start gap-4 bg-white p-6 border border-[#E5E5E5] hover:border-[#1A1A1A] transition-all duration-300 group"
                     >
-                      <div className="w-12 h-12 bg-[#FAF8F5] flex items-center justify-center flex-shrink-0 group-hover:bg-[#E8DED0] transition-colors">
-                        <Icon className="w-6 h-6 text-[#8B7355]" />
+                      <div className="w-12 h-12 bg-[#F8F8F8] flex items-center justify-center flex-shrink-0 group-hover:bg-[#E5E5E5] transition-colors">
+                        <Icon className="w-6 h-6 text-[#1A1A1A]" />
                       </div>
                       <div>
-                        <h3 className="font-serif-display text-lg text-[#2C2420] mb-1 group-hover:text-[#8B7355] transition-colors">
+                        <h3 className="font-sans-elegant text-lg text-[#1A1A1A] font-medium mb-1 group-hover:text-[#6B6B6B] transition-colors">
                           {resource.title}
                         </h3>
-                        <p className="text-[#2C2420]/70 font-sans-elegant text-sm">
+                        <p className="text-[#6B6B6B] font-sans-elegant text-sm">
                           {resource.description}
                         </p>
                       </div>
@@ -552,52 +552,52 @@ const SellerInfo = () => {
 
             {/* Learning Center */}
             <div className="max-w-5xl mx-auto">
-              <div className="bg-white border border-[#E8DED0] p-8 md:p-12">
+              <div className="bg-white border border-[#E5E5E5] p-8 md:p-12">
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                   <div>
-                    <div className="inline-flex items-center gap-2 text-[#8B7355] mb-4">
+                    <div className="inline-flex items-center gap-2 text-[#1A1A1A] mb-4">
                       <Video className="w-5 h-5" />
-                      <span className="font-sans-elegant text-sm tracking-wide">
+                      <span className="font-sans-elegant text-xs uppercase tracking-widest">
                         Centro de Aprendizaje
                       </span>
                     </div>
-                    <h3 className="font-serif-display text-2xl md:text-3xl text-[#2C2420] mb-4">
+                    <h3 className="font-sans-elegant text-2xl md:text-3xl text-[#1A1A1A] font-light tracking-tight mb-4">
                       Tutoriales en Video
                     </h3>
-                    <p className="text-[#2C2420]/70 font-sans-elegant mb-6 leading-relaxed">
+                    <p className="text-[#6B6B6B] font-sans-elegant mb-6 leading-relaxed">
                       Accede a nuestra biblioteca de videos tutoriales donde te enseñamos 
                       desde cómo fotografiar tus prendas hasta estrategias avanzadas de venta.
                     </p>
                     <div className="space-y-3">
                       <div className="flex items-center gap-3">
                         <CheckCircle className="w-4 h-4 text-[#6B8E6B]" />
-                        <span className="font-sans-elegant text-sm text-[#2C2420]">
+                        <span className="font-sans-elegant text-sm text-[#1A1A1A]">
                           Más de 50 videos tutoriales
                         </span>
                       </div>
                       <div className="flex items-center gap-3">
                         <CheckCircle className="w-4 h-4 text-[#6B8E6B]" />
-                        <span className="font-sans-elegant text-sm text-[#2C2420]">
+                        <span className="font-sans-elegant text-sm text-[#1A1A1A]">
                           Contenido actualizado mensualmente
                         </span>
                       </div>
                       <div className="flex items-center gap-3">
                         <CheckCircle className="w-4 h-4 text-[#6B8E6B]" />
-                        <span className="font-sans-elegant text-sm text-[#2C2420]">
+                        <span className="font-sans-elegant text-sm text-[#1A1A1A]">
                           Webinars en vivo con expertas
                         </span>
                       </div>
                     </div>
                   </div>
-                  <div className="bg-gradient-to-br from-[#E8DED0] to-[#C9B8A8]/50 p-8 flex items-center justify-center">
+                  <div className="bg-[#F8F8F8] p-8 flex items-center justify-center border border-[#E5E5E5]">
                     <div className="text-center">
-                      <div className="w-20 h-20 bg-white/80 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <Video className="w-10 h-10 text-[#8B7355]" />
+                      <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4 border border-[#E5E5E5]">
+                        <Video className="w-10 h-10 text-[#1A1A1A]" />
                       </div>
-                      <p className="font-serif-display text-lg text-[#2C2420]">
+                      <p className="font-sans-elegant text-lg text-[#1A1A1A] font-medium">
                         Próximamente
                       </p>
-                      <p className="text-sm text-[#2C2420]/60 font-sans-elegant">
+                      <p className="text-sm text-[#6B6B6B] font-sans-elegant">
                         Nuevos cursos cada semana
                       </p>
                     </div>
@@ -609,10 +609,10 @@ const SellerInfo = () => {
             {/* FAQ Section */}
             <div className="max-w-3xl mx-auto">
               <div className="text-center mb-10">
-                <h2 className="font-serif-display text-2xl md:text-3xl text-[#2C2420] mb-3">
+                <h2 className="font-sans-elegant text-2xl md:text-3xl text-[#1A1A1A] font-light tracking-tight mb-3">
                   Preguntas Frecuentes
                 </h2>
-                <p className="text-[#2C2420]/70 font-sans-elegant">
+                <p className="text-[#6B6B6B] font-sans-elegant">
                   Resolvemos tus dudas más comunes
                 </p>
               </div>
@@ -621,24 +621,24 @@ const SellerInfo = () => {
                 {faqs.map((faq, index) => (
                   <div
                     key={index}
-                    className="bg-white border border-[#E8DED0] overflow-hidden"
+                    className="bg-white border border-[#E5E5E5] overflow-hidden"
                   >
                     <button
                       onClick={() => toggleFaq(index)}
-                      className="w-full flex items-center justify-between p-5 text-left hover:bg-[#FAF8F5] transition-colors"
+                      className="w-full flex items-center justify-between p-5 text-left hover:bg-[#F8F8F8] transition-colors"
                     >
-                      <span className="font-sans-elegant text-[#2C2420] pr-4">
+                      <span className="font-sans-elegant text-[#1A1A1A] pr-4">
                         {faq.question}
                       </span>
                       {expandedFaq === index ? (
-                        <ChevronUp className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                        <ChevronUp className="w-5 h-5 text-[#1A1A1A] flex-shrink-0" />
                       ) : (
-                        <ChevronDown className="w-5 h-5 text-[#8B7355] flex-shrink-0" />
+                        <ChevronDown className="w-5 h-5 text-[#6B6B6B] flex-shrink-0" />
                       )}
                     </button>
                     {expandedFaq === index && (
                       <div className="px-5 pb-5">
-                        <p className="text-[#2C2420]/70 font-sans-elegant text-sm leading-relaxed border-t border-[#E8DED0] pt-4">
+                        <p className="text-[#6B6B6B] font-sans-elegant text-sm leading-relaxed border-t border-[#E5E5E5] pt-4">
                           {faq.answer}
                         </p>
                       </div>
@@ -650,21 +650,21 @@ const SellerInfo = () => {
 
             {/* Support CTA */}
             <div className="max-w-4xl mx-auto">
-              <div className="bg-white border border-[#E8DED0] p-8 flex flex-col md:flex-row items-center gap-6">
-                <div className="w-16 h-16 bg-[#FAF8F5] flex items-center justify-center flex-shrink-0">
-                  <HelpCircle className="w-8 h-8 text-[#8B7355]" />
+              <div className="bg-white border border-[#E5E5E5] p-8 flex flex-col md:flex-row items-center gap-6">
+                <div className="w-16 h-16 bg-[#F8F8F8] flex items-center justify-center flex-shrink-0">
+                  <HelpCircle className="w-8 h-8 text-[#1A1A1A]" />
                 </div>
                 <div className="flex-1 text-center md:text-left">
-                  <h3 className="font-serif-display text-xl text-[#2C2420] mb-2">
+                  <h3 className="font-sans-elegant text-xl text-[#1A1A1A] font-medium mb-2">
                     ¿Necesitas Ayuda Personalizada?
                   </h3>
-                  <p className="text-[#2C2420]/70 font-sans-elegant text-sm">
+                  <p className="text-[#6B6B6B] font-sans-elegant text-sm">
                     Nuestro equipo de soporte está disponible para resolver todas tus dudas.
                   </p>
                 </div>
                 <Link
                   to="/help#contacto"
-                  className="inline-flex items-center gap-2 border border-[#8B7355] text-[#8B7355] px-6 py-3 font-sans-elegant text-sm tracking-wide hover:bg-[#8B7355] hover:text-white transition-all duration-300"
+                  className="inline-flex items-center gap-2 border border-[#1A1A1A] text-[#1A1A1A] px-6 py-3 font-sans-elegant text-xs uppercase tracking-widest hover:bg-[#1A1A1A] hover:text-white transition-all duration-300"
                 >
                   Contactar Soporte
                 </Link>
@@ -675,28 +675,28 @@ const SellerInfo = () => {
       </div>
 
       {/* Final CTA Section */}
-      <section className="bg-gradient-to-r from-[#8B7355] to-[#6B5A45] py-16 md:py-20">
+      <section className="bg-[#1A1A1A] py-16 md:py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <Heart className="w-10 h-10 text-white/80 mx-auto mb-6" />
-            <h2 className="font-serif-display text-3xl md:text-4xl text-white mb-4">
+            <Heart className="w-10 h-10 text-[#E8C4C4] mx-auto mb-6" />
+            <h2 className="font-sans-elegant text-3xl md:text-4xl text-white font-light tracking-tight mb-4">
               ¿Lista para Comenzar?
             </h2>
-            <p className="text-white/80 font-sans-elegant mb-8 leading-relaxed max-w-xl mx-auto">
+            <p className="text-white/70 font-sans-elegant mb-8 leading-relaxed max-w-xl mx-auto">
               Únete a miles de vendedoras que ya están transformando su pasión 
               por la moda en un negocio exitoso.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/register"
-                className="inline-flex items-center justify-center gap-2 bg-white text-[#8B7355] px-8 py-4 font-sans-elegant tracking-wide hover:bg-[#FAF8F5] transition-all duration-300 group"
+                className="inline-flex items-center justify-center gap-2 bg-white text-[#1A1A1A] px-8 py-4 font-sans-elegant text-xs uppercase tracking-widest hover:bg-[#F8F8F8] transition-all duration-300 group"
               >
                 <span>Crear Cuenta de Vendedora</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </Link>
               <Link
                 to="/help"
-                className="inline-flex items-center justify-center gap-2 bg-transparent text-white px-8 py-4 font-sans-elegant tracking-wide border border-white/30 hover:bg-white/10 transition-all duration-300"
+                className="inline-flex items-center justify-center gap-2 bg-transparent text-white px-8 py-4 font-sans-elegant text-xs uppercase tracking-widest border border-white/30 hover:bg-white/10 transition-all duration-300"
               >
                 <span>Más Información</span>
               </Link>
@@ -705,15 +705,15 @@ const SellerInfo = () => {
             <div className="mt-12 flex flex-wrap justify-center gap-6 text-white/60">
               <div className="flex items-center gap-2">
                 <Star className="w-4 h-4" />
-                <span className="font-sans-elegant text-sm">Sin cuota mensual</span>
+                <span className="font-sans-elegant text-xs uppercase tracking-wide">Sin cuota mensual</span>
               </div>
               <div className="flex items-center gap-2">
                 <Shield className="w-4 h-4" />
-                <span className="font-sans-elegant text-sm">Pagos seguros</span>
+                <span className="font-sans-elegant text-xs uppercase tracking-wide">Pagos seguros</span>
               </div>
               <div className="flex items-center gap-2">
                 <Users className="w-4 h-4" />
-                <span className="font-sans-elegant text-sm">Soporte dedicado</span>
+                <span className="font-sans-elegant text-xs uppercase tracking-wide">Soporte dedicado</span>
               </div>
             </div>
           </div>

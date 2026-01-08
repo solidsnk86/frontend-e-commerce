@@ -14,8 +14,8 @@ const Input = ({
   return (
     <div className="mb-5">
       {label && (
-        <label className="block text-sm font-sans-elegant font-medium mb-2 text-[#5C4D3C] tracking-wide">
-          {label} {required && <span className="text-[#B85450]">*</span>}
+        <label className="block text-xs font-sans-elegant font-medium mb-2 text-[#1A1A1A] tracking-wide uppercase">
+          {label} {required && <span className="text-[#1A1A1A]">*</span>}
         </label>
       )}
       <input
@@ -25,10 +25,10 @@ const Input = ({
         value={value}
         onChange={onChange}
         required={required}
-        className={`w-full px-4 py-3 border border-[#E0D6CC] bg-[#FAF8F5] focus:border-[#8B7355] focus:ring-1 focus:ring-[#C9B8A8] focus:outline-none transition-all duration-200 font-sans-elegant text-[#2C2420] placeholder:text-[#A69580] ${error ? 'border-[#B85450]' : ''} ${className}`}
+        className={`w-full px-4 py-3 border border-[#E5E5E5] bg-white focus:border-[#1A1A1A] focus:ring-0 focus:outline-none transition-all duration-200 font-sans-elegant text-[#1A1A1A] placeholder:text-[#6B6B6B] ${error ? 'border-[#1A1A1A]' : ''} ${className}`}
       />
       {error && (
-        <p className="text-[#B85450] text-xs mt-2 font-sans-elegant">{error}</p>
+        <p className="text-[#1A1A1A] text-xs mt-2 font-sans-elegant">{error}</p>
       )}
     </div>
   );

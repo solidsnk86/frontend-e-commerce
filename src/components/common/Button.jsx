@@ -9,20 +9,20 @@ const Button = ({
   disabled = false,
   className = '' 
 }) => {
-  const baseStyles = 'font-sans-elegant cursor-pointer transition-all duration-300 tracking-wide';
+  const baseStyles = 'font-sans-elegant cursor-pointer transition-all duration-300 tracking-wider uppercase';
   
   const variantStyles = {
-    primary: 'bg-[#8B7355] text-white border border-[#6B5A45] hover:bg-[#6B5A45] active:bg-[#5C4D3C]',
-    secondary: 'bg-[#E8DED0] text-[#5C4D3C] border border-[#C9B8A8] hover:bg-[#D4C4B0] active:bg-[#C9B8A8]',
-    success: 'bg-[#6B8E6B] text-white border border-[#5A7A5A] hover:bg-[#5A7A5A] active:bg-[#4A6A4A]',
-    danger: 'bg-[#B85450] text-white border border-[#A04440] hover:bg-[#A04440] active:bg-[#903030]',
-    outline: 'bg-transparent text-[#8B7355] border border-[#8B7355] hover:bg-[#8B7355] hover:text-white active:bg-[#6B5A45]'
+    primary: 'bg-[#1A1A1A] text-white border border-[#1A1A1A] hover:bg-[#333333] active:bg-black',
+    secondary: 'bg-[#F8F8F8] text-[#1A1A1A] border border-[#E5E5E5] hover:bg-[#E5E5E5] active:bg-[#D5D5D5]',
+    success: 'bg-[#1A1A1A] text-white border border-[#1A1A1A] hover:bg-[#333333] active:bg-black',
+    danger: 'bg-white text-[#1A1A1A] border border-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white active:bg-black',
+    outline: 'bg-transparent text-[#1A1A1A] border border-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white active:bg-[#333333]'
   };
   
   const sizeStyles = {
     small: 'px-4 py-2 text-xs',
-    medium: 'px-6 py-3 text-sm',
-    large: 'px-8 py-4 text-base'
+    medium: 'px-6 py-3 text-xs',
+    large: 'px-8 py-4 text-xs'
   };
   
   const disabledStyles = disabled ? 'opacity-50 cursor-not-allowed' : '';
